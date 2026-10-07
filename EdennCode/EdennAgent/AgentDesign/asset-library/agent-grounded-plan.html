@@ -1,0 +1,140 @@
+<!-- @dsCard group="Screens" name="Agent — grounded plan" subtitle="Reuse first; the one gap, named and priced" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Edenn — Agent grounded plan</title>
+<style>
+  :root { --bg:#f6f4ee; --panel:#fff; --ink:#191919; --muted:#8c8779; --line:#e7e3d9;
+          --accent:#4a3ab8; --accent-soft:#edeafc; --gen:#1d8a6b; --gen-soft:#e6f2ec;
+          --warn:#b0742e; --warn-soft:#faf0df; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font:14px/1.5 -apple-system,"Segoe UI",sans-serif;
+         display:flex; justify-content:center; padding:28px 20px; }
+  .thread { width:720px; }
+
+  .msg { margin-bottom:18px; }
+  .msg .who { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase;
+              letter-spacing:.06em; margin-bottom:6px; }
+  .user-bubble { background:var(--ink); color:#fff; border-radius:16px 16px 4px 16px;
+                 padding:12px 16px; font-size:14px; width:fit-content; max-width:88%; margin-left:auto; }
+  .agent p { font-size:14px; color:#33302a; margin-bottom:12px; }
+
+  .plan { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  .plan-head { display:flex; align-items:center; gap:10px; padding:13px 16px;
+               border-bottom:1px solid var(--line); }
+  .plan-head b { font-size:14px; }
+  .ratio { margin-left:auto; font-size:12px; font-weight:700; color:var(--gen);
+           background:var(--gen-soft); border-radius:7px; padding:3px 10px; }
+
+  .sect { padding:14px 16px; border-bottom:1px solid #f2efe7; }
+  .sect h3 { font-size:11.5px; font-weight:700; color:var(--muted); text-transform:uppercase;
+             letter-spacing:.05em; margin-bottom:10px; }
+
+  .chips { display:flex; flex-wrap:wrap; gap:8px; }
+  .mchip { display:flex; align-items:center; gap:8px; border:1px solid var(--line);
+           border-radius:10px; padding:5px 10px 5px 5px; font-size:12px; background:#fbfaf6; }
+  .mchip .th { width:38px; height:26px; border-radius:6px; }
+  .mchip b { font-weight:600; display:block; font-size:12px; }
+  .mchip span { color:var(--muted); font-size:10.5px; }
+  .mchip .tag { font-size:9px; font-weight:800; color:var(--gen); background:var(--gen-soft);
+                padding:1px 5px; border-radius:4px; margin-left:2px; }
+  .t-walkout { background:linear-gradient(160deg,#31405e,#22304a); }
+  .t-ignite { background:linear-gradient(160deg,#c96a35,#8e4520); }
+  .t-crowd { background:linear-gradient(160deg,#8fa0bd,#5e708e); }
+  .t-earth { background:radial-gradient(circle at 60% 35%,#6f8fc9 25%,#22304a); }
+  .t-ascent { background:linear-gradient(160deg,#dfe6f2,#aebedb); }
+  .t-track { background:repeating-linear-gradient(90deg,#4a3ab8 0 3px,#e6e2f8 3px 8px); }
+  .t-still { background:linear-gradient(160deg,#e3d5bd,#b09a72); }
+
+  .gap { background:var(--warn-soft); border:1px solid #ecd9b8; border-radius:12px; padding:12px 14px; }
+  .gap .gtitle { display:flex; gap:8px; align-items:center; font-size:13px; font-weight:650;
+                 color:var(--warn); margin-bottom:4px; }
+  .gap p { font-size:12.5px; color:#6b5b3d; margin-bottom:10px; }
+  .opt { display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--line);
+         border-radius:10px; padding:9px 12px; margin-bottom:7px; font-size:12.5px; cursor:pointer; }
+  .opt.sel { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent-soft); }
+  .opt .radio { width:14px; height:14px; border-radius:50%; border:2px solid #c8c2b2; flex:none; }
+  .opt.sel .radio { border-color:var(--accent); background:var(--accent); box-shadow:inset 0 0 0 3px #fff; }
+  .opt b { font-weight:600; }
+  .opt span { color:var(--muted); font-size:11.5px; }
+  .opt .cost { margin-left:auto; font-weight:700; font-size:11.5px; color:#55503f; }
+  .opt .cost.free { color:var(--gen); }
+
+  .axes { display:flex; gap:10px; }
+  .axis { flex:1; border:1px solid var(--line); border-radius:10px; padding:9px 12px; font-size:12px; }
+  .axis b { display:block; font-size:11px; color:var(--muted); text-transform:uppercase;
+            letter-spacing:.04em; margin-bottom:3px; }
+
+  .plan-foot { display:flex; align-items:center; gap:10px; padding:13px 16px; }
+  .plan-foot .note { font-size:11.5px; color:var(--muted); }
+  .cta { margin-left:auto; background:var(--ink); color:#fff; border:none; border-radius:11px;
+         padding:10px 18px; font-size:13px; font-weight:650; cursor:pointer; }
+  .ghost { background:none; border:1px solid var(--line); border-radius:11px; padding:10px 14px;
+           font-size:13px; font-weight:600; cursor:pointer; color:#55503f; }
+
+  .composer { display:flex; align-items:center; gap:10px; background:var(--panel);
+              border:1px solid var(--line); border-radius:14px; padding:12px 16px; margin-top:6px;
+              color:var(--muted); font-size:14px; }
+  .composer kbd { background:var(--accent-soft); color:var(--accent); border-radius:6px;
+                  padding:1px 8px; font-weight:700; font-family:inherit; margin-left:auto; }
+</style>
+</head>
+<body>
+<div class="thread">
+
+  <div class="msg">
+    <div class="user-bubble">Launch week — I need 3 TikTok cuts, 15–30s, awe-forward. Use what we already have.</div>
+  </div>
+
+  <div class="msg agent">
+    <div class="who">Edenn</div>
+    <p>Your library covers this almost entirely — I found 5 strong moments and a scored track from this campaign. One gap to decide on, then I'll cut three takes.</p>
+
+    <div class="plan">
+      <div class="plan-head"><b>Plan — “Launch week awe”</b><span class="ratio">10 of 11 slots reused</span></div>
+
+      <div class="sect">
+        <h3>From your library</h3>
+        <div class="chips">
+          <div class="mchip"><div class="th t-ignite"></div><div><b>ignition</b><span>0:06 · the hook</span></div></div>
+          <div class="mchip"><div class="th t-walkout"></div><div><b>walkout</b><span>0:10 · opener</span></div></div>
+          <div class="mchip"><div class="th t-crowd"></div><div><b>crowd reacts</b><span>0:05</span></div></div>
+          <div class="mchip"><div class="th t-earth"></div><div><b>Earth from Orion</b><span>0:08 · closer</span></div></div>
+          <div class="mchip"><div class="th t-ascent"></div><div><b>ascent cam</b><span>0:04</span></div></div>
+          <div class="mchip"><div class="th t-track"></div><div><b>Trailer track</b><span>from this campaign</span></div><span class="tag">✦</span></div>
+        </div>
+      </div>
+
+      <div class="sect">
+        <h3>One gap</h3>
+        <div class="gap">
+          <div class="gtitle">⚠ No branded end-card moment in the library</div>
+          <p>Every cut needs a closing beat with the mission mark. Three ways to fill it:</p>
+          <div class="opt sel"><div class="radio"></div><div><b>Reuse — crew portrait, slow push-in</b><br><span>Ken Burns on the photo you already have</span></div><div class="cost free">no cost</div></div>
+          <div class="opt"><div class="radio"></div><div><b>Reuse — freeze the Earth closer + title</b><br><span>last frame hold with text overlay</span></div><div class="cost free">no cost</div></div>
+          <div class="opt"><div class="radio"></div><div><b>Generate — 2s animated mark reveal</b><br><span>only piece that would be synthetic</span></div><div class="cost">~$0.60 · needs approval</div></div>
+        </div>
+      </div>
+
+      <div class="sect">
+        <h3>Three takes, one hypothesis each</h3>
+        <div class="axes">
+          <div class="axis"><b>A · hook-first</b>ignition opens, dense cuts</div>
+          <div class="axis"><b>B · human-first</b>walkout opens, voices kept</div>
+          <div class="axis"><b>C · awe-first</b>Earth opens, sparse & slow</div>
+        </div>
+      </div>
+
+      <div class="plan-foot">
+        <span class="note">Everything traceable — each take ships with its source ledger.</span>
+        <button class="ghost">Adjust</button>
+        <button class="cta">Cut 3 takes</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="composer">Reply — or <b>&nbsp;@&nbsp;</b> any asset or moment to steer the plan <kbd>@</kbd></div>
+</div>
+</body>
+</html>

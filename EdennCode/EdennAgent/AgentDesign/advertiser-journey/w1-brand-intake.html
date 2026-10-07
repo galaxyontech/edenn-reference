@@ -1,0 +1,95 @@
+<!-- @dsCard group="A · Flow map (high-level)" name="W1 · Brand intake" subtitle="Assets in, channel connected, goals set — one screen" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>W1 — Brand intake</title><style>
+/* Shared wireframe language — deliberately low-fi. Structure, not visuals. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #fff; color: #3a3a3a; font: 13px/1.45 Helvetica, Arial, sans-serif; padding: 24px 28px; }
+h1 { font-size: 15px; font-weight: 700; letter-spacing: .02em; }
+.sub { color: #8a8a8a; font-size: 11.5px; margin: 3px 0 16px; }
+.wire { border: 1.5px solid #c9c9c9; border-radius: 8px; background: #fff; padding: 12px 14px; }
+.fill { background: #f2f2f2; }
+.dash { border-style: dashed; color: #9a9a9a; display: grid; place-items: center; text-align: center; }
+.lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 6px; }
+.row { display: flex; gap: 12px; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.grow { flex: 1; }
+.btn { display: inline-block; border: 1.5px solid #7a7a7a; border-radius: 6px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; color: #3a3a3a; background: #fff; }
+.btn.primary { background: #3a3a3a; color: #fff; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 0 4px 4px 0; }
+.note { position: relative; display: inline-flex; align-items: center; gap: 6px; color: #2b6cb0; font-size: 10.5px; }
+.note b { display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%;
+          border: 1.5px solid #2b6cb0; font-size: 9.5px; flex: none; }
+.legend { margin-top: 14px; border-top: 1px dashed #d5d5d5; padding-top: 10px; color: #2b6cb0; font-size: 10.5px; }
+.legend div { margin-bottom: 3px; }
+.arrow { color: #9a9a9a; font-size: 15px; align-self: center; }
+.kv { font-size: 11px; color: #6a6a6a; }
+.kv b { color: #3a3a3a; }
+table.wt { width: 100%; border-collapse: collapse; font-size: 11px; }
+table.wt th { text-align: left; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em;
+              color: #9a9a9a; border-bottom: 1px solid #d9d9d9; padding: 4px 6px; }
+table.wt td { border-bottom: 1px solid #efefef; padding: 5px 6px; }
+.spark { height: 16px; border-bottom: 1px solid #c9c9c9; background:
+         repeating-linear-gradient(90deg, transparent 0 6px, #e3e3e3 6px 7px); }
+.gate { border: 1.5px solid #7a7a7a; border-radius: 8px; background: #fafafa; padding: 10px 12px; }
+.gate .lbl { color: #3a3a3a; }
+</style></head>
+<body>
+<h1>W1 · Brand intake — "give us what you have"</h1>
+<div class="sub">First-run screen of a brand space. Nothing generates here; everything lands in the library with real analysis.</div>
+
+<div class="row">
+  <div class="col grow" style="flex:1.4">
+    <div class="wire">
+      <div class="lbl">Upload — drag anything, we sort it</div>
+      <div class="row">
+        <div class="wire dash grow" style="height:74px">footage<br>(mp4/mov)</div>
+        <div class="wire dash grow" style="height:74px">product stills<br>(jpg/png)</div>
+        <div class="wire dash grow" style="height:74px">music / VO<br>(wav/mp3)</div>
+        <div class="wire dash grow" style="height:74px">past ads<br>(any)</div>
+      </div>
+      <div style="margin-top:8px" class="note"><b>1</b> each file → ingest + understanding (scenes · speech · beats); progress shown per file</div>
+    </div>
+    <div class="wire">
+      <div class="lbl">Brand kit (optional, referenced by treatments)</div>
+      <div class="row">
+        <div class="wire dash grow" style="height:44px">logo files</div>
+        <div class="wire dash grow" style="height:44px">colors / fonts</div>
+        <div class="wire dash grow" style="height:44px">claims do's &amp; don'ts (text)</div>
+      </div>
+      <div style="margin-top:8px" class="note"><b>2</b> feeds end-cards/captions later; never invents claims — rephrase only preserves them</div>
+    </div>
+  </div>
+
+  <div class="col grow">
+    <div class="wire">
+      <div class="lbl">Connect your ad account</div>
+      <div class="col" style="gap:8px">
+        <div class="row"><span class="btn grow" style="text-align:center">Connect TikTok Ads</span></div>
+        <div class="row"><span class="btn grow" style="text-align:center">Connect Meta</span></div>
+        <div class="row"><span class="btn grow" style="text-align:center">Connect Google</span></div>
+      </div>
+      <div style="margin-top:8px" class="note"><b>3</b> OAuth per channel; sandbox mode when none connected (full loop still runs, zero spend)</div>
+    </div>
+    <div class="wire">
+      <div class="lbl">Goals — what "working" means</div>
+      <div class="kv">Objective: <span class="chip">CTR</span><span class="chip">CVR</span><span class="chip">ROAS</span></div>
+      <div class="kv" style="margin-top:6px">Monthly budget guardrail: <span class="chip">$ ____</span></div>
+      <div class="kv" style="margin-top:6px">Markets: <span class="chip">JP</span><span class="chip">US</span><span class="chip">+ add</span></div>
+      <div style="margin-top:8px" class="note"><b>4</b> these become the market agent's success/kill criteria defaults</div>
+    </div>
+    <div class="gate">
+      <div class="lbl">Exit condition</div>
+      <div class="kv">≥1 analyzed video · goals set → <b class="btn primary" style="margin-left:6px">Open my library →</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <div><b>Backed by:</b> AssetIngestor + producers (real analysis, cached), AUL store, ChannelRegistry (env-gated adapters).</div>
+  <div><b>Not here:</b> no briefs, no generation — intake ends at an understood library, nothing else.</div>
+</div>
+</body>
+</html>

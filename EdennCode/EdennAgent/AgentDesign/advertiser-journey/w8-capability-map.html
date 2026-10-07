@@ -1,0 +1,222 @@
+<!-- @dsCard group="A · Flow map (high-level)" name="W8 · Capability bridge" subtitle="Which existing module powers each screen — built vs partial vs new" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>W8 — Capability bridge</title><style>
+/* Shared wireframe language — deliberately low-fi. Structure, not visuals. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #fff; color: #3a3a3a; font: 13px/1.45 Helvetica, Arial, sans-serif; padding: 24px 28px; }
+h1 { font-size: 15px; font-weight: 700; letter-spacing: .02em; }
+.sub { color: #8a8a8a; font-size: 11.5px; margin: 3px 0 16px; }
+.wire { border: 1.5px solid #c9c9c9; border-radius: 8px; background: #fff; padding: 12px 14px; }
+.fill { background: #f2f2f2; }
+.lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 6px; }
+.row { display: flex; gap: 12px; }
+.grow { flex: 1; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 0 4px 4px 0; }
+.go { display: inline-block; border: 1.5px solid #7a7a7a; border-radius: 6px; padding: 4px 10px;
+      font-size: 11px; font-weight: 700; color: #3a3a3a; background: #fff; cursor: pointer; white-space: nowrap; }
+.kv { font-size: 11px; color: #6a6a6a; }
+.kv b { color: #3a3a3a; }
+.legend { margin-top: 14px; border-top: 1px dashed #d5d5d5; padding-top: 10px; color: #2b6cb0; font-size: 10.5px; }
+.legend div { margin-bottom: 3px; }
+/* The bridge table */
+table.wt { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 12px; }
+table.wt th { text-align: left; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em;
+              color: #9a9a9a; border-bottom: 1px solid #d9d9d9; padding: 4px 8px; }
+table.wt td { border-bottom: 1px solid #efefef; padding: 6px 8px; vertical-align: top; }
+td.scr { border-right: 1px solid #efefef; width: 148px; padding-top: 9px; }
+tr.grp td { border-top: 2px solid #dedede; }
+.capname { font-weight: 700; font-size: 11.5px; }
+.region { color: #8a8a8a; font-size: 10.5px; margin-top: 1px; }
+.mod { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 10.5px; color: #555; }
+/* Status chips — annotation colors on purpose: this card IS the ⚙ legend. */
+.st { display: inline-block; border-radius: 4px; padding: 1px 7px; margin-right: 6px;
+      font: 700 9px/14px Helvetica, Arial, sans-serif; letter-spacing: .05em; color: #fff; vertical-align: 1px; }
+.st.built { background: #2f855a; }
+.st.partial { background: #b7791f; }
+.st.new { background: #97266d; }
+</style></head>
+<body>
+<h1>W8 · Capability bridge — what runs each screen today</h1>
+<div class="sub">Owner question: "how does this design connect with our existing agentic generation capabilities?" Answer, region by region.
+  Module paths relative to <span class="mod">EdennCode/EdennAgent/</span>. 31 regions · 12 built · 8 partial · 11 new.</div>
+
+<div class="row" style="align-items:center">
+  <div class="wire fill grow" style="padding:9px 14px">
+    <span class="kv"><b>This card is the legend</b> — the ⚙ toggle on every screen uses the same colors:</span>
+    <span class="st built" style="margin-left:8px">BUILT</span><span class="kv">runs today ·</span>
+    <span class="st partial" style="margin-left:6px">PARTIAL</span><span class="kv">data/engine exists, this surface is new ·</span>
+    <span class="st new" style="margin-left:6px">NEW</span><span class="kv">new shell object</span>
+  </div>
+  <span class="go" data-go="w0-loop-map.html" data-fx="Back to the loop map — the five stations these screens implement.">⟲ W0 · The loop</span>
+</div>
+
+<table class="wt">
+  <tr><th style="width:148px">Journey screen</th><th style="width:230px">Capability</th><th>What runs it today</th></tr>
+
+  <!-- S1 · Home -->
+  <tr class="grp" data-cap="new:Campaign object — thin wrapper over built sessions">
+    <td class="scr" rowspan="3"><span class="go" data-go="s1-home.html" data-fx="Jump to Home — campaigns, brand health, what needs you.">S1 · Home →</span></td>
+    <td><span class="capname">Persist</span><div class="region">campaigns table</div></td>
+    <td><span class="st new">NEW</span>Campaign object — thin wrapper over built sessions</td>
+  </tr>
+  <tr data-cap="partial:asset stats from aul repository — surface is new (aul/repository.py)">
+    <td><span class="capname">Persist</span><div class="region">brand-health library card</div></td>
+    <td><span class="st partial">PARTIAL</span>asset stats from <span class="mod">aul/repository.py</span> — the surface is new</td>
+  </tr>
+  <tr data-cap="new:Proposal object — loop-closing piece">
+    <td><span class="capname">Publish &amp; learn</span><div class="region">"needs you" proposal row</div></td>
+    <td><span class="st new">NEW</span>Proposal object — loop-closing piece</td>
+  </tr>
+
+  <!-- S2b · Ingest -->
+  <tr class="grp" data-cap="built:ingest + understanding producers (aul/ingest.py)">
+    <td class="scr" rowspan="4"><span class="go" data-go="s2b-ingest-organize.html" data-fx="Jump to the ingest conversation — the agent organizes by asking.">S2b · Ingest →</span></td>
+    <td><span class="capname">Understand</span><div class="region">analysis badge + clip grouping</div></td>
+    <td><span class="st built">BUILT</span>ingest + understanding producers — <span class="mod">aul/ingest.py</span></td>
+  </tr>
+  <tr data-cap="partial:ask-first pattern from the creation resolver (creation/bundle.py) — collection filing is new">
+    <td><span class="capname">Reference</span><div class="region">the question card</div></td>
+    <td><span class="st partial">PARTIAL</span>ask-first pattern from the creation resolver (<span class="mod">creation/bundle.py</span>) — collection filing is new</td>
+  </tr>
+  <tr data-cap="partial:idempotent ingest exists — byte-dedupe is new">
+    <td><span class="capname">Persist</span><div class="region">dedupe note</div></td>
+    <td><span class="st partial">PARTIAL</span>idempotent ingest exists — byte-dedupe is new</td>
+  </tr>
+  <tr data-cap="new:collections — agent-proposed organization">
+    <td><span class="capname">Persist</span><div class="region">rail landing shape</div></td>
+    <td><span class="st new">NEW</span>collections — agent-proposed organization</td>
+  </tr>
+
+  <!-- S2 · Library -->
+  <tr class="grp" data-cap="partial:lineage + outcomes exist (aul/lineage.py, ads/campaign.py) — the family board view is new">
+    <td class="scr" rowspan="4"><span class="go" data-go="s2-library.html" data-fx="Jump to the Library at scale — families, meaning-search, collections.">S2 · Library →</span></td>
+    <td><span class="capname">Reference</span><div class="region">family rows</div></td>
+    <td><span class="st partial">PARTIAL</span>lineage + outcomes exist (<span class="mod">aul/lineage.py</span>, <span class="mod">ads/campaign.py</span>) — the family board view is new</td>
+  </tr>
+  <tr data-cap="partial:understanding annotations exist (aul/ingest.py producers) — meaning-search UI is new">
+    <td><span class="capname">Understand</span><div class="region">search bar</div></td>
+    <td><span class="st partial">PARTIAL</span>understanding annotations exist (<span class="mod">aul/ingest.py</span> producers) — meaning-search UI is new</td>
+  </tr>
+  <tr data-cap="new:collections model">
+    <td><span class="capname">Persist</span><div class="region">collections sidebar</div></td>
+    <td><span class="st new">NEW</span>collections model</td>
+  </tr>
+  <tr data-cap="built:@-reference grammar into a brief (creation/domain.py RequestBundle)">
+    <td><span class="capname">Reference</span><div class="region">"Create from this collection →"</div></td>
+    <td><span class="st built">BUILT</span>@-reference grammar into a brief — <span class="mod">creation/domain.py</span> RequestBundle</td>
+  </tr>
+
+  <!-- S3 · Brief -->
+  <tr class="grp" data-cap="built:the stable chat surface (agentic_audio frontend)">
+    <td class="scr" rowspan="4"><span class="go" data-go="s3-brief.html" data-fx="Jump to the brief — ask-first roles, plans previewed free.">S3 · Brief →</span></td>
+    <td><span class="capname">Show · Adjust</span><div class="region">the thread itself</div></td>
+    <td><span class="st built">BUILT</span>the stable chat surface — <span class="mod">agentic_audio</span> frontend</td>
+  </tr>
+  <tr data-cap="built:BundleResolver ask-first — /plan 409s with questions (creation/bundle.py, creation/router.py)">
+    <td><span class="capname">Reference</span><div class="region">question cards</div></td>
+    <td><span class="st built">BUILT</span>BundleResolver ask-first — /plan 409s with questions (<span class="mod">creation/bundle.py</span>, <span class="mod">creation/router.py</span>)</td>
+  </tr>
+  <tr data-cap="built:six source roles (creation/domain.py SourceRole)">
+    <td><span class="capname">Reference</span><div class="region">roles table</div></td>
+    <td><span class="st built">BUILT</span>six source roles — <span class="mod">creation/domain.py</span> SourceRole</td>
+  </tr>
+  <tr data-cap="new:Campaign brief wrapper">
+    <td><span class="capname">Persist</span><div class="region">campaign rail</div></td>
+    <td><span class="st new">NEW</span>Campaign brief wrapper</td>
+  </tr>
+
+  <!-- S4 · Variants -->
+  <tr class="grp" data-cap="built:plan → preview slots + beats (creation/service.py, creation/preview.py)">
+    <td class="scr" rowspan="7"><span class="go" data-go="s4-creation.html" data-fx="Jump to the variants workspace — Gate ① and publish-adjacency live here.">S4 · Variants →</span></td>
+    <td><span class="capname">Plan</span><div class="region">variant cards + strips</div></td>
+    <td><span class="st built">BUILT</span>plan → preview slots + beats (<span class="mod">creation/service.py</span>, <span class="mod">creation/preview.py</span>)</td>
+  </tr>
+  <tr data-cap="built:free preview before any render — show-before-spend">
+    <td><span class="capname">Show</span><div class="region">"▶ watch" modal</div></td>
+    <td><span class="st built">BUILT</span>free preview before any render — show-before-spend</td>
+  </tr>
+  <tr data-cap="built:render refuses un-previewed plans (creation/service.py render_short)">
+    <td><span class="capname">Generate</span><div class="region">Gate ① modal</div></td>
+    <td><span class="st built">BUILT</span>render refuses un-previewed plans — <span class="mod">creation/service.py</span> render_short</td>
+  </tr>
+  <tr data-cap="built:locks + treatment knobs (creation/treatments.py incl. rephrase-original)">
+    <td><span class="capname">Adjust · Transform</span><div class="region">treatment / adjust chips</div></td>
+    <td><span class="st built">BUILT</span>locks + treatment knobs — <span class="mod">creation/treatments.py</span> incl. rephrase-original</td>
+  </tr>
+  <tr data-cap="partial:bundle sources are typed — the grounding chip surface is new">
+    <td><span class="capname">Reference</span><div class="region">grounding chip</div></td>
+    <td><span class="st partial">PARTIAL</span>bundle sources are typed — the grounding chip surface is new</td>
+  </tr>
+  <tr data-cap="new:published-relative matching vs the archive">
+    <td><span class="capname">Publish &amp; learn</span><div class="region">"≈ relative" chips</div></td>
+    <td><span class="st new">NEW</span>published-relative matching vs the archive</td>
+  </tr>
+  <tr data-cap="partial:publisher exists (ads/campaign.py) — create⇄publish adjacency is new">
+    <td><span class="capname">Publish &amp; learn</span><div class="region">publish rail</div></td>
+    <td><span class="st partial">PARTIAL</span>publisher exists (<span class="mod">ads/campaign.py</span>) — create⇄publish adjacency is new</td>
+  </tr>
+
+  <!-- S5 · Launch -->
+  <tr class="grp" data-cap="new:LaunchPlan — the market agent's first artifact">
+    <td class="scr" rowspan="4"><span class="go" data-go="s5-launch.html" data-fx="Jump to Launch — Gate ② real-budget consent.">S5 · Launch →</span></td>
+    <td><span class="capname">Publish &amp; learn</span><div class="region">launch table + pacing</div></td>
+    <td><span class="st new">NEW</span>LaunchPlan — the market agent's first artifact</td>
+  </tr>
+  <tr data-cap="new:autonomy boundary">
+    <td><span class="capname">Publish &amp; learn</span><div class="region">rules of engagement</div></td>
+    <td><span class="st new">NEW</span>autonomy boundary</td>
+  </tr>
+  <tr data-cap="built:same spend-consent pattern as generation (sandbox channel live — ads/sandbox.py, TikTok env-gated ads/tiktok.py)">
+    <td><span class="capname">Publish &amp; learn</span><div class="region">Gate ② modal</div></td>
+    <td><span class="st built">BUILT</span>same spend-consent pattern as generation (sandbox channel live — <span class="mod">ads/sandbox.py</span>, TikTok env-gated <span class="mod">ads/tiktok.py</span>)</td>
+  </tr>
+  <tr data-cap="built:rendered takes from the creation loop">
+    <td><span class="capname">Generate</span><div class="region">rendered-variant rail</div></td>
+    <td><span class="st built">BUILT</span>rendered takes from the creation loop</td>
+  </tr>
+
+  <!-- S6 · Console -->
+  <tr class="grp" data-cap="built:outcome series + dedup (ads/campaign.py CampaignPublisher, AttributionEngine)">
+    <td class="scr" rowspan="5"><span class="go" data-go="s6-console.html" data-fx="Jump to the Console — outcomes, attribution, the proposal drawer.">S6 · Console →</span></td>
+    <td><span class="capname">Publish &amp; learn</span><div class="region">variant KPI table</div></td>
+    <td><span class="st built">BUILT</span>outcome series + dedup — <span class="mod">ads/campaign.py</span> CampaignPublisher, AttributionEngine</td>
+  </tr>
+  <tr data-cap="partial:attribution engine exists — component-level readout is new">
+    <td><span class="capname">Publish &amp; learn</span><div class="region">component attribution</div></td>
+    <td><span class="st partial">PARTIAL</span>attribution engine exists — component-level readout is new</td>
+  </tr>
+  <tr data-cap="new:agent feed — narration over outcomes">
+    <td><span class="capname">Publish &amp; learn</span><div class="region">agent feed</div></td>
+    <td><span class="st new">NEW</span>agent feed — narration over outcomes</td>
+  </tr>
+  <tr data-cap="new:Proposal object">
+    <td><span class="capname">Publish &amp; learn</span><div class="region">proposal drawer</div></td>
+    <td><span class="st new">NEW</span>Proposal object</td>
+  </tr>
+  <tr data-cap="new:compiler — but it compiles into the BUILT CreationRequest (locks/excludes/style refs, creation/domain.py)">
+    <td><span class="capname">Plan</span><div class="region">compile modal</div></td>
+    <td><span class="st new">NEW</span>compiler — but it compiles into the BUILT CreationRequest (locks/excludes/style refs, <span class="mod">creation/domain.py</span>)</td>
+  </tr>
+</table>
+
+<div class="wire fill" style="margin-top:14px; border-style:dashed">
+  <div class="lbl">The point of this card</div>
+  <div class="kv">Everything <span class="st new">NEW</span> is a thin shell around the unchanged creation backbone:
+  <b>Campaign · LaunchPlan · agent feed · Proposal · iterate→CreationRequest compiler.</b>
+  Nothing in Understand → Reference → Plan → Show → Adjust → Transform → Generate is rebuilt — the journey composes what already runs.</div>
+</div>
+
+<div class="legend">
+  <div><b>Capabilities</b> (from AGENTIC_CREATION.md): Understand · Reference · Plan · Show · Adjust · Transform · Generate · Persist · Publish &amp; learn.</div>
+  <div><b>Interactive:</b> click any screen to jump to it · ⚙ on every screen outlines these same regions in place · ⚡ lists every click's effect.</div>
+</div>
+
+<script>
+  window.WIRE_PAGE = { title: "W8 · Capability bridge" };
+  window.WIRE_ACTS = {};
+</script>
+<script src="_wire.js"></script>
+</body>
+</html>

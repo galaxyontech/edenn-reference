@@ -1,0 +1,123 @@
+/* ============================================================================
+   Edenn — campaign console additions (cp-* only).
+   Rule: this file ADDS campaign components on top of ds/styles.css tokens.
+   It never overrides a design-system class; anything chat/canvas/consent
+   shaped comes from the design system verbatim.
+   ========================================================================= */
+
+/* App frame: stable sidebar + routed main region. */
+.cp-app { display: flex; height: 100vh; overflow: hidden; }
+.cp-side { flex-shrink: 0; }
+.cp-main { flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-canvas); }
+.cp-main[hidden] { display: none; }
+
+/* Screen scaffold: topbar (+optional progress) then scrollable body. */
+.cp-body { flex: 1; overflow-y: auto; padding: var(--s-xl); }
+.cp-body--thread { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.cp-narrow { max-width: 860px; margin: 0 auto; width: 100%; }
+
+/* Cards + grids (board, KPI, launch) — surface cards on the canvas bg. */
+.cp-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--r-lg);
+  box-shadow: var(--e-card); padding: var(--s-lg); }
+.cp-grid { display: grid; gap: var(--s-md); }
+.cp-row { display: flex; align-items: center; gap: var(--s-md); }
+.cp-row .spacer { flex: 1; }
+.cp-h { font-size: 15px; font-weight: 700; }
+.cp-sub { font-size: 12px; color: var(--text-secondary); }
+.cp-tiny { font-size: 11px; color: var(--text-tertiary); }
+.cp-sect { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--text-tertiary); margin: var(--s-lg) 0 var(--s-sm); }
+
+/* Pills / chips beyond the ds .pill. */
+.cp-pill { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--border-default);
+  border-radius: var(--r-pill); padding: 2px 10px; font-size: 11.5px; color: var(--text-secondary);
+  background: var(--bg-surface-2); white-space: nowrap; }
+.cp-pill.is-teal { background: var(--teal-light); border-color: var(--teal); color: var(--teal-text); }
+.cp-pill.is-busy { background: var(--amber-light); border-color: var(--amber); color: #7a5410; }
+.cp-pill.is-dim { opacity: .55; }
+.cp-pill.is-blue { background: var(--blue-light); border-color: var(--blue); color: var(--blue-text); }
+
+/* Variant strip sketch (plan slots). */
+.cp-strip { display: flex; gap: 3px; height: 34px; padding: 4px; background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle); border-radius: var(--r-md); }
+.cp-strip i { display: block; height: 100%; background: var(--bg-surface-3); border: 1px solid var(--border-default);
+  border-radius: var(--r-xs); }
+.cp-strip i.is-bite { background: var(--indigo-light); border-color: var(--indigo); }
+
+/* Answered marker under a resolved question. */
+.cp-answered { margin-top: 6px; font-size: 12px; color: var(--teal-dark); font-weight: 600; }
+
+/* Library board. */
+.cp-board { display: flex; flex-direction: column; gap: var(--s-md); }
+.cp-family { display: flex; gap: var(--s-md); align-items: stretch; }
+.cp-thumb { width: 132px; min-height: 68px; border-radius: var(--r-md); background: var(--glass-backdrop);
+  border: 1px solid var(--border-default); display: grid; place-items: center; color: var(--text-secondary);
+  font-size: 12px; flex-shrink: 0; }
+.cp-child { flex: 1; border: 1px dashed var(--border-default); border-radius: var(--r-md);
+  display: grid; place-items: center; padding: var(--s-sm); text-align: center; font-size: 12px;
+  color: var(--text-secondary); background: var(--bg-surface-2); }
+.cp-searchbar { flex: 1; display: flex; align-items: center; gap: 8px; border: 1px solid var(--border-default);
+  border-radius: var(--r-pill); padding: 8px 14px; color: var(--text-tertiary); font-size: 13px;
+  background: var(--bg-surface); }
+.cp-searchbar input { border: none; outline: none; flex: 1; font-size: 13px; background: transparent; }
+
+/* KPI table (console). */
+.cp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.cp-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--text-tertiary); border-bottom: 1px solid var(--border-subtle); padding: 8px 10px; }
+.cp-table td { border-bottom: 1px solid var(--bg-surface-2); padding: 10px; }
+.cp-table tr.is-hl td { background: var(--blue-light); }
+.cp-table tr.is-dim td { opacity: .55; }
+
+/* Agent feed (console). */
+.cp-feed { display: flex; flex-direction: column; gap: var(--s-sm); }
+.cp-feed__item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px;
+  border: 1px solid var(--border-subtle); border-radius: var(--r-md); background: var(--bg-surface); }
+.cp-feed__day { font-size: 11px; font-weight: 700; color: var(--text-tertiary); white-space: nowrap; padding-top: 2px; }
+.cp-feed__item.is-proposal { border-color: var(--blue); background: var(--blue-light); cursor: pointer; }
+
+/* Proposal drawer (console) — raised panel on the right. */
+.cp-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 380px; background: var(--bg-surface);
+  border-left: 1px solid var(--border-default); box-shadow: var(--e-modal); padding: var(--s-xl);
+  overflow-y: auto; z-index: 60; display: flex; flex-direction: column; gap: var(--s-md); }
+.cp-drawer__x { position: absolute; top: 14px; right: 14px; }
+.cp-action { display: flex; gap: 10px; align-items: flex-start; padding: 10px; border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md); font-size: 13px; }
+.cp-action input { margin-top: 3px; }
+
+/* Campaign canvas screen: reuse ds cstage/cv-* for stage + dock; these are
+   only the campaign framing extras (generation bands, ghost/overlay nodes). */
+.cp-cstage { position: relative; flex: 1; min-height: 0; background:
+  radial-gradient(circle, var(--border-subtle) 1px, transparent 1px); background-size: 22px 22px;
+  overflow: auto; }
+.cp-band { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--text-tertiary); padding: 4px 8px; }
+.cp-node { position: absolute; width: 210px; background: var(--bg-surface); border: 1px solid var(--border-default);
+  border-radius: var(--r-lg); box-shadow: var(--e-card); padding: 10px 12px; cursor: pointer; }
+.cp-node.is-focus { border-color: var(--border-strong); box-shadow: var(--e-raised); }
+.cp-node.is-locked { border-color: var(--teal); }
+.cp-node.is-ghost { border-style: dashed; opacity: .75; background: var(--bg-surface-2); }
+.cp-node.is-dim { opacity: .5; }
+.cp-node__t { font-size: 12.5px; font-weight: 700; margin-bottom: 2px; }
+.cp-node__m { font-size: 11px; color: var(--text-secondary); }
+.cp-node__halo { margin-top: 6px; font-size: 11px; font-weight: 600; color: var(--teal-text);
+  background: var(--teal-light); border-radius: var(--r-sm); padding: 2px 7px; display: inline-block; }
+.cp-node__halo.is-bad { color: #7a2726; background: var(--red-light); }
+.cp-edges { position: absolute; inset: 0; pointer-events: none; }
+.cp-edges line { stroke: var(--border-default); stroke-width: 1.5; }
+.cp-edges line.is-locked { stroke: var(--teal); stroke-width: 2.5; }
+.cp-edges line.is-ghost { stroke-dasharray: 5 4; }
+.cp-legend { position: absolute; top: 10px; left: 12px; font-size: 11px; color: var(--text-tertiary);
+  background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--r-pill);
+  padding: 4px 12px; z-index: 5; }
+
+/* Audio studio section: the embedded stable surface fills the main region.
+   On narrow viewports the studio keeps its natural min width and the section
+   scrolls horizontally rather than clipping the entrance. */
+.cp-studio { display: flex; flex-direction: column; overflow-x: auto; }
+.cp-studio[hidden] { display: none; }
+.cp-studio iframe { flex: 1; width: 100%; min-width: 900px; border: 0; background: var(--bg-canvas); }
+
+/* Misc. */
+.cp-missing { padding: var(--s-2xl); color: var(--text-tertiary); }
+.cp-empty { padding: var(--s-2xl); text-align: center; color: var(--text-tertiary); font-size: 13px; }

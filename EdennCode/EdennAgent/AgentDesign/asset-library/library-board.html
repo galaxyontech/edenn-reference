@@ -1,0 +1,134 @@
+<!-- @dsCard group="Screens" name="Library — the board" subtitle="What the team has, at a glance" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Edenn — Library board</title>
+<style>
+  :root { --bg:#f6f4ee; --panel:#fff; --ink:#191919; --muted:#8c8779; --line:#e7e3d9;
+          --accent:#4a3ab8; --accent-soft:#edeafc; --gen:#1d8a6b; --gen-soft:#e6f2ec; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font:14px/1.45 -apple-system,"Segoe UI",sans-serif; }
+  .app { display:grid; grid-template-columns:64px 1fr; min-height:100vh; }
+
+  /* left rail — AI-studio minimal */
+  .rail { border-right:1px solid var(--line); display:flex; flex-direction:column; align-items:center;
+          padding:16px 0; gap:6px; background:var(--panel); }
+  .rail .logo { width:30px; height:30px; border-radius:9px; background:var(--ink); color:#fff;
+                display:grid; place-items:center; font-weight:800; font-size:15px; margin-bottom:14px; }
+  .rail button { width:40px; height:40px; border:none; background:none; border-radius:11px;
+                 font-size:17px; color:var(--muted); cursor:pointer; }
+  .rail button.on { background:var(--accent-soft); color:var(--accent); }
+
+  .main { padding:26px 34px; max-width:1180px; }
+
+  /* search-first header */
+  .ask { display:flex; align-items:center; gap:12px; background:var(--panel);
+         border:1px solid var(--line); border-radius:16px; padding:14px 18px;
+         box-shadow:0 1px 2px rgba(20,18,10,.04); margin-bottom:14px; }
+  .ask .q { color:var(--muted); font-size:15px; flex:1; }
+  .ask kbd { background:var(--accent-soft); color:var(--accent); border-radius:6px; padding:2px 9px;
+             font-weight:700; font-family:inherit; }
+  .chips { display:flex; gap:8px; margin-bottom:26px; }
+  .chip { border:1px solid var(--line); background:var(--panel); border-radius:999px;
+          padding:6px 14px; font-size:13px; color:#55503f; cursor:pointer; }
+  .chip.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .chip .n { color:var(--muted); margin-left:5px; font-size:12px; }
+  .chip.on .n { color:#cfc9bb; }
+
+  .group { margin-bottom:30px; }
+  .group h2 { font-size:13px; font-weight:650; color:var(--muted); text-transform:uppercase;
+              letter-spacing:.06em; margin-bottom:12px; display:flex; align-items:baseline; gap:10px; }
+  .group h2 span { font-weight:500; text-transform:none; letter-spacing:0; font-size:12.5px; }
+
+  .grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+          cursor:pointer; transition:box-shadow .15s; }
+  .card:hover { box-shadow:0 6px 20px rgba(20,18,10,.10); }
+  .cover { position:relative; aspect-ratio:16/10; }
+  .cover .badge { position:absolute; top:8px; left:8px; font-size:10.5px; font-weight:700;
+                  background:rgba(255,255,255,.92); border-radius:6px; padding:2px 7px; color:#55503f; }
+  .cover .badge.gen { background:var(--gen-soft); color:var(--gen); }
+  .cover .dur { position:absolute; bottom:8px; right:8px; font-size:10.5px; color:#fff;
+                background:rgba(10,10,10,.55); border-radius:5px; padding:1px 6px; }
+  .meta { padding:10px 12px; }
+  .meta b { display:block; font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis; }
+  .meta .sub { display:flex; align-items:center; gap:6px; color:var(--muted); font-size:11.5px; margin-top:3px; }
+  .links { display:inline-flex; margin-left:auto; }
+  .links i { width:7px; height:7px; border-radius:50%; border:1.5px solid #fff; margin-left:-3px; }
+
+  /* covers (stand-in art) */
+  .c-launch { background:linear-gradient(160deg,#31405e 40%,#c96a35 75%,#e8d9c4); }
+  .c-crowd  { background:linear-gradient(160deg,#3c4a68,#8fa0bd); }
+  .c-earth  { background:radial-gradient(circle at 65% 30%, #6f8fc9 20%, #22304a 70%); }
+  .c-park   { background:linear-gradient(160deg,#274232,#7fae8d 80%); }
+  .c-night  { background:linear-gradient(160deg,#1c2233,#4a3f63); }
+  .c-still  { background:linear-gradient(160deg,#e3d5bd,#b09a72); }
+  .c-audio  { background:repeating-linear-gradient(90deg,#4a3ab8 0 3px,#e6e2f8 3px 8px); }
+  .c-audio2 { background:repeating-linear-gradient(90deg,#1d8a6b 0 3px,#e0efe9 3px 8px); }
+  .c-short1 { background:linear-gradient(160deg,#c96a35,#31405e); }
+  .c-short2 { background:linear-gradient(160deg,#8fa0bd,#31405e 70%); }
+  .c-short3 { background:linear-gradient(160deg,#22304a,#6f8fc9); }
+  .c-vo     { background:repeating-linear-gradient(90deg,#b8543a 0 3px,#f5e4df 3px 8px); }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="rail">
+    <div class="logo">E</div>
+    <button title="Chat">✦</button>
+    <button class="on" title="Library">▦</button>
+    <button title="Canvas">🗺</button>
+    <button title="Exports">↗</button>
+  </nav>
+
+  <main class="main">
+    <div class="ask">🔎 <span class="q">Find anything — “the liftoff moment”, “calm closing shots”, “that upbeat track”…</span> <kbd>@</kbd></div>
+
+    <div class="chips">
+      <span class="chip on">All <span class="n">14</span></span>
+      <span class="chip">Video <span class="n">4</span></span>
+      <span class="chip">Photos <span class="n">2</span></span>
+      <span class="chip">Music <span class="n">3</span></span>
+      <span class="chip">Voice <span class="n">1</span></span>
+      <span class="chip">✦ Made with Edenn <span class="n">4</span></span>
+    </div>
+
+    <section class="group">
+      <h2>Artemis launch — campaign <span>· 9 assets · updated today</span></h2>
+      <div class="grid">
+        <div class="card"><div class="cover c-launch"><span class="badge">VIDEO</span><span class="dur">14:00</span></div>
+          <div class="meta"><b>Launch day master</b><div class="sub">source footage <span class="links"><i style="background:#c96a35"></i><i style="background:#31405e"></i><i style="background:#6f8fc9"></i></span></div></div></div>
+        <div class="card"><div class="cover c-audio"><span class="badge gen">✦ MUSIC</span><span class="dur">0:32</span></div>
+          <div class="meta"><b>Trailer track</b><div class="sub">made for “Launch reel” <span class="links"><i style="background:#c96a35"></i></span></div></div></div>
+        <div class="card"><div class="cover c-short1"><span class="badge gen">✦ SHORT</span><span class="dur">0:32</span></div>
+          <div class="meta"><b>Launch reel</b><div class="sub">9:16 · from Launch day master</div></div></div>
+        <div class="card"><div class="cover c-short2"><span class="badge gen">✦ SHORT</span><span class="dur">0:34</span></div>
+          <div class="meta"><b>Mission recap — NASA voices</b><div class="sub">9:16 · keeps original commentary</div></div></div>
+        <div class="card"><div class="cover c-earth"><span class="badge gen">✦ SHORT</span><span class="dur">0:26</span></div>
+          <div class="meta"><b>Earth, quiet</b><div class="sub">9:16 · from Launch day master</div></div></div>
+        <div class="card"><div class="cover c-still"><span class="badge">PHOTO</span></div>
+          <div class="meta"><b>Crew portrait</b><div class="sub">not used yet</div></div></div>
+        <div class="card"><div class="cover c-vo"><span class="badge gen">✦ VOICE</span><span class="dur">0:24</span></div>
+          <div class="meta"><b>Recap narration</b><div class="sub">made for “Mission recap”</div></div></div>
+        <div class="card"><div class="cover c-crowd"><span class="badge">VIDEO</span><span class="dur">2:03</span></div>
+          <div class="meta"><b>Highlights reel (agency)</b><div class="sub">source footage</div></div></div>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Family trip — spec work <span>· 5 assets</span></h2>
+      <div class="grid">
+        <div class="card"><div class="cover c-park"><span class="badge">VIDEO</span><span class="dur">17:33</span></div>
+          <div class="meta"><b>Disneyland home movie</b><div class="sub">restored · source <span class="links"><i style="background:#7fae8d"></i><i style="background:#274232"></i></span></div></div></div>
+        <div class="card"><div class="cover c-audio2"><span class="badge gen">✦ MUSIC</span><span class="dur">0:30</span></div>
+          <div class="meta"><b>Fairground swing</b><div class="sub">made for “Action reel”</div></div></div>
+        <div class="card"><div class="cover c-night"><span class="badge gen">✦ SHORT</span><span class="dur">0:32</span></div>
+          <div class="meta"><b>Trip recap, narrated</b><div class="sub">9:16 · warm voice-over</div></div></div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

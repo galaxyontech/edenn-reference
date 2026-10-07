@@ -1,0 +1,1185 @@
+# Paths are shown as they appear in THIS repository: renamed files carry
+# their post-rename name, and excluded paths are shown with the same
+# substitutions applied, so this record cannot reintroduce what it documents.
+path	size_bytes	ext	top_dir	tracked_but_ignored	DENY_RULE	KEEP	note
+.agent-state/projects/-workspace/memory/project_taxonomy_gaps.md	2053	.md	.agent-state	yes	R3_TRACKED_BUT_IGNORED		tracked only because it predates the ignore rule
+.dockerignore	1338	-	.dockerignore		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+.editor-rules/rules/no-provider-names.mdc	1438	.mdc	.editor-rules		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+.env.example	3587	.example	.env.example		R12_REWRITTEN_FROM_SCRATCH		environment-specific; authored fresh instead of edited
+.gitattributes	253	-	.gitattributes		R12_REWRITTEN_FROM_SCRATCH		environment-specific; authored fresh instead of edited
+.github/workflows/agentic-audio.yml	20905	.yml	.github			KEEP	source, config or code-adjacent documentation
+.github/workflows/ci.yml	12872	.yml	.github			KEEP	source, config or code-adjacent documentation
+.github/workflows/deploy-japan-app.yml	3253	.yml	.github		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+.github/workflows/deploy-japan-infra.yml	2324	.yml	.github		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+.github/workflows/deploy-japan-newapp.yml	2913	.yml	.github		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+.gitignore	1160	-	.gitignore		R12_REWRITTEN_FROM_SCRATCH		environment-specific; authored fresh instead of edited
+.idea/.name	29	-	.idea		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+.idea/Edenn.iml	338	.iml	.idea		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+.idea/codeStyles/codeStyleConfig.xml	149	.xml	.idea		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+.idea/inspectionProfiles/profiles_settings.xml	174	.xml	.idea		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+.idea/jsonSchemas.xml	1010	.xml	.idea		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+.idea/misc.xml	410	.xml	.idea		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+.idea/vcs.xml	180	.xml	.idea		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+.idea/workspace.xml	19963	.xml	.idea		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+.ipynb_checkpoints/tts-checkpoint.ipynb	1499	.ipynb	.ipynb_checkpoints	yes	R1_CREDENTIAL_BEARING		carries a live credential, customer key, signed URL or personal datum
+.vscode/settings.json	190	.json	.vscode	yes	R3_TRACKED_BUT_IGNORED		tracked only because it predates the ignore rule
+AGENTS.md	1535	.md	AGENTS.md		R12_REWRITTEN_FROM_SCRATCH		environment-specific; authored fresh instead of edited
+AZURE_DEPLOYMENT_PLAN.md	6506	.md	AZURE_DEPLOYMENT_PLAN.md		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+Dockerfile	5007	-	Dockerfile		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+Dockerfile.console	3374	.console	Dockerfile.console		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+EdennCode/Annotation/Testing/__init__.py	33	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/Testing/test_annotation_core.py	27246	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/__init__.py	943	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/core/__init__.py	391	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/core/annotation_dispatcher.py	4675	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/core/annotation_event.py	2851	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/core/annotation_store.py	3441	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/Testing/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/Testing/test_audio_features.py	10916	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/Testing/test_enrichment.py	21711	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/Testing/test_genre_hierarchy.py	5966	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/__init__.py	862	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/enrichment_processor.py	17511	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/enrichment_processor_result.py	965	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/genre_hierarchy.py	4024	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/music_audio_feature_extractor.py	6512	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/music_audio_features_event.py	3365	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/taxonomy_enrichment_event.py	4025	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/taxonomy_extraction_input.py	12422	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/taxonomy_extractor.py	8650	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/taxonomy_schema.py	11108	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/text_slot.py	2597	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/visual_taxonomy_enrichment_event.py	2299	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/visual_taxonomy_extractor.py	10700	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/enrichment/visual_taxonomy_schema.py	9341	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/events/__init__.py	912	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/events/music_generation_event.py	6087	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/events/music_prompt_event.py	2926	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/events/remix_completion_event.py	1986	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/events/request_context_event.py	2928	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/events/scene_understanding_event.py	5290	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/events/video_feature_event.py	2554	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/events/video_understanding_event.py	2432	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/store/__init__.py	158	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/store/in_memory_store.py	7017	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Annotation/store/postgres_store.py	24005	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/README.md	1587	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/billing/001_schema.sql	14940	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/billing/002_roles.sql	4104	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/billing/003_unpartition_usage_ledger.sql	5816	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/billing/004_seed_pricing.sql	3509	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/billing/005_backfill_provenance.sql	1608	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/billing/006_key_suffix.sql	1345	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/billing/007_duration_billing.sql	4768	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/000_extensions.sql	170	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/001a_requests.sql	1818	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/001b_pipeline.sql	3262	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/002a_requests_retrieval.sql	718	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/002b_pipeline_retrieval.sql	984	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/003_triggers.sql	1891	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/004_video_music.sql	5796	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/005_user_recommendation.sql	2296	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/006_creative_user_columns.sql	690	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/007_recommendation_embeddings.sql	1731	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/migrations/apply.py	2085	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Database/queries/hybrid_rrf.sql	1649	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/API_DOCUMENTATION.md	57029	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/AUDIO_CREATIVE_EDIT_API_README.md	25766	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/PROD_READINESS_REMEDIATION_PLAN.md	173105	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/Deployment/PROD_READINESS_REMEDIATION_STATUS.md	38585	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/Deployment/RECOMMENDATION_SCHEMA_DESIGN.md	19234	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/__init__.py	1	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/populate_recommendation_tables.py	18362	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/run_pipeline_e2e.py	11129	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_audio_creative_edit.py	15600	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_audio_creative_edit_remote_integration.py	13365	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_common.py	3191	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_docs.py	6053	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_multi_image_generation.py	22397	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_multi_image_generation_async.py	13303	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_multi_image_generation_remote_integration.py	18290	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_recommendations.py	4553	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_security.py	4297	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_video_alignment.py	7424	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_video_alignment_remote_integration.py	12621	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_video_generation_async.py	32233	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_video_generation_compression.py	88541	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_video_generation_golden_remote_integration.py	12433	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_video_generation_preview_endpoints.py	17292	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_video_generation_remote_integration.py	30495	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_vocal_clone.py	4228	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_api_vocal_clone_remote_integration.py	2878	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_async_video_job_store.py	2507	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_auth_admin_router.py	5675	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_auth_admin_session.py	9436	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_auth_app_wiring.py	18968	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_auth_console_session.py	9349	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_auth_firebase_verifier.py	12363	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_auth_key_store.py	18556	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_auth_middleware.py	8229	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_auth_recommendations.py	3194	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_auth_signup_router.py	22820	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_auth_signup_verified.py	15988	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_auth_usage_recorder.py	30555	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_account_index.py	7790	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_account_keys.py	13984	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_account_router.py	11033	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_admin_router.py	22314	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_dual_write.py	9248	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_engine.py	18676	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_gate_middleware.py	18393	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_pg_backfill.py	13009	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_pg_dual_write.py	13985	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_pg_stores.py	24688	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_pricing_resolver.py	10151	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_stores.py	20196	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_billing_usd_reset.py	7640	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_console_config.py	4248	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_console_static.py	2723	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_error_sanitization.py	7486	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_multi_image_cost.py	3075	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_multi_image_duration_rules.py	12210	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_multi_image_video_superset.py	6703	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_output_naming.py	2634	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_pipeline_telemetry.py	3815	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_postgres_wrapper.py	11523	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_provider_c_callback.py	5702	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_provider_callback_store.py	4645	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_provider_music_callbacks.py	5905	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_recommendation_persistence.py	9098	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_response_audio_metrics.py	3225	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_response_guardrail.py	6444	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_response_version_field.py	4307	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_shared_pg_pool.py	5936	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_ssrf_guard.py	3366	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/Testing/test_storage.py	16344	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/VOCAL_CLONE_API_README.md	1530	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/__init__.py	214	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/alignment_workflows.py	2724	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/api.py	13072	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/api_audio_creative_edit.py	26355	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/api_common.py	21987	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/api_docs.py	10248	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/api_multi_image_generation.py	58375	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/api_provider_callbacks.py	3447	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/api_recommendations.py	4549	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/api_security.py	1873	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/api_video_alignment.py	7766	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/api_video_generation.py	130129	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/api_vocal_clone.py	4138	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/CACHING_LAYER_PLAN.md	11825	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/Deployment/async_pipeline_v2/IMPLEMENTATION_PLAN.md	35420	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/Deployment/async_pipeline_v2/README.md	3907	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/SPLIT_LATENCY_FIX_PLAN.md	13329	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/Deployment/async_pipeline_v2/Testing/__init__.py	36	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/perf/README.md	1175	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/perf/conftest.py	531	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/perf/perf_analyze.py	5444	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/perf/perf_compare.py	4996	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/perf/perf_driver.py	3451	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/perf/perf_driver_v1.py	2272	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_async_pipeline_v2_api.py	67799	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_async_pipeline_v2_artifact_service.py	10714	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_async_pipeline_v2_endpoint_examples.py	31453	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_async_pipeline_v2_monolith_worker.py	40738	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_async_pipeline_v2_reaper_shutdown.py	4265	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_async_pipeline_v2_remote_endpoint.py	6042	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_async_pipeline_v2_repository_queue.py	19742	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_async_pipeline_v2_split_stage_workers.py	123639	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_async_pipeline_v2_thumbnail.py	6805	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_async_pipeline_v2_worker_main.py	14702	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_cache_service_kind_isolation.py	2477	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_callback_delivery.py	10626	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_fake_provider.py	2510	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_input_guardrails.py	6089	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_loop_stall_watchdog.py	1286	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_multi_image_fake_provider_benchmark.py	11122	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_multi_image_field_behavior.py	62013	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_multi_image_v2_latency_benchmark.py	11315	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_multi_image_v2_throughput_benchmark.py	8423	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_multi_image_worker.py	14096	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_multi_image_worker_download_retry.py	3848	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_multi_image_worker_remote_integration.py	14217	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_perf_drivers_import_safe.py	1917	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_reaper_durability.py	7883	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_terminal_atomicity.py	5453	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_video_music_prompt_contract.py	15274	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_video_source_preparation_offloop.py	4667	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_worker_completed_guard.py	3850	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_worker_loop_guard.py	6825	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/Testing/test_worker_maintenance.py	4232	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/__init__.py	180	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/api.py	79500	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/artifact_service.py	20095	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/cache_service.py	14277	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/callback_delivery.py	3775	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/docs/actual-split-mode-e2e-output.md	6626	.md	EdennCode		R7_INTERNAL_DOCS		internal design and benchmark document
+EdennCode/Deployment/async_pipeline_v2/docs/async-v2-api-reference.md	20753	.md	EdennCode		R7_INTERNAL_DOCS		internal design and benchmark document
+EdennCode/Deployment/async_pipeline_v2/docs/async-v2-frontend-api-examples.md	23653	.md	EdennCode		R1_CREDENTIAL_BEARING		carries a live credential, customer key, signed URL or personal datum
+EdennCode/Deployment/async_pipeline_v2/docs/async-v2-music-generation.md	17836	.md	EdennCode		R7_INTERNAL_DOCS		internal design and benchmark document
+EdennCode/Deployment/async_pipeline_v2/docs/async-v2-music-generation.pdf	704610	.pdf	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.pdf)
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_1.mmd	1153	.mmd	EdennCode		R7_INTERNAL_DOCS		internal design and benchmark document
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_1.png	131	.png	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.png)
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_2.mmd	952	.mmd	EdennCode		R7_INTERNAL_DOCS		internal design and benchmark document
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_2.png	130	.png	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.png)
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_3.mmd	1545	.mmd	EdennCode		R7_INTERNAL_DOCS		internal design and benchmark document
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_3.png	130	.png	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.png)
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_4.mmd	470	.mmd	EdennCode		R7_INTERNAL_DOCS		internal design and benchmark document
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_4.png	131	.png	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.png)
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_5.mmd	479	.mmd	EdennCode		R7_INTERNAL_DOCS		internal design and benchmark document
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_5.png	130	.png	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.png)
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_6.mmd	257	.mmd	EdennCode		R7_INTERNAL_DOCS		internal design and benchmark document
+EdennCode/Deployment/async_pipeline_v2/docs/diagrams/diagram_6.png	130	.png	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.png)
+EdennCode/Deployment/async_pipeline_v2/docs/latency-canary-results-2026-06-18.md	5209	.md	EdennCode		R7_INTERNAL_DOCS		internal design and benchmark document
+EdennCode/Deployment/async_pipeline_v2/input_guardrails.py	5747	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/migrations/001_async_pipeline_v2.sql	4117	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/models.py	3668	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/queue/__init__.py	45	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/queue/base.py	885	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/queue/postgres_queue.py	17934	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/queue_names.py	1184	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/repositories.py	20643	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/result_paths.py	6930	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/stages/__init__.py	955	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/stages/video_music_split.py	53721	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/video_source_preparation.py	15347	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/worker_heartbeat.py	3117	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/worker_main.py	33148	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/workers/__init__.py	585	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/workers/audio_creative_edit_worker.py	16437	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/workers/loop_guard.py	3228	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/workers/monolith_worker.py	33701	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/workers/multi_image_worker.py	30995	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/workers/split_stage_workers.py	74218	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/workers/video_sfx_worker.py	21473	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_pipeline_v2/workers/voiceover_worker.py	13004	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/async_video_job_store.py	11551	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/audio_edit_workflows.py	4482	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/auth/__init__.py	1402	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/auth/admin_router.py	8005	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/auth/console_session.py	5608	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/auth/firebase_verifier.py	10316	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/auth/key_store.py	16980	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/auth/middleware.py	11962	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/auth/signup_router.py	18283	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/auth/telemetry.py	2289	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/auth/usage_recorder.py	26558	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/benchmark_results/storage_latency_comparison_2026-04-26.md	1629	.md	EdennCode		R10_THIRD_PARTY_OR_GENERATED		captured run output
+EdennCode/Deployment/billing/__init__.py	4929	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/billing/account_index.py	5712	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/billing/account_router.py	14785	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/billing/admin_router.py	24071	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/billing/dual_write.py	11246	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/billing/engine.py	14183	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/billing/gate.py	4032	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/billing/pg_key_store.py	15986	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/billing/pg_stores.py	38881	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/billing/pricing_resolver.py	10089	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/billing/store_factory.py	5649	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/billing/stores.py	24694	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/console_static.py	4348	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/error_codes.py	16073	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/example_runs/reference_15s_thumbnail.webp	146510	.webp	EdennCode	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.webp)
+EdennCode/Deployment/multi_image_workflows.py	6017	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/music_callback_api_deployment/README_LOCAL_TEST.md	1157	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/music_callback_api_deployment/__init__.py	42	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/music_callback_api_deployment/callback_api.py	1289	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/music_callback_api_deployment/provider_c_callback.py	1425	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/music_callback_api_deployment/provider_c_callback_service.py	17837	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/music_callback_api_deployment/run_local_callback.sh	521	.sh	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/music_callback_api_deployment/worker.py	2632	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/output_naming.py	332	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/pipeline_telemetry.py	9591	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/postgres_cli.py	8772	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/postgres_wrapper.py	24277	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/provider_c_callback.py	1629	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/provider_music_callbacks.py	21744	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/recommendation_persistence.py	17943	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/remote_video_generation_results.zip	83391	.zip	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.zip)
+EdennCode/Deployment/remote_video_generation_results/pytest-user-prompt-preprocessor-remote.xml	684	.xml	EdennCode		R10_THIRD_PARTY_OR_GENERATED		generated test-run artifact
+EdennCode/Deployment/remote_video_generation_results/pytest-video-generation-remote.xml	2460	.xml	EdennCode		R10_THIRD_PARTY_OR_GENERATED		generated test-run artifact
+EdennCode/Deployment/remote_video_generation_results/pytest-video-music-workflow-remote.xml	1314	.xml	EdennCode		R10_THIRD_PARTY_OR_GENERATED		generated test-run artifact
+EdennCode/Deployment/response_guardrail.py	6893	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/save_audio_creative_edit_response_example.py	8069	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/save_video_generation_response_example.py	5626	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/settings.py	10990	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/shared_pg_pool.py	2823	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/storage.py	20463	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/vocal_clone_workflows.py	810	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Deployment/workflows.py	17355	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/ADVERTISER_JOURNEY.md	15861	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AGENTIC_CREATION.md	10253	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AdsAdapters/__init__.py	666	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AdsAdapters/base.py	1755	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AdsAdapters/campaign.py	6788	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AdsAdapters/registry.py	1343	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AdsAdapters/sandbox.py	2310	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AdsAdapters/tiktok.py	6801	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/.gitignore	7	-	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/INTERACTIONS.md	36649	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/_inline_wire.py	1450	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/_screen.css	4925	.css	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/_wire.css	2408	.css	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/_wire.js	21939	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/s1-home.html	10779	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/s2-library.html	29547	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/s2b-ingest-organize.html	19293	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/s3-brief.html	16095	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/s4-creation.html	29798	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/s4c-canvas.html	18669	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/s5-launch.html	15317	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/s6-console.html	20116	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/s6c-canvas-performance.html	17716	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/w0-loop-map.html	7382	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/w1-brand-intake.html	5850	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/w2-understanding-review.html	5782	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/w3-campaign-brief.html	5371	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/w4-creation-review.html	5552	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/w5-launch-plan.html	5409	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/w6-campaign-console.html	5624	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/w7-feedback-proposal.html	5610	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/advertiser-journey/w8-capability-map.html	16107	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/asset-library/agent-grounded-plan.html	8204	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/asset-library/asset-connections.html	8286	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/asset-library/library-board.html	8782	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/asset-library/library-map.html	6756	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/asset-library/performance-loop.html	8898	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentDesign/understanding_inspector.html	13832	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentTesting/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentTesting/test_aul_and_ads.py	12168	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentTesting/test_creation_domain.py	8183	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentTesting/test_creation_service.py	5552	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgentTesting/test_creation_treatments.py	7272	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/ARCHITECTURE.md	27353	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/DEPLOYMENT.md	13489	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/AgenticAudio/DEPLOY_STANDALONE.md	8686	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/AgenticAudio/DESIGN_LLM_AGENT.md	29521	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/EVALUATION_PLAN.md	7729	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/AgenticAudio/FRONTEND_INTEGRATION.md	33414	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/IDENTITY_MIGRATION.md	5152	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/AgenticAudio/ITERATION_PLAN.md	9838	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/AgenticAudio/LEGAL_REQUIREMENTS.md	31998	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/AgenticAudio/LOCAL_TESTING.md	7141	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/OPERATIONS.md	25009	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/AgenticAudio/README.md	10249	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/README.md	17039	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/conftest.py	1709	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/BROWSER_E2E_REPORT_2026-07-01.md	14872	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/__init__.py	1251	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/driver.py	5838	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/endpoint_smoke.py	11588	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/fakes.py	1277	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/gates.py	9813	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/probe_editing_flows.py	9787	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/run_e2e.py	2438	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/scenarios.py	6526	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/test_e2e_foundation.py	7848	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/test_editing_flows.py	10701	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/verify_full_journey.py	16300	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/verify_phase0_e2e.py	10254	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/verify_provenance_e2e.py	11068	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/verify_sfx_authority.py	11528	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/e2e/watch.py	2242	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/eval_harness.py	940	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/eval_scenarios.py	337	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/.gitignore	106	-	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/README.md	7523	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/harness/console.js	12959	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/harness/spec.js	2287	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/package.json	365	.json	EdennCode	yes	R3_TRACKED_BUT_IGNORED		tracked only because it predates the ignore rule
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/run.js	4646	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/specs/01_entrance.spec.js	9576	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/specs/02_session_shell.spec.js	10793	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/specs/03_timeline_view.spec.js	19977	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/specs/04_music_conversation.spec.js	13164	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/specs/05_voiceover_flow.spec.js	42378	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/specs/06_sfx_flow.spec.js	43605	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/specs/07_canvas_collab.spec.js	59388	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/specs/08_transform_flow.spec.js	31683	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/specs/09_unhappy_paths.spec.js	43998	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/specs/10_live_journey.spec.js	9310	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/frontend/specs/11_identity.spec.js	5651	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/run_eval.py	3261	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/studio-ui.test.cjs	6593	.cjs	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_accounts.py	5866	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_agentic_audio_api.py	268275	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_agentic_audio_collab.py	24662	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_artifact_tenancy.py	4461	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_audit.py	9226	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_capability_parity.py	31727	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_connection_pool.py	5700	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_console_e2e.py	3934	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_deletion_and_export.py	9124	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_devserver_hardening.py	23888	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_domain.py	5565	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_durable_jobs.py	17127	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_eval_harness.py	4477	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_extend_honesty.py	6527	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_fanout.py	6990	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_finalize_gates.py	9292	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_frontend_contract.py	21890	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_identity.py	9560	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_interrupted_renders.py	4976	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_isolation.py	6645	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_job_claiming.py	10182	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_job_completer_retry.py	2793	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_job_consumers.py	5144	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_job_durability_contract.py	21522	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_limits.py	10479	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_listen_reports.py	21265	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_media_authorization.py	4833	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_media_compose.py	33464	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_media_durability.py	10823	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_migrations.py	14594	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_migrator.py	9544	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_music_structure.py	6260	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_observability.py	10749	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_observation_boundary.py	6958	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_render_provenance.py	28228	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_retention.py	11524	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_revocation.py	9261	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_sculpt_audio.py	11715	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_sfx_render_and_worker.py	27952	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_speech_synthesizer.py	13789	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_spend_guard.py	12600	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_splice.py	10815	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_state_concurrency.py	8587	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_style_prompt_routing.py	8582	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_tickets.py	8395	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_tool_arg_specs.py	11936	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_turn_lock.py	10044	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_upload_hardening.py	8548	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_users_and_profile.py	8538	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_voiceover_retake.py	6058	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_volume_envelope.py	13175	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_workdir_cleanup.py	3694	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/Testing/test_ws_and_scoping.py	7562	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/USAGE.md	4587	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/__init__.py	302	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/agent/README.md	1902	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/agent/__init__.py	456	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/agent/agent.py	55492	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/agent/dispatcher.py	7174	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/agent/loop.py	56519	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/agent/prompts.py	43608	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/agent/session_io.py	5755	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/agent/spend_guard.py	6503	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/agent/turn_lock.py	5307	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/README.md	1692	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/__init__.py	485	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/accounts.py	4509	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/audit.py	4531	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/auth.py	11734	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/fanout.py	7994	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/identity.py	7343	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/limits.py	7561	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/observability.py	8582	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/router.py	96185	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/serialization.py	892	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/api/tickets.py	5305	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/config.py	5743	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/deploy/.gitignore	65	-	EdennCode		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+EdennCode/EdennAgent/AgenticAudio/deploy/deploy.sh	7034	.sh	EdennCode		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+EdennCode/EdennAgent/AgenticAudio/deploy/migrate.sh	2735	.sh	EdennCode		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+EdennCode/EdennAgent/AgenticAudio/deploy/provision.sh	4953	.sh	EdennCode		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+EdennCode/EdennAgent/AgenticAudio/design/README.md	1028	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/design/UX_EVALUATION.md	6868	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/AgenticAudio/design/devserver.py	151971	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/design/memory_fakes.py	27477	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/design/setup-widget-options-v2.html	56897	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/design/setup-widget-options.html	56483	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/domain/README.md	1337	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/domain/__init__.py	819	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/domain/artifacts.py	5383	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/domain/session_state.py	3857	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/domain/user.py	676	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/events.py	2329	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/CANVAS_MODE_PLAN.md	10586	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/AgenticAudio/frontend/COLLAB_MODE_PLAN.md	10769	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/AgenticAudio/frontend/README.md	27230	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/UI_AUDIT_STATUS.md	6693	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/index.html	18283	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/js/ai-elements.js	721453	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/js/app.js	196543	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/js/canvas-mode.js	59126	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/js/collab-mode.js	85299	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/js/library-ui.js	35512	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/js/studio-state.js	2105	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/js/studio-ui.js	4143	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/js/timeline-mode.js	55580	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/js/transform-mode.js	18163	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/mock-backend.js	68125	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/styles.css	160823	.css	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/.gitignore	14		EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/AI-ELEMENTS-LICENSE	552		EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/APACHE-2.0.txt	11358	.txt	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/README.md	4071	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/UI-PRIMITIVES-LICENSE	1063		EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/benchmark.html	2969	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/build.mjs	835	.mjs	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/bundle-report.json	63	.json	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/components.json	382	.json	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/package-lock.json	247576	.json	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/package.json	811	.json	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/src/bridge.tsx	4187	.tsx	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/src/components/ai-elements/chain-of-thought.tsx	6273	.tsx	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/src/components/ai-elements/message.tsx	8439	.tsx	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/src/components/ui/badge.tsx	1766	.tsx	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/src/components/ui/button-group.tsx	2193	.tsx	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/src/components/ui/button.tsx	2382	.tsx	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/src/components/ui/collapsible.tsx	781	.tsx	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/src/components/ui/separator.tsx	684	.tsx	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/src/components/ui/tooltip.tsx	1806	.tsx	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/src/lib/utils.ts	166	.ts	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/src/utilities.css	70	.css	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/tests/components.test.mjs	5282	.mjs	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/tests/controller.test.mjs	10780	.mjs	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/tests/library.test.mjs	7707	.mjs	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/tests/timeline-selection.test.mjs	1831	.mjs	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/tsconfig.json	308	.json	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/frontend/ui/vite.config.ts	70	.ts	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/models.py	57616	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/README.md	14302	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/__init__.py	304	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/collab.py	35030	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/jobs.py	30467	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/media_store.py	19006	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/migrations/001_agentic_audio.sql	2137	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/migrations/002_collab.sql	2328	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/migrations/003_users.sql	3540	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/migrations/004_session_version.sql	913	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/migrations/005_jobs.sql	4108	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/migrations/006_accounts.sql	3703	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/migrations/007_usage_meter.sql	15084	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/migrator.py	6271	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/pool.py	3722	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/repositories.py	25622	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/retention.py	10122	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/persistence/usage.py	18500	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/planner.py	2644	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/stages.py	3905	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/tools/README.md	16843	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/tools/__init__.py	778	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/tools/arg_specs.py	11246	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/tools/base.py	11052	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/tools/impls.py	121870	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/tools/media.py	156569	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/tools/narration_render.py	12266	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/tools/sfx_render.py	15279	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/tools/sfx_suggest.py	6134	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AgenticAudio/tools/spotting.py	16532	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibrary/__init__.py	960	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibrary/ingest.py	7627	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibrary/lineage.py	3393	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibrary/migrations/001_aul.sql	2685	.sql	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibrary/models.py	6173	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibrary/refs.py	2955	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibrary/repository.py	15598	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibrary/treeview.py	2978	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibraryApi/__init__.py	277	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibraryApi/frontend/index.html	50237	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibraryApi/router.py	2965	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibraryApi/service.py	19008	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/AssetLibraryApi/thumbnails.py	1153	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/BACKEND_GAPS.md	6309	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/CREATIVE_LOOP.md	4057	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/.gitignore	15	-	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/CAMPAIGN_CONSOLE.md	13295	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/Testing/assemble_media.py	3387	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/Testing/test_campaign_loop.py	5970	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/backend/__init__.py	531	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/backend/models.py	7663	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/backend/router.py	3364	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/backend/service.py	35808	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/devserver.py	5562	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/frontend/campaign.css	8064	.css	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/frontend/ds	31	-	EdennCode		R13_SYMLINK		symlink; would dangle or escape the exported tree
+EdennCode/EdennAgent/Campaign/frontend/index.html	4677	.html	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/frontend/js/components.js	6083	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/frontend/js/router.js	2914	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/frontend/js/screens/canvas.js	11797	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/frontend/js/screens/console.js	9489	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/frontend/js/screens/home.js	7202	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/frontend/js/screens/launch.js	7362	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/frontend/js/screens/library.js	7931	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/frontend/js/screens/thread.js	9443	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Campaign/frontend/js/store.js	4452	.js	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Creation/__init__.py	1873	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Creation/bundle.py	10273	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Creation/domain.py	10897	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Creation/preview.py	6217	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Creation/router.py	4579	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Creation/service.py	14567	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Creation/treatments.py	9234	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/GoldenSets/GOLDEN_SET.md	2414	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/GoldenSets/collect_golden.py	6927	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/OPENCUT_ABSORPTION.md	9867	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/README.md	5592	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/CASE_STUDIES.md	3126	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/Recompose/DESIGN.md	9043	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/MVP_PLAN.md	11986	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/Recompose/Testing/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/Testing/test_recompose_audio.py	13569	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/Testing/test_recompose_m1_m2.py	7781	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/Testing/test_recompose_m3.py	5082	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/Testing/test_recompose_m4_m5.py	17825	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/assembly.py	11023	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/audio.py	7594	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/cutspec.py	3112	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/domain.py	11239	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/llm_planner.py	9423	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/longform.py	4368	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/musicsheet.py	6120	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/planner.py	22876	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/segmentation.py	7546	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/signals.py	5286	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/spike/W0_FINDINGS.md	3043	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/EdennAgent/Recompose/spike/w0_recompose_spike.py	14922	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/Recompose/understanding.py	4753	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/UNDERSTANDING_LAYER.md	5564	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/EdennAgent/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/LocalEnv/.env.example	1684	.example	EdennCode		R12_REWRITTEN_FROM_SCRATCH		environment-specific; authored fresh instead of edited
+EdennCode/ModelFactory/LanguageModelFactory/Testing/test_azure_max_tokens_param.py	3791	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/LanguageModelFactory/Testing/test_azure_multimodal_client_pool.py	2447	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/LanguageModelFactory/__init__.py	579	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/LanguageModelFactory/azure_based_model_model_gateway.py	28545	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/LanguageModelFactory/voiceover_llm_client.py	5776	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/Testing/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/Testing/test_cloud_music_client_retry.py	5576	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/Testing/test_enhanced_music_client_resume.py	5800	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/Testing/test_music_prompt_length_guard.py	9637	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/Testing/test_studio_extend_payload.py	3374	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/base.py	455	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/cloud_music_gen_util.py	7952	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/lyrics_processor.py	6142	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/provider_a_compose.py	18824	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/provider_a_wrapper.py	8637	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/provider_b_key_health.py	12722	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/provider_b_music.py	83803	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/provider_b_payload.py	13879	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/provider_b_pg_lock.py	19534	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/provider_c.py	77131	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/CloudMusicGen/provider_d_music.py	10156	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/MusicGenModelFactory/__init__.py	387	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/PromptFactory/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/PromptFactory/prompts.py	66590	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/PromptFactory/video_to_sound_effect_prompt.py	5518	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/PromptFactory/video_to_sound_effect_schema.py	5847	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/VideoSFXModelFactory/CloudSoundEffectGen/__init__.py	503	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/VideoSFXModelFactory/CloudSoundEffectGen/base.py	550	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/VideoSFXModelFactory/CloudSoundEffectGen/cloud_sound_effect_gen_util.py	774	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/VideoSFXModelFactory/CloudSoundEffectGen/provider_a_sound_effect.py	6362	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/VideoSFXModelFactory/VideoConditionedGen/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/VideoSFXModelFactory/VideoConditionedGen/base.py	976	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/VideoSFXModelFactory/VideoConditionedGen/provider_e_video_sfx.py	3709	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/VideoSFXModelFactory/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/VoiceOverModelFactory/hosted_speech_synthesizer.py	15549	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/VoiceOverModelFactory/model_gateway_base_model.py	2703	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/ModelFactory/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/Testing/__init__.py	1	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/Testing/test_models.py	5754	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/Testing/test_provider_a_compose_payload.py	1415	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/Testing/test_provider_a_key_pool.py	2423	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/Testing/test_provider_b_take_pairing.py	3143	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/Testing/test_provider_branch_matrix.py	31540	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/Testing/test_service.py	9987	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/__init__.py	771	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/audio.py	5252	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/models.py	5738	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/provider_registry.py	1150	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/providers/__init__.py	355	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/providers/base.py	5149	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/providers/provider_a.py	4399	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/providers/provider_b.py	19440	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/providers/provider_c.py	11164	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/MusicGenerationCore/service.py	5366	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/_common.py	2011	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/backfill_embeddings.py	4064	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/backfill_recommendation_embeddings.py	3499	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/billing_pg_backfill.py	16967	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/billing_pg_testdb.sh	2103	.sh	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/billing_pg_verify.py	8686	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/billing_usd_reset.py	4828	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/capture_artifact_baseline.py	7480	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/cloudshell_deploy_newapp_from_env.sh	12684	.sh	EdennCode		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+EdennCode/Scripts/compare_artifact_baseline.py	8785	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/generate_cloudshell_deploy_commands.py	15882	.py	EdennCode		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+EdennCode/Scripts/generate_recommendation_doc.py	47701	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/generate_video_bgm_matrix.py	13147	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/mock_account_api.py	6646	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/print_newapp_tf_exports.py	4116	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/probe_provider_b_task_status.py	5950	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/reference_snapshot/README.md	2210	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/run_artifact_capture_job.py	9549	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/run_enhanced_studio_full_matrix.py	21626	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/run_japan_ab_compare_video_api.py	6846	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/run_japan_prod_v2_enhanced_studio_matrix.py	10204	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/run_japan_prod_v2_video_api_10x.py	2818	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/run_japan_video_api_10x.py	10542	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/run_lyrics_contract_live_matrix.py	10448	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/run_newapp_enhanced_async_burst.py	16014	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/run_newapp_enhanced_burst.py	11481	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/run_newapp_three_model_requests.py	10479	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/run_newapp_video_url_prompt_matrix.py	22605	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/search.py	2162	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/seed_pipeline_runs.py	8551	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Scripts/seed_requests.py	10340	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/README.md	4797	.md	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/__init__.py	505	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/assets/README.md	892	.md	EdennCode		R10_THIRD_PARTY_OR_GENERATED		third-party footage and identifiable people
+EdennCode/TestSuites/assets/production/videos/AQOTTwiydVYEeLzwAQhwoAxvEm01vZ2MXDNK-zjbMAUBlmIaXfCvf6mv1cWJlX-wLUQIW9eN02U1jm9xaF7lFH3KPTrnxXV3eHGA5unMtQ.mp4	132	.mp4	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+EdennCode/TestSuites/assets/production/videos/AQOTTwiydVYEeLzwAQhwoAxvEm01vZ2MXDNK-zjbMAUBlmIaXfCvf6mv1cWJlX-wLUQIW9eN02U1jm9xaF7lFH3KPTrnxXV3eHGA5unMtQ_thumbnail.webp	173478	.webp	EdennCode	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.webp)
+EdennCode/TestSuites/assets/production/videos/AQOeOyKBATYsY1pCEztrcpYXgmrfoBADucxExXAVWgQkA6RJ4lLU10OcuVplCRgsB-SvLJ7usYLHOXprlhw7DITs.mp4	131	.mp4	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+EdennCode/TestSuites/assets/smoke/audio/cn_vocal_clone_sample_30s.m4a	131	.m4a	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.m4a)
+EdennCode/TestSuites/assets/smoke/images/.gitkeep	1	-	EdennCode		R10_THIRD_PARTY_OR_GENERATED		third-party footage and identifiable people
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/0d10bebaecffde9356dceae7d11f1cdd.jpg	132	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/245609ef10915223559b68a6fba48b32.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/3f18e0c0099199cb42052157068665bd.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/4762c0755dd0c0f1355a71d0249eecc4.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/61bc24cd7bb41b3192eb625264069eae.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/66f0117242a0a9a1be85b2942ef97196.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/6a69cbdea2023795d33d47a600949a3c.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/7399ea70dfa9e085c9cd13f4360b0fe2.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/9714caafa0d0fee9b3a74ada1845e13f.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/9cf52633155176e783c380d45cf622c8.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/a1e7a8cd9fffd8926e1e776bb83caa8d.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/add29a6ad5d314f95ee5396ab1c87a8d.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/ae5461cbc198b78a5bc892281e633d0e.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/ae8dfe330c2c6b95d4af18bc7317face.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/bbd5e4e2852d3ec72b30940f14c9d8fe.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/c97224e51b722dbacc1afb3d5550ed41.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/daeaf438fdb4295c6997d03067692d8c.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/images/multi_image_design/e1f865db6a2b08fb778e7074a8a532b1.jpg	131	.jpg	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.jpg)
+EdennCode/TestSuites/assets/smoke/videos/AQMKp31ogEVIaphoPGJEfjEdwhPbGG4MsfSd0Yxan5l80mOcbAl-fnH9WA4mgf2936VFDRzML7xi_pobojzNzbvqHQQpggC1NQcs398txw.mp4	130	.mp4	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+EdennCode/TestSuites/assets/smoke/videos/AQNBiFLctSahygfinDPbHUVU7qjj01eN8zXzsZBUIX9sXB5OYCuTch6cOodCqhua06FKcpc1JuDu4eMHPtxr4g.mp4	131	.mp4	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+EdennCode/TestSuites/assets/smoke/videos/AQNP4uhysVl03AnQ10mn_omTENBn9O3e94cnJNbJuCYRsJ3ovBegVCfS2iCg7QMK-bdIX-0fvFjrY1iPurDwxWU3SqbdweAdf3OTGMehzw.mp4	131	.mp4	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+EdennCode/TestSuites/assets/smoke/videos/AQNl4_29KlheFOKK4Gqqqci_dXHfzcwrm1gFLm21VdGcQF19brXAXYwA3-a6NSeMieBFunI8Jmj1n20numfa7pi0aNI0iLzqEG4wgVqnKw.mp4	131	.mp4	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+EdennCode/TestSuites/assets/smoke/videos/AQOO7QV2Xc-bh3r-X2LYXDlohNVRyzbUDldydgW3YUILXK_2Zcujp2RUSWNr-_16t61f-pno7dWE9v8WPVQWROGeIHUdFd10EqQP0qhiNw.mp4	130	.mp4	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+EdennCode/TestSuites/assets/smoke/videos/AQOO7QV2Xc-bh3r-X2LYXDlohNVRyzbUDldydgW3YUILXK_2Zcujp2RUSWNr-_16t61f-pno7dWE9v8WPVQWROGeIHUdFd10EqQP0qhiNw_thumbnail.webp	126332	.webp	EdennCode	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.webp)
+EdennCode/TestSuites/assets/smoke/videos/AQORySbLSU9SOZMTbQrz41Pn1Kg8JY_6c1o5Z6QnICOIgyaJHxZBDAlgD1Klhdc7sv4JQDjY5d8xjcDfiNfAEtg.mp4	131	.mp4	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+EdennCode/TestSuites/assets/smoke/videos/AQORySbLSU9SOZMTbQrz41Pn1Kg8JY_6c1o5Z6QnICOIgyaJHxZBDAlgD1Klhdc7sv4JQDjY5d8xjcDfiNfAEtg_thumbnail.webp	70984	.webp	EdennCode	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.webp)
+EdennCode/TestSuites/assets/smoke/videos/Videos2026-04-07_195857_387.mp4	132	.mp4	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+EdennCode/TestSuites/assets/smoke/videos/Videos2026-04-08_104426_347.mp4	132	.mp4	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+EdennCode/TestSuites/assets/smoke/videos/Videos2026-04-08_202746_494.mp4	132	.mp4	EdennCode		R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+EdennCode/TestSuites/cicd/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/cicd/requirements-test.txt	92	.txt	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/golden/video_generation_cases.json	6002	.json	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/helpers/__init__.py	1	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/helpers/integration.py	6778	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/helpers/paths.py	1376	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/helpers/remote_vocal_sample.py	2280	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/helpers/test_integration.py	6053	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/helpers/test_remote_vocal_sample.py	1352	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/latency/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/latency/prompts.py	218	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/latency/test_api_latency.py	11697	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/latency/test_pipeline_latency.py	15783	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/production/__init__.py	685	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/smoke/__init__.py	2319	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/suites.py	260	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/telemetry/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/telemetry/conftest.py	2327	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/telemetry/test_embeddings.py	2413	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/telemetry/test_hybrid_rrf.py	2213	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/telemetry/test_migrations.py	3509	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/telemetry/test_pipeline_schema.py	4308	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/telemetry/test_recommendation_embeddings.py	5398	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/telemetry/test_requests_schema.py	2781	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/telemetry/test_seed_pipeline.py	2617	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/telemetry/test_seed_requests.py	1395	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/test_music_prompt_safety.py	3281	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/test_music_provider_transient_resilience.py	15826	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/test_provider_b_music_provider.py	26477	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/test_provider_b_pg_lock_unit.py	25929	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/test_provider_b_single_key_concurrency_probe.py	5808	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/TestSuites/test_provider_c_key_pool.py	11923	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/MediaUtils/Testing/__init__.py	1	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/MediaUtils/Testing/test_ffmpeg_utils.py	31560	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/MediaUtils/Testing/test_video_compression.py	20096	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/MediaUtils/__init__.py	2055	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/MediaUtils/audio_tail.py	4201	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/MediaUtils/audio_watermark.py	4141	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/MediaUtils/ffmpeg_utils.py	88408	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/MediaUtils/image_utils.py	2030	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/MediaUtils/pipeline_util.py	6998	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/MediaUtils/sfx_timeline.py	8535	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/Util/blob_paths.py	866	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/AudioCreativeEditWorkflow/Stages/AudioCreativeGenerationStage/__init__.py	296	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/AudioCreativeEditWorkflow/Stages/AudioCreativeGenerationStage/audio_creative_generation_stage.py	15862	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/AudioCreativeEditWorkflow/Stages/CreativeEditPromptStage/__init__.py	261	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/AudioCreativeEditWorkflow/Stages/CreativeEditPromptStage/creative_edit_prompt_stage.py	3046	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/AudioCreativeEditWorkflow/Stages/VisualConditioningStage/__init__.py	260	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/AudioCreativeEditWorkflow/Stages/VisualConditioningStage/visual_conditioning_stage.py	13652	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/AudioCreativeEditWorkflow/Stages/__init__.py	864	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/AudioCreativeEditWorkflow/Testing/__init__.py	38	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/AudioCreativeEditWorkflow/Testing/test_audio_creative_edit_workflow.py	21209	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/AudioCreativeEditWorkflow/__init__.py	275	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/AudioCreativeEditWorkflow/audio_creative_edit_workflow.py	12624	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/ImageMusicGeneration/ImageGenerationWorkflow.py	504	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/ImageMusicGeneration/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/ImageMusicGeneration/image_generation_e2e_workflow.py	3955	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/ImageMusicGeneration/preprocesssor.py	533	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/ImageMusicGeneration/workflow.py	4321	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Stages/BeatAlignmentStage/__init__.py	226	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Stages/BeatAlignmentStage/beat_alignment_stage.py	6098	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Stages/ImageSequencePlanningStage/image_sequence_planning_stage.py	18380	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Stages/MultiImageE2EGenerationStage/__init__.py	339	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Stages/MultiImageE2EGenerationStage/multi_image_generation_e2e_stage.py	34232	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Stages/MusicGenerationStage/music_generation_stage.py	6379	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Stages/MusicMatchingStage/__init__.py	225	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Stages/MusicMatchingStage/music_matching_stage.py	2991	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Stages/PreprocessStage/preprocess_stage.py	2288	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Stages/SlideshowAssemblyStage/slideshow_assembly_stage.py	5378	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Stages/__init__.py	1890	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Testing/__init__.py	30	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Testing/test_beat_alignment_stage.py	2455	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Testing/test_full_song_sheet_expansion.py	3001	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Testing/test_image_sequence_planning_stage.py	8059	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Testing/test_multi_image_generation_e2e_stage.py	11071	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Testing/test_multi_image_workflow_e2e_remote_integration.py	10611	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Testing/test_multi_image_workflow_surface.py	3527	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Testing/test_music_generation_stage.py	4757	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Testing/test_preprocess_stage.py	2353	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/Testing/test_slideshow_assembly_stage.py	4767	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/MultiImageWorkflow/__init__.py	314	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/RecommendationWorkflow/Testing/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/RecommendationWorkflow/Testing/test_workflow.py	3232	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/RecommendationWorkflow/__init__.py	1601	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/RecommendationWorkflow/build_user_profile_stage.py	4261	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/RecommendationWorkflow/hydrate_stage.py	5062	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/RecommendationWorkflow/retrieve_candidates_stage.py	5671	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/RecommendationWorkflow/workflow.py	3128	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoAudioAlignmentWorkflow/Stages/AudioVideoAlignmentStage/__init__.py	326	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoAudioAlignmentWorkflow/Stages/AudioVideoAlignmentStage/alignment_window_scorer.py	8618	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoAudioAlignmentWorkflow/Stages/AudioVideoAlignmentStage/audio_video_alignment_stage.py	4529	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoAudioAlignmentWorkflow/Stages/AudioVideoAlignmentStage/audio_video_window_matcher.py	4380	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoAudioAlignmentWorkflow/Stages/__init__.py	323	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoAudioAlignmentWorkflow/Testing/run_alignment_ab_test.py	11813	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoAudioAlignmentWorkflow/Testing/run_e2e_ab_test.py	16607	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoAudioAlignmentWorkflow/Testing/test_audio_video_alignment.py	7598	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoAudioAlignmentWorkflow/Testing/test_run_e2e_ab_test.py	4487	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoAudioAlignmentWorkflow/__init__.py	289	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoAudioAlignmentWorkflow/video_audio_alignment_workflow.py	1910	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/ANNOTATION_PLAN.md	16061	.md	EdennCode		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+EdennCode/WorkflowFactory/VideoMusicWorkflow/PipelineDataModel/pipeline_datamodel.py	435	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/AssetMetadata/__init__.py	71	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/AssetMetadata/datamodel.py	208	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/AssetMetadata/video_metadata.py	5211	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicGenerationStage/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicGenerationStage/image_to_video_fast_script.py	1432	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicGenerationStage/music_generation_stage.py	65978	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicGenerationStage/music_generation_stage_callback.py	8081	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicGenerationStage/music_generation_stage_utils.py	5007	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/__init__.py	442	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/audio_window_renderer.py	1644	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/candidate_generator.py	2424	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/data_models.py	674	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/feature_flags.py	175	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/lyric_structure_extractor.py	2768	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/matching.py	3857	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/media_tools.py	1230	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/music_analyzer.py	2324	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/music_matching_stage.py	3864	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/video_event_extractor.py	4867	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/window_scorer.py	8309	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicMatchingStage/word_ts.py	201	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/MusicPromptOrchestrationStage/music_prompt_orchestration_stage.py	13990	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/SceneSegmentationStage/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/SceneSegmentationStage/datamodel.py	203	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/SceneSegmentationStage/scene_segmentation_stage.py	47012	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/UserIntentUnderstandingStage/user_intent_understanding_stage.py	4262	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/UserIntentUnderstandingStage/user_prompt_preprocessor.py	34570	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/VideoAudioRemixStage/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/VideoAudioRemixStage/video_audio_remix_stage.py	3181	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/VideoMusicGenerationE2E/video_music_generation_workflow.py	47891	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/VideoPreprocessStage/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/VideoPreprocessStage/media_preprocess_stage.py	4936	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/VideoUnderstandingStage/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/VideoUnderstandingStage/video_understanding_page.py	3879	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Stages/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/test_music_matching_alignment_metadata.py	2761	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/test_music_provider_routing.py	17367	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/test_scene_segmentation_stage_frame_extraction.py	5380	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/test_user_prompt_preprocessor_remote_integration.py	5393	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/test_video_music_workflow_e2e.py	135162	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/test_video_music_workflow_e2e_integration.py	39933	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/test_video_preprocess_stage.py	7229	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/test_vocal_intent_inference.py	6847	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/test_window_scorer.py	4897	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/video_music_e2e/__init__.py	33	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/video_music_e2e/test_edenn_flow_e2e_latency.py	11071	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/video_music_e2e/test_video_music_e2e_output_fields.py	54279	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoMusicWorkflow/run_video_music_workflow.py	16787	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/Stages/PreprocessStage/__init__.py	203	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/Stages/PreprocessStage/preprocess_stage.py	751	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/Stages/SoundEffectGenerationStage/__init__.py	282	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/Stages/SoundEffectGenerationStage/sound_effect_generation_stage.py	10035	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/Stages/TimingRefinementStage/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/Stages/TimingRefinementStage/timing_refinement_stage.py	8627	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/Stages/UserPromptUnderstandingStage/__init__.py	296	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/Stages/UserPromptUnderstandingStage/user_prompt_understanding_stage.py	2247	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/Stages/VideoEventAnalysisStage/__init__.py	337	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/Stages/VideoEventAnalysisStage/video_event_analysis_stage.py	14130	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/VideoSoundEffectDataModel/datamodel.py	11284	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/__init__.py	868	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/eval/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/eval/alignment_metrics.py	10472	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/eval/eval_runner.py	3981	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/examples/quick_sfx_remix_run.py	4581	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/examples/video_sfx_e2e_run.py	3717	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/examples/video_sfx_iterate_example.py	4014	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/planned_run.py	19319	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/proposers.py	9223	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/rendering.py	5065	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/sfx_project_editor.py	12595	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/_synthetic_media.py	3240	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/test_alignment_metrics.py	5434	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/test_hybrid_routes_and_proposers.py	10376	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/test_planned_run.py	16787	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/test_sfx_project_editor.py	8798	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/test_sfx_timeline_renderer.py	4735	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/test_sound_effect_generation_stage.py	2845	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/test_timing_refinement.py	3698	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/test_user_prompt_understanding_stage.py	1649	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/test_video_event_analysis_stage.py	2380	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/test_video_sfx_workflow_offline.py	6548	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/tests/test_video_to_sound_effect_prompt.py	1046	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoSoundEffectWorkflow/video_sound_effect_workflow.py	11224	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/BrandBriefStage/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/BrandBriefStage/brand_brief_stage.py	752	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/PreprocessStage/preprocess_stage.py	994	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/PreprocessStage/preprocess_stage_test.py	677	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/SceneDetectionStage/__init__.py	232	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/SceneDetectionStage/scene_detection_stage.py	7064	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/SemanticPlanningStage/__init__.py	246	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/SemanticPlanningStage/semantic_planning_stage.py	5601	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/TTSSynthesisStage/__init__.py	218	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/TTSSynthesisStage/tts_synthesis_stage.py	1784	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/VideoMergeStage/__init__.py	172	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/VideoMergeStage/video_merge_stage.py	3468	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/Stages/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/__init__.py	87	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/datamodel.py	3441	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/VideoVoiceOverWorkflow/voiceover_e2e_workflow.py	5217	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/WorkflowFactory/__init__.py	0	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/__init__.py	61	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/env.py	504	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/exceptions.py	10996	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+EdennCode/test_logging.py	2323	.py	EdennCode			KEEP	source, config or code-adjacent documentation
+Edenn_Recommendation_Agent_Documentation.docx	51604	.docx	Edenn_Recommendation_Agent_Documentation.docx		R2_MEDIA_AND_BINARY		binary/media by extension (.docx)
+Frontend/console/.env.example	699	.example	Frontend		R12_REWRITTEN_FROM_SCRATCH		environment-specific; authored fresh instead of edited
+Frontend/console/.gitignore	262	-	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/README.md	5419	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/app/developer/[slug]/page.jsx	1158	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/app/developer/page.jsx	1300	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/app/globals.css	32792	.css	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/app/layout.jsx	624	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/app/page.jsx	9443	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/01-overview.md	4453	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/02-quickstart.md	8502	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/03-authentication.md	3632	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/04-video-music.md	4230	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/05-image-music.md	5872	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/06-response.md	10314	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/07-jobs.md	2293	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/08-errors.md	3472	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/09-billing.md	4079	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/10-limits.md	2036	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/11-transitions.md	4447	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/content/docs/12-recharge.md	1380	.md	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/next.config.mjs	642	.mjs	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/package-lock.json	70590	.json	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/package.json	475	.json	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/scripts/gen-countries.mjs	4759	.mjs	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/scripts/pack-firebase-hosting.mjs	1720	.mjs	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/Admin.jsx	10546	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/CopyField.jsx	1660	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/Home.jsx	23649	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/Keys.jsx	12652	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/MockBar.jsx	4193	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/Modal.jsx	1447	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/PageHead.jsx	342	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/PhoneField.jsx	7482	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/SignIn.jsx	10337	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/SpendChart.jsx	7147	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/Usage.jsx	9875	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/docs/DocBody.jsx	2725	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/docs/DocsShell.jsx	2071	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/components/docs/Toc.jsx	2494	.jsx	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/data/countries.js	15889	.js	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/lib/api.js	4910	.js	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/lib/buckets.js	4705	.js	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/lib/docs.js	3365	.js	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/lib/firebase.js	8704	.js	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/lib/format.js	4677	.js	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/lib/resource.js	1232	.js	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/lib/version.js	728	.js	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/mock/backend.js	8977	.js	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/mock/fixtures.js	10677	.js	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/mock/index.js	4139	.js	Frontend			KEEP	source, config or code-adjacent documentation
+Frontend/console/src/mock/session.js	3457	.js	Frontend			KEEP	source, config or code-adjacent documentation
+StaticAssets/.gitkeep	0	-	StaticAssets		R10_THIRD_PARTY_OR_GENERATED		third-party media or generated run artifact
+StaticAssets/LocalAdsExample/.gitkeep	0	-	StaticAssets		R10_THIRD_PARTY_OR_GENERATED		third-party media or generated run artifact
+Untitled.ipynb	8308	.ipynb	Untitled.ipynb		R1_CREDENTIAL_BEARING		carries a live credential, customer key, signed URL or personal datum
+Untitled1.ipynb	81469	.ipynb	Untitled1.ipynb		R1_CREDENTIAL_BEARING		carries a live credential, customer key, signed URL or personal datum
+api_workdir/agentic_audio_mix/mix_ad4509d4f81f44c491fd4c219c425b97/voiceover.audio	962187	.audio	api_workdir	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.audio)
+api_workdir/agentic_audio_mix/mix_b590305cfac845c9b33edbb5654c6eaf/music.audio	10595838	.audio	api_workdir	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.audio)
+api_workdir/agentic_audio_mix/mix_b590305cfac845c9b33edbb5654c6eaf/voiceover.audio	962187	.audio	api_workdir	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.audio)
+conftest.py	1025	.py	conftest.py			KEEP	source, config or code-adjacent documentation
+deploy-cloud-shell.sh	3913	.sh	deploy-cloud-shell.sh		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+deploy-cn-v2-copy.sh	959	.sh	deploy-cn-v2-copy.sh		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+deploy-cn-v2.sh	958	.sh	deploy-cn-v2.sh		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+docker-compose.yml	501	.yml	docker-compose.yml		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+docs/agentic-audio-production-scenarios.md	14283	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/agentic_audio_capability_plan_2026-09-07.md	43078	.md	docs		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+docs/agentic_audio_change_review_guide.md	9482	.md	docs		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+docs/agentic_audio_design_improvement_program_2026-09-08.md	27716	.md	docs		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+docs/agentic_audio_field_guide_2026-09-04.html	58135	.html	docs		R7_INTERNAL_DOCS		internal plan, status, audit or operations document
+docs/agentic_audio_fix_plan_2026-08-30.md	20723	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/agentic_audio_live_audit_2026-08-30.md	29680	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/agentic_audio_master_mix_2026-08-16.html	975007	.html	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/agentic_audio_prod_readiness_2026-08-24.md	8690	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/agentic_audio_production_roadmap_2026-08-25.md	14703	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/agentic_audio_review_package_2026-08-16.html	2464147	.html	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/agentic_audio_status_2026-08-25.md	5252	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/api-authentication.md	5941	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/api-authentication.zh.md	13814	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/api-billing-reference.zh.md	31462	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/api-e2e-functionality-summary.md	42129	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/api-key-auth-usage.md	56036	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/api-reference-v2.docx	50881	.docx	docs		R2_MEDIA_AND_BINARY		binary/media by extension (.docx)
+docs/api-reference-v2.md	30322	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/api-v2-endpoints.zh.md	27437	.md	docs		R1_CREDENTIAL_BEARING		carries a live credential, customer key, signed URL or personal datum
+docs/api-v2-reference.html	40947	.html	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/api-video-music-generation.md	16722	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/async-v2-c4-architecture.md	37489	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/async-v2-container-app-topology.md	10417	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/async-v2-dedicated-media-d4-benchmark-2026-06-04.md	3969	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/async-v2-dev-canary-2026-06-01.md	3460	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/async-v2-same-hardware-comparison-2026-06-02.md	5677	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/async-v2-split-data-flow.md	24150	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/async-v2-split-latency-benchmark-2026-06-04.md	5664	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/billing-pg-migration.zh.md	9061	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/cicd-remaining-tasks.md	1991	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/console-internal-handoff.zh.md	22412	.md	docs		R1_CREDENTIAL_BEARING		carries a live credential, customer key, signed URL or personal datum
+docs/database-schema.zh.md	13577	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/db-connection-guide.zh.md	11334	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/demo/audio_studio_demo_with_sound_2026-08-18.mp4	133	.mp4	docs	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+docs/demo/audio_studio_full_coverage_demo_2026-08-18.mp4	132	.mp4	docs	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+docs/demo/edenn_console_walkthrough_2026-08-18.mp4	133	.mp4	docs	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+docs/demo/edenn_demo_sound_design_2026-08-19.mp4	132	.mp4	docs	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+docs/demo/edenn_demo_voiceover_spot_2026-08-19.mp4	132	.mp4	docs	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+docs/deployment.md	3954	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/e2e-capability-eval-newapp-2026-07-30.md	8273	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/error-code-coverage.md	2459	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/error-codes.md	7714	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/frontend-async-multi-image-api-examples.md	19470	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/frontend-async-video-music-api-examples.md	13199	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/frontend-async-video-music-api.md	27472	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/frontend-design-review-2026-08-04.md	3595	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/frontend-signup-page.zh.md	10163	.md	docs		R1_CREDENTIAL_BEARING		carries a live credential, customer key, signed URL or personal datum
+docs/frontend-video-checkpoint-api-examples.md	20178	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/lyrics-contract-rollout-2026-08-12.md	10034	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/multi-image-e2e-fix-plan.md	11461	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/multi-image-e2e-review-2026-07-18.md	16742	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/multi-image-transitions-v1+v2.md	10210	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/multi-image-transitions-v1+v2.zh.md	11303	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/multi-image-transitions.md	9577	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/multi-image-v2-api.html	75556	.html	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/perf-test-v1-v2.html	22013	.html	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/perf-test-v1-v2.md	14925	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/perf-test-v1-v2.zh.html	22171	.html	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/perf-test-v1-v2.zh.md	15206	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/persona_walkthrough_timeline_shell_2026-08-21.md	9060	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/provider_b-burst-control-plan.md	18232	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/provider_b-pg-advisory-lock-plan.md	29065	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/review_packages/2026-08-16-master-mix/master.mp4	132	.mp4	docs	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+docs/review_packages/2026-08-16-master-mix/review_package.html	975007	.html	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/review_packages/2026-08-16/cinematic.mp4	132	.mp4	docs	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+docs/review_packages/2026-08-16/review_package.html	2464147	.html	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/review_packages/2026-08-16/sfx.mp4	132	.mp4	docs	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+docs/review_packages/2026-08-16/source.mp4	132	.mp4	docs	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+docs/review_packages/2026-08-16/upbeat.mp4	132	.mp4	docs	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+docs/review_packages/2026-08-16/voiceover.mp4	132	.mp4	docs	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.mp4)
+docs/superpowers/plans/2026-04-26-telemetry-mvp.md	83804	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/plans/2026-07-17-api-key-auth-usage-tracking.md	111533	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/plans/2026-07-20-billing-wallet.md	28794	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/plans/2026-07-28-teaser-pricing-usd-wallet.md	51100	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/plans/2026-07-29-self-serve-signup-v0.md	55562	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/plans/2026-07-29-self-serve-signup.md	30330	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/plans/2026-07-31-HANDOFF-console-and-identity.md	13115	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/specs/2026-04-08-japan-container-latency-instrumentation-design.md	8047	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/specs/2026-04-26-telemetry-schema-design.md	54300	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/specs/2026-05-03-recommendation-endpoint-design.md	10109	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/specs/2026-07-16-api-key-auth-usage-tracking-design.md	15626	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/specs/2026-07-20-billing-wallet-design.md	15262	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/specs/2026-07-28-teaser-pricing-usd-wallet-design.md	7694	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/specs/2026-07-29-self-serve-signup-design.md	17634	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/specs/2026-07-30-console-and-identity-roadmap.md	8342	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/specs/2026-07-30-firebase-phone-signup-design.md	10939	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/specs/2026-07-31-billing-postgres-migration-design.md	20916	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/superpowers/specs/2026-07-31-console-design.md	13951	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/tts_landscape_2026-08-26.md	28688	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/v1-vs-v2-comparison.md	8245	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/v1-vs-v2-comparison.zh.md	8289	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/video-sfx-buyside-apis-2026-08-18.md	11883	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/video-sfx-capability-research-2026-08-04.md	25736	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/video-sfx-chat-walkthrough-2026-08-18.md	4986	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/video-sfx-hybrid-design.md	13081	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+docs/video-sfx-validation-plan.md	7705	.md	docs		R7_INTERNAL_DOCS		internal ops, business, handoff or audit document
+multi-image-frontend-guide.pdf	538193	.pdf	multi-image-frontend-guide.pdf		R2_MEDIA_AND_BINARY		binary/media by extension (.pdf)
+multi-image-v1-v2-benchmark.pdf	408008	.pdf	multi-image-v1-v2-benchmark.pdf		R2_MEDIA_AND_BINARY		binary/media by extension (.pdf)
+pytest.ini	665	.ini	pytest.ini			KEEP	source, config or code-adjacent documentation
+requirements.txt	749	.txt	requirements.txt			KEEP	source, config or code-adjacent documentation
+skills/recommend-music/SKILL.md	2841	.md	skills		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+skills/recommend-music/references/.gitkeep	280	-	skills		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+skills/recommend-music/scripts/.gitkeep	180	-	skills		R4_EDITOR_AND_AGENT_STATE		per-developer editor or assistant state
+slideshow_thumbnail.webp	709566	.webp	slideshow_thumbnail.webp	yes	R2_MEDIA_AND_BINARY		binary/media by extension (.webp)
+terraform/README.md	8764	.md	terraform			KEEP	source, config or code-adjacent documentation
+terraform/api-docs-japan.md	18548	.md	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/api-docs-japan.sh	19591	.sh	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east-newapp/backend.tf	226	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east-newapp/main.tf	4646	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east-newapp/outputs.tf	790	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east-newapp/providers.tf	77	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east-newapp/terraform.tfvars.example	1185	.example	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east-newapp/variables.tf	2402	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east-newapp/versions.tf	155	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east/.terraform.lock.hcl	1185	.hcl	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east/backend.tf	219	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east/main.tf	4616	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east/outputs.tf	790	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east/providers.tf	77	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east/terraform.tfvars.example	1209	.example	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east/variables.tf	2400	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/environments/japan-east/versions.tf	155	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/modules/container-app-env/main.tf	374	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/container-app-env/outputs.tf	284	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/container-app-env/variables.tf	538	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/container-app/main.tf	9162	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/container-app/outputs.tf	798	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/container-app/variables.tf	4713	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/key-vault/main.tf	1008	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/key-vault/outputs.tf	618	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/key-vault/variables.tf	739	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/log-analytics/main.tf	283	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/log-analytics/outputs.tf	508	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/log-analytics/variables.tf	744	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/model_gateway/main.tf	715	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/modules/model_gateway/outputs.tf	438	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/modules/model_gateway/variables.tf	958	.tf	terraform		R6_DEPLOY_SURFACE		maps live infrastructure; not needed for a reference copy
+terraform/modules/resource-group/main.tf	115	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/resource-group/outputs.tf	372	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/resource-group/variables.tf	351	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/storage/main.tf	602	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/storage/outputs.tf	687	.tf	terraform			KEEP	source, config or code-adjacent documentation
+terraform/modules/storage/variables.tf	545	.tf	terraform			KEEP	source, config or code-adjacent documentation
+test-results/local-json/pytest-20260506T064527Z.xml	65037	.xml	test-results		R10_THIRD_PARTY_OR_GENERATED		third-party media or generated run artifact
+test-results/local-json/pytest-remote-.xml	200680	.xml	test-results		R10_THIRD_PARTY_OR_GENERATED		third-party media or generated run artifact

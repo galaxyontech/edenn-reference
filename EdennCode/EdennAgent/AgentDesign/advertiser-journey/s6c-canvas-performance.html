@@ -1,0 +1,232 @@
+<!-- @dsCard group="B · Product screens (user view)" name="S6c · Canvas — generations + performance" subtitle="Rounds are generations: outcomes as node halos, the proposal as a dashed next generation" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>S6c — Canvas · generations + performance</title><style>
+/* Product-screen wireframe chrome — the app as the user sees it, gray-boxed. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #e9e9e9; color: #333; font: 12.5px/1.45 Helvetica, Arial, sans-serif; padding: 18px; }
+.cap { max-width: 1280px; margin: 0 auto 8px; color: #777; font-size: 11px; }
+.frame { width: 1280px; margin: 0 auto; background: #fff; border: 1.5px solid #b9b9b9; border-radius: 10px;
+         display: flex; min-height: 760px; overflow: hidden; }
+.side { width: 196px; border-right: 1px solid #ddd; padding: 14px 12px; background: #fafafa;
+        display: flex; flex-direction: column; gap: 4px; flex: none; }
+.side .logo { font-weight: 800; font-size: 14px; margin-bottom: 14px; }
+.side .nav { padding: 7px 10px; border-radius: 8px; color: #666; font-size: 12.5px; }
+.side .nav.on { background: #e8e8e8; color: #222; font-weight: 700; }
+.side .sect { font-size: 9px; text-transform: uppercase; letter-spacing: .07em; color: #aaa; margin: 10px 2px 2px; }
+.side .foot { margin-top: auto; color: #999; font-size: 11px; }
+.maincol { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.top { height: 46px; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 10px; padding: 0 16px; }
+.top b { font-size: 13px; }
+.top .spacer { flex: 1; }
+.stage { color: #999; font-size: 10.5px; }
+.stage b { color: #333; font-size: 10.5px; }
+.badge { border: 1px solid #ccc; border-radius: 999px; padding: 2px 9px; font-size: 10.5px; color: #666; background: #fafafa; }
+.tabs { display: flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden; font-size: 11px; }
+.tabs span { padding: 4px 11px; color: #888; }
+.tabs span.on { background: #333; color: #fff; font-weight: 700; }
+.content { flex: 1; display: flex; min-height: 0; }
+.work { flex: 1; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px; overflow: auto; min-width: 0; }
+.lbl { font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #aaa; margin-bottom: 6px; }
+.card { border: 1.5px solid #c9c9c9; border-radius: 10px; background: #fff; padding: 10px 12px; margin-top: 7px; }
+.card.fill { background: #f4f4f4; }
+.dash { border: 1.5px dashed #c9c9c9; border-radius: 8px; background: #f7f7f7; color: #999;
+        display: grid; place-items: center; text-align: center; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 2px 4px 2px 0; color: #444; }
+.chip.on { background: #333; color: #fff; border-color: #333; }
+.btn { display: inline-block; border: 1.5px solid #777; border-radius: 7px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; background: #fff; color: #333; }
+.btn.primary { background: #333; color: #fff; }
+.btn.zbtn { padding: 3px 9px; font-size: 11px; }
+.row { display: flex; gap: 10px; }
+.grow { flex: 1; }
+.kv { font-size: 11px; color: #777; }
+.kv b { color: #333; }
+.posrel { position: relative; }
+/* --- the lineage tree (mirrors canvas-mode.js anatomy, wireframe-gray) --- */
+.tree { position: relative; width: 900px; height: 460px; flex: none; }
+.tree svg { position: absolute; inset: 0; pointer-events: none; }
+.node { position: absolute; width: 210px; border: 1.5px dashed #9a9a9a; border-radius: 9px;
+        background: #fff; padding: 8px 10px; }
+.node .nname { font-size: 11.5px; font-weight: 700; color: #333; }
+.node .nmeta { font-size: 10px; color: #999; margin: 2px 0 5px; }
+.node .chip { font-size: 9.5px; padding: 1px 7px; margin: 1px 3px 1px 0; }
+.node.focus { border: 2px solid #333; }
+.node.focus::after { content: "focused"; position: absolute; top: -8px; right: 8px; background: #333;
+                     color: #fff; font-size: 8.5px; font-weight: 700; padding: 1px 6px; border-radius: 4px; }
+.node.ghost { border-color: #b5b5b5; background: #fbfbfb; color: #888; cursor: pointer; }
+.node.ghost .nname { color: #777; }
+.bandlbl { position: absolute; top: 0; left: 2px; font-size: 9px; font-weight: 700; letter-spacing: .07em;
+           text-transform: uppercase; color: #aaa; }
+.gen { position: absolute; }
+.gen2 { border: 1.5px dashed #b0b0b0; border-radius: 10px; background: #fdfdfd; }
+.ltag { position: absolute; border: 1.5px solid #333; border-radius: 4px; background: #fff;
+        font-size: 9px; font-weight: 700; color: #333; padding: 1px 6px; }
+.evrow { padding: 4px 8px; border-radius: 6px; }
+/* --- dock (mirrors buildDock: thumb · play · title/time · path · scrub · buttons) --- */
+.scrub { height: 8px; background: #eee; border: 1px solid #ccc; border-radius: 4px; margin-top: 5px; overflow: hidden; }
+.scrub i { display: block; height: 100%; width: 18%; background: #9a9a9a; }
+.playbtn { width: 34px; height: 34px; border: 1.5px solid #777; border-radius: 50%; background: #fff;
+           display: grid; place-items: center; font-size: 12px; color: #333; flex: none; }
+.notes { max-width: 1280px; margin: 10px auto 0; color: #2b6cb0; font-size: 11px; }
+.hl { background: #e3e3e3 !important; }
+</style></head>
+<body>
+<div class="cap">S6c · Canvas, live · day 4 — the same lineage tree from create, one generation later: outcomes painted on the nodes, the proposal as a dashed round 2</div>
+
+<div class="frame posrel">
+  <div class="side">
+    <div class="logo">✳ Edenn</div>
+    <div class="sect">Workspace</div>
+    <div class="nav on" data-go="s1-home.html" data-fx="Back to the campaign list — this campaign keeps running here.">▦ Campaigns</div>
+    <div class="nav" data-go="s2-library.html" data-fx="Opens the brand library — what this campaign learns feeds back into it.">▤ Library</div>
+    <div class="sect">Create</div>
+    <div class="nav" data-go="s3-brief.html" data-fx="Starts a fresh brief in a new session.">＋ New session</div>
+    <div class="nav" data-fx="Every thread you've had — this campaign's is one of them.">◫ My sessions</div>
+    <div class="foot">Ⓑ spring-beverage-co</div>
+  </div>
+
+  <div class="maincol">
+    <div class="top"><b>Launch week — spring line</b>
+      <span class="badge" data-fx="Day 4 of the flight — every number on this tree updates from the live outcome series.">LIVE · day 4</span>
+      <span class="stage">Brief › Roles › Create › Launch › <b>Live</b></span>
+      <span class="spacer"></span>
+      <div class="tabs"><span data-fx="The conversation view of this campaign.">Thread</span><span class="on" data-fx="You're here — the lineage tree with outcomes painted on the nodes; rounds are generations.">Canvas</span><span data-go="s6-console.html" data-fx="The console — the same numbers as tables, plus the proposal drawer.">Console</span></div>
+    </div>
+
+    <div class="content">
+      <div class="work">
+        <div class="row" style="align-items:center">
+          <span class="kv"><b>━</b> locked path&nbsp;&nbsp;<span style="color:#bbb">━</span> branches&nbsp;&nbsp;<span style="color:#999">┅</span> proposed&nbsp;&nbsp;· drag to pan · scroll to zoom</span>
+          <span class="grow"></span>
+          <span class="btn zbtn" data-fx="Zoom in — the tree scales around the cursor.">＋</span>
+          <span class="btn zbtn" data-fx="Zoom out.">−</span>
+          <span class="btn zbtn" data-fx="Fit — frames the whole tree, both generations.">⛶ fit</span>
+        </div>
+
+        <div class="tree" id="treeWrap" data-cap="built:canvas mode — pannable lineage tree of takes (agentic_audio frontend/js/canvas-mode.js)" data-fx="The lineage tree — drag to pan, scroll to zoom; every take is a node linked to its parent.">
+          <svg viewBox="0 0 900 460" width="900" height="460">
+            <path d="M226 258 C 282 258 282 77 332 77" fill="none" stroke="#333" stroke-width="2.5"/>
+            <path d="M226 258 C 282 258 282 227 332 227" fill="none" stroke="#bbb" stroke-width="1.5"/>
+            <path d="M226 258 C 282 258 282 377 332 377" fill="none" stroke="#ccc" stroke-width="1.5" opacity=".6"/>
+            <path d="M542 77 C 606 77 606 68 668 68" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <path d="M542 77 C 606 77 606 214 668 214" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <path d="M542 77 C 606 77 606 360 668 360" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="5 4"/>
+          </svg>
+
+          <span class="ltag" style="left:246px;top:158px" data-fx="The locked path — the selected chain from the source to the published take.">locked path</span>
+
+          <div class="node" id="nodeSrc" style="left:16px;top:219px" data-title="Source video" data-path="launch_footage" data-len="3:30" data-fx="The root — everything in this campaign descends from this source.">
+            <div class="nname">▶ launch_footage</div>
+            <div class="nmeta">source · 3:30</div>
+            <span class="chip" data-act="focusNode" data-fx="Focus this node — the dock retargets to it.">▶ focus</span>
+          </div>
+
+          <div class="gen" id="gen1" style="left:330px;top:16px;width:214px;height:434px" data-cap="partial:attribution engine exists — component-level readout is new">
+            <span class="bandlbl">Round 1 — live</span>
+            <div class="node focus" id="nodeA" style="left:2px;top:22px" data-title="A · hook-first (published)" data-path="launch_footage › hook-first › take 1 › published" data-len="0:15" data-fx="A — the published branch head; its live number sits on the node.">
+              <div class="nname">A · hook-first — take 1</div>
+              <div class="nmeta">15s · published · from 6 moments</div>
+              <span class="chip" data-act="nodeEvidence" data-target="#evA" data-fx="A's live number, painted on A's node — click to trace it to the outcome series.">2.9% CTR · pacing 40%</span>
+              <span class="chip" data-act="focusNode" data-fx="Focus this node — the dock retargets to it.">▶ focus</span>
+            </div>
+            <div class="node" id="nodeB" style="left:2px;top:172px" data-title="B · founder voice (published)" data-path="launch_footage › founder voice › take 1 › published" data-len="0:15" data-fx="B — the converting branch; the founder's voice owns it.">
+              <div class="nname">B · founder voice — take 1</div>
+              <div class="nmeta">15s · published · voice kept by role</div>
+              <span class="chip" data-act="nodeEvidence" data-target="#evB" data-fx="B's live number, painted on B's node — click to trace it to the outcome series.">CVR +18% · voice-led</span>
+              <span class="chip" data-act="focusNode" data-fx="Focus this node — the dock retargets to it.">▶ focus</span>
+            </div>
+            <div class="node" id="nodeC" style="left:2px;top:322px;opacity:.55" data-title="C · rephrased (retired)" data-path="launch_footage › rephrased › take 1 › retired" data-len="0:15" data-fx="C — an honest kill: it stays on the tree dimmed, its evidence kept.">
+              <div class="nname">C · rephrased — take 1</div>
+              <div class="nmeta">15s · retired · criteria hit</div>
+              <span class="chip" data-act="nodeEvidence" data-target="#evC" data-fx="C's final numbers — click to trace the kill to the outcome series.">killed day 4 · $150 · CVR 0.31%</span>
+              <span class="chip" data-act="focusNode" data-fx="Focus this node — the dock retargets to it.">▶ focus</span>
+            </div>
+          </div>
+
+          <div class="gen gen2" id="gen2" style="left:664px;top:16px;width:218px;height:430px" data-cap="new:Proposal object — approving it grows the tree a generation">
+            <span class="bandlbl" style="left:8px;top:6px">Round 2 — proposed</span>
+            <div class="node ghost" style="left:4px;top:22px" data-go="s6-console.html" data-fx="Approving the proposal makes this node real — the tree grows a generation.">
+              <div class="nname">A2 · champion remix</div>
+              <div class="nmeta">A's opening + B's voice</div>
+            </div>
+            <div class="node ghost" style="left:4px;top:168px" data-go="s6-console.html" data-fx="Approving the proposal makes this node real — the tree grows a generation.">
+              <div class="nname">B2 · new close</div>
+              <div class="nmeta">vary only the close</div>
+            </div>
+            <div class="node ghost" style="left:4px;top:314px" data-go="s6-console.html" data-fx="Approving the proposal makes this node real — the tree grows a generation.">
+              <div class="nname">C2 · new close (alt)</div>
+              <div class="nmeta">the alternate close</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card row" id="campStrip" style="align-items:center;margin-top:0">
+          <span class="lbl" style="margin:0">Outcome series</span>
+          <span class="kv evrow" id="evA" data-fx="The row behind A's halo — same outcome series as the console tables.">A · <b>2.9% CTR</b> · opening +21%</span>
+          <span class="kv evrow" id="evB" data-fx="The row behind B's halo — the founder voice owns conversion.">B · <b>CVR +18%</b> · voice-led</span>
+          <span class="kv evrow" id="evC" data-fx="The row behind C's halo — an honest kill keeps its evidence.">C · <b>killed day 4</b> · $150 · CVR 0.31%</span>
+          <span class="grow"></span>
+          <span class="btn primary" data-go="s6-console.html" data-fx="Back to the console — the drawer with evidence and typed actions, approvable one by one.">Open proposal in thread →</span>
+        </div>
+
+        <div class="card row" id="dock" style="align-items:center;margin-top:0" data-cap="built:dock player — focused take, lineage path, Use this / Branch (canvas-mode.js buildDock)">
+          <div class="dash" style="width:76px;height:52px;flex:none" data-fx="Thumbnail of the focused take — the frame under the playhead.">▶</div>
+          <span class="playbtn" data-fx="Plays the focused take right here — the source video slaved to its audio.">▶</span>
+          <div class="grow">
+            <div class="row" style="align-items:baseline"><b id="dockTitle" style="font-size:12px">A · hook-first (published)</b><span class="kv" id="dockTime" style="margin-left:auto">0:00 / 0:15</span></div>
+            <div class="kv" style="margin-top:2px" data-cap="built:lineage store (aul/lineage.py LineageRecorder)" data-fx="The take's lineage path — where it sits in the tree, from the source down."><span id="dockPath">launch_footage › hook-first › take 1 › published</span></div>
+            <div class="scrub" data-fx="Scrubber — click to seek the focused take."><i></i></div>
+          </div>
+          <span class="btn primary" data-fx="Watch the published cut — the dock plays it without leaving the tree.">▶ watch</span>
+          <span class="btn" data-fx="Manual branching stays available — but the proposal already compiled the winning branches for you.">⑂ Branch</span>
+          <span class="btn" data-fx="Downloads the published cut.">↓ Download</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="notes">Notes · interactive — ⚡ lists every click's effect · this is the REAL canvas anatomy (lineage tree + dock, canvas-mode.js) with the campaign painted on: variants are branch heads, rounds are generations, outcomes are halos on nodes · click a node's number to trace it to the outcome series · the proposal is a dashed next generation — approve it in the thread and the tree grows · ⚙ shows built vs new: the tree and dock run today; only the overlays are new.</div>
+
+<script>
+window.WIRE_PAGE = { title: "S6c · Canvas — generations + performance" };
+(function () {
+  "use strict";
+  function flash(el) {
+    if (!el) return;
+    el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    el.classList.add("wire-flash");
+    setTimeout(function () { el.classList.remove("wire-flash"); }, 1400);
+  }
+  window.WIRE_ACTS = {
+    /* Node halo → strip: light the outcome-series row this painted number comes from. */
+    nodeEvidence: function (el) {
+      var row = document.querySelector(el.getAttribute("data-target") || "");
+      if (!row) return;
+      var was = row.classList.contains("hl");
+      [].slice.call(document.querySelectorAll(".hl")).forEach(function (n) { n.classList.remove("hl"); });
+      if (was) return;
+      row.classList.add("hl");
+      flash(row);
+      WIRE.toast("Every number traces to the outcome series.");
+    },
+    /* ▶ focus — retarget the dock to this node (title, lineage path, time). */
+    focusNode: function (el) {
+      var node = el.closest(".node");
+      if (!node) return;
+      [].slice.call(document.querySelectorAll(".node.focus")).forEach(function (n) { n.classList.remove("focus"); });
+      node.classList.add("focus");
+      var t = node.getAttribute("data-title") || "—";
+      document.getElementById("dockTitle").textContent = t;
+      document.getElementById("dockPath").textContent = node.getAttribute("data-path") || "";
+      document.getElementById("dockTime").textContent = "0:00 / " + (node.getAttribute("data-len") || "0:15");
+      WIRE.toast("Focused — the dock now plays " + t + ".");
+    }
+  };
+})();
+</script>
+<script src="_wire.js"></script>
+</body>
+</html>

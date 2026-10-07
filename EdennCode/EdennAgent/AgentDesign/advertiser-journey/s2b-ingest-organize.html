@@ -1,0 +1,340 @@
+<!-- @dsCard group="B · Product screens (user view)" name="S2b · Ingest — organize by asking" subtitle="Upload a pile; the agent proposes the structure, chip by chip" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>S2b — Ingest &amp; organize</title><style>
+/* Product-screen wireframe chrome — the app as the user sees it, gray-boxed. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #e9e9e9; color: #333; font: 12.5px/1.45 Helvetica, Arial, sans-serif; padding: 18px; }
+.cap { max-width: 1280px; margin: 0 auto 8px; color: #777; font-size: 11px; }
+.frame { width: 1280px; margin: 0 auto; background: #fff; border: 1.5px solid #b9b9b9; border-radius: 10px;
+         display: flex; min-height: 760px; overflow: hidden; }
+.side { width: 196px; border-right: 1px solid #ddd; padding: 14px 12px; background: #fafafa;
+        display: flex; flex-direction: column; gap: 4px; flex: none; }
+.side .logo { font-weight: 800; font-size: 14px; margin-bottom: 14px; }
+.side .nav { padding: 7px 10px; border-radius: 8px; color: #666; font-size: 12.5px; }
+.side .nav.on { background: #e8e8e8; color: #222; font-weight: 700; }
+.side .sect { font-size: 9px; text-transform: uppercase; letter-spacing: .07em; color: #aaa; margin: 10px 2px 2px; }
+.side .foot { margin-top: auto; color: #999; font-size: 11px; }
+.maincol { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.top { height: 46px; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 10px; padding: 0 16px; }
+.top b { font-size: 13px; }
+.top .spacer { flex: 1; }
+.stage { color: #999; font-size: 10.5px; }
+.stage b { color: #333; font-size: 10.5px; }
+.badge { border: 1px solid #ccc; border-radius: 999px; padding: 2px 9px; font-size: 10.5px; color: #666; background: #fafafa; }
+.tabs { display: flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden; font-size: 11px; }
+.tabs span { padding: 4px 11px; color: #888; }
+.tabs span.on { background: #333; color: #fff; font-weight: 700; }
+.content { flex: 1; display: flex; min-height: 0; }
+.thread { flex: 1; padding: 18px 22px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.rail { width: 296px; border-left: 1px solid #ddd; padding: 14px; background: #fcfcfc; flex: none; }
+.rail .lbl, .lbl { font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #aaa; margin-bottom: 6px; }
+.u { align-self: flex-end; max-width: 62%; background: #333; color: #fff; border-radius: 13px 13px 4px 13px;
+     padding: 9px 13px; font-size: 12.5px; }
+.a { display: flex; gap: 9px; max-width: 78%; }
+.a .av { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid #bbb; flex: none;
+         display: grid; place-items: center; font-size: 11px; color: #888; }
+.a .who { font-size: 9px; font-weight: 700; letter-spacing: .06em; color: #aaa; margin-bottom: 3px; }
+.a .txt { font-size: 12.5px; color: #333; }
+.card { border: 1.5px solid #c9c9c9; border-radius: 10px; background: #fff; padding: 10px 12px; margin-top: 7px; }
+.card.fill { background: #f4f4f4; }
+.dash { border: 1.5px dashed #c9c9c9; border-radius: 8px; background: #f7f7f7; color: #999;
+        display: grid; place-items: center; text-align: center; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 2px 4px 2px 0; color: #444; }
+.chip.on { background: #333; color: #fff; border-color: #333; }
+.btn { display: inline-block; border: 1.5px solid #777; border-radius: 7px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; background: #fff; color: #333; }
+.btn.primary { background: #333; color: #fff; }
+.row { display: flex; gap: 10px; }
+.grow { flex: 1; }
+.kv { font-size: 11px; color: #777; }
+.kv b { color: #333; }
+table.t { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+table.t th { text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: .06em; color: #aaa;
+             border-bottom: 1px solid #e2e2e2; padding: 5px 7px; }
+table.t td { border-bottom: 1px solid #f0f0f0; padding: 6px 7px; }
+.strip { position: relative; height: 40px; background: #f1f1f1; border: 1px solid #d5d5d5; border-radius: 7px;
+         overflow: hidden; margin: 6px 0; }
+.strip i { position: absolute; top: 5px; bottom: 5px; border: 1px solid #8a8a8a; background: #e2e2e2; border-radius: 4px; }
+.strip i.bite { background: #cfcfcf; border-style: double; }
+.composer { border-top: 1px solid #ddd; padding: 10px 22px; display: flex; gap: 8px; align-items: center; }
+.composer .box { flex: 1; border: 1.5px solid #ccc; border-radius: 999px; padding: 8px 14px; color: #aaa; font-size: 12px; }
+.spark { height: 14px; width: 74px; border-bottom: 1px solid #bbb;
+         background: repeating-linear-gradient(90deg, transparent 0 5px, #ddd 5px 6px); }
+.overlay { position: absolute; inset: 0; background: rgba(40,40,40,.28); display: grid; place-items: center; }
+.modal { width: 380px; background: #fff; border: 1.5px solid #999; border-radius: 12px; padding: 16px 18px; }
+.posrel { position: relative; }
+.notes { max-width: 1280px; margin: 10px auto 0; color: #2b6cb0; font-size: 11px; }
+</style></head>
+<body>
+<div class="cap">S2b · Ingestion — the user uploads a pile; ORGANIZATION IS A CONVERSATION (ask-first applied to filing). No folder dialogs, ever.</div>
+
+<div class="frame">
+  <div class="side">
+    <div class="logo">✳ Edenn</div>
+    <div class="sect">Workspace</div>
+    <div class="nav" data-go="s1-home.html" data-fx="Back to the campaign home">▦ Campaigns</div>
+    <div class="nav on" data-fx="You're here — the Library, mid-ingest">▤ Library</div>
+    <div class="sect">Create</div>
+    <div class="nav" data-go="s3-brief.html" data-fx="Starts a fresh creation thread — the brief">＋ New session</div>
+    <div class="nav" data-fx="Lists your past creation threads">◫ My sessions</div>
+    <div class="foot">Ⓑ spring-beverage-co</div>
+  </div>
+
+  <div class="maincol">
+    <div class="top"><b>Library — adding 14 files</b><span class="badge" data-cap="built:ingest + understanding producers (aul/ingest.py)" data-fx="Analysis runs in the background — moments appear as they're found">analyzing 11/14…</span><span class="spacer"></span></div>
+    <div class="content">
+      <div class="thread" id="thread">
+        <div class="u">*drops 14 files*</div>
+
+        <div class="a"><div class="av">✳</div><div style="min-width:0; flex:1">
+          <div class="who">EDENN</div>
+          <div class="txt">Got them — analyzing while we sort. Here's how they group; correct me where I'm wrong:</div>
+
+          <div class="card" data-cap="built:ingest + understanding producers (aul/ingest.py)">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">Same shoot, same location — <span id="shootCount">8</span> clips</b>
+              <span class="kv">terrace bar, golden hour · consistent color</span>
+              <span class="spacer grow"></span>
+              <span class="chip on" id="shootChip" data-fx="The agent's proposal, accepted — rename or split to correct it">✓ collection "<span class="shootName">Spring shoot</span>"</span><span class="chip" data-act="renameShoot" data-fx="Rename the collection inline — every mention updates">rename</span><span class="chip" data-fx="Opens a split view to divide the 8 clips into two collections">split</span>
+            </div>
+            <div class="row" style="margin-top:6px">
+              <div class="dash grow" style="height:38px" data-fx="Opens the clip with its detected moments">clip_01</div><div class="dash grow" style="height:38px" data-fx="Opens the clip with its detected moments">clip_02</div>
+              <div class="dash grow" style="height:38px" data-fx="Five more clips — each opens with its detected moments">…</div><div class="dash grow" style="height:38px" data-fx="Opens the clip with its detected moments">clip_08</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px" id="adsTitle">Finished ads — 3 files</b>
+              <span class="kv" id="adsSub">burned-in captions + end cards detected</span>
+              <span class="spacer grow"></span>
+              <span id="adsChips"><span class="chip on" data-fx="Accepted — these 3 finished ads become comparison material">✓ "Published archive"</span><span class="chip" data-act="rawNotAds" data-fx="Corrects the guess — refiles the 3 ads as raw source footage">these are raw</span></span><span class="chip" data-more="#adsNote" data-fx="Expands why finished ads stay separate — comparison material, not footage to re-cut">why keep these? ▸</span>
+            </div>
+            <div class="kv" style="margin-top:4px; display:none" id="adsNote">These become COMPARISON material — I'll use their style and (if you connect the channel) their real performance as reference, not as footage to re-cut.</div>
+          </div>
+
+          <div class="card">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">2 tracks · 1 logo</b>
+              <span class="spacer grow"></span>
+              <span class="chip on" data-fx="Filed — both tracks land in Music">✓ Music</span><span class="chip on" data-fx="Filed — the logo lands in Brand kit">✓ Brand kit</span>
+            </div>
+          </div>
+
+          <div class="card fill" data-cap="partial:ask-first pattern from the creation resolver (creation/bundle.py) — collection filing is new">
+            <div class="lbl">One question</div>
+            <div class="txt">"IMG_2214.mp4" is vertical phone footage from a different day — is it part of the Spring shoot, or something else?</div>
+            <div id="qChips"><span class="chip" data-act="fileSpring" data-story data-fx="Files IMG_2214 into Spring shoot — counts update everywhere">Spring shoot</span><span class="chip" data-act="fileNew" data-fx="Names a new collection inline — IMG_2214 becomes its first asset">new collection…</span><span class="chip" data-act="fileUnsorted" data-fx="Files IMG_2214 as unsorted b-roll — sort it later from the Library">just b-roll, unsorted</span></div>
+          </div>
+
+          <div class="kv" style="margin-top:6px" data-cap="partial:idempotent ingest exists — byte-dedupe is new">Also: "final_v2.mp4" is byte-identical to "final.mp4" — kept one, skipped the copy.</div>
+        </div></div>
+      </div>
+
+      <div class="rail" data-cap="new:collections — agent-proposed organization">
+        <div class="lbl">Landing shape</div>
+        <div class="card" data-go="s2-library.html" data-fx="Opens the collection in the Library"><div class="kv"><b class="shootName">Spring shoot</b> · <span id="railShootCount">8</span> videos · analyzing</div></div>
+        <div class="card" data-fx="The comparison shelf — its ads power the '≈ relative' rows in creation"><div class="kv"><b>Published archive</b> · <span id="railArchiveCount">3 ads</span></div></div>
+        <div class="card" data-fx="Opens music and brand assets in the Library"><div class="kv"><b>Music</b> · 2 · <b>Brand kit</b> · 1</div></div>
+        <div class="card fill" id="railNote"><div class="kv">Collections are proposals, not prisons — anything can be re-referenced from any campaign with @.</div></div>
+      </div>
+    </div>
+    <div class="composer"><div class="box" data-fx="Type a correction in plain language — the agent refiles accordingly">Answer, rename, or just say "looks right"…</div><span class="btn" data-act="looksRight" data-fx="Accepts the proposed organization as-is — files the leftover as unsorted">↑</span></div>
+  </div>
+</div>
+
+<div class="notes">Notes · dedupe + shoot-detection are cheap wins from content hashing + analysis we already run · "Published archive" is the auxiliary-signal seed for S4 · the ONE question rule: batch the certain, ask only the ambiguous · interactive — ⚡ lists every click's effect.</div>
+
+<script>
+(function () {
+  "use strict";
+  var colName = "Spring shoot";
+  var springCount = 8;
+  var resolved = false;
+  var rawFlipped = false;
+
+  function $id(id) { return document.getElementById(id); }
+
+  function setCounts() {
+    $id("shootCount").textContent = springCount;
+    $id("railShootCount").textContent = springCount;
+  }
+
+  function setNames() {
+    var els = document.querySelectorAll(".shootName");
+    for (var i = 0; i < els.length; i++) els[i].textContent = colName;
+  }
+
+  function userSay(text) {
+    var u = document.createElement("div");
+    u.className = "u";
+    u.textContent = text;
+    $id("thread").appendChild(u);
+  }
+
+  /* Append an agent message; returns the body div so callers can add chips. */
+  function agentSay(text) {
+    var wrap = document.createElement("div");
+    wrap.className = "a";
+    var av = document.createElement("div");
+    av.className = "av";
+    av.textContent = "✳";
+    var body = document.createElement("div");
+    body.style.minWidth = "0";
+    body.style.flex = "1";
+    var who = document.createElement("div");
+    who.className = "who";
+    who.textContent = "EDENN";
+    var txt = document.createElement("div");
+    txt.className = "txt";
+    txt.textContent = text;
+    body.appendChild(who);
+    body.appendChild(txt);
+    wrap.appendChild(av);
+    wrap.appendChild(body);
+    $id("thread").appendChild(wrap);
+    return body;
+  }
+
+  function addRailCard(strong, rest) {
+    var card = document.createElement("div");
+    card.className = "card";
+    card.setAttribute("data-fx", "Lands in the Library — sort or reference it any time");
+    var kv = document.createElement("div");
+    kv.className = "kv";
+    var b = document.createElement("b");
+    b.textContent = strong;
+    kv.appendChild(b);
+    kv.appendChild(document.createTextNode(" · " + rest));
+    card.appendChild(kv);
+    var note = $id("railNote");
+    note.parentNode.insertBefore(card, note);
+  }
+
+  /* Shared resolve + continue flow: the question collapses to its answer,
+     the agent confirms, and "Open the Library →" becomes the story click. */
+  function resolveQ(label) {
+    resolved = true;
+    var chips = $id("qChips");
+    chips.innerHTML = "";
+    var c = document.createElement("span");
+    c.className = "chip on";
+    c.setAttribute("data-fx", "Resolved — IMG_2214 is filed; refile any time from the Library");
+    c.textContent = label;
+    chips.appendChild(c);
+    var body = agentSay("Filed. Everything's sorted — the Library is ready.");
+    var d = document.createElement("div");
+    d.style.marginTop = "6px";
+    var go = document.createElement("span");
+    go.className = "chip on";
+    go.id = "toLibrary";
+    go.setAttribute("data-go", "s2-library.html");
+    go.setAttribute("data-fx", "Opens the organized Library — collections, families, meaning-search");
+    go.textContent = "Open the Library →";
+    d.appendChild(go);
+    body.appendChild(d);
+    window.WIRE.story("#toLibrary");
+  }
+
+  window.WIRE_PAGE = { title: "S2b · Ingest — organize by asking" };
+
+  window.WIRE_ACTS = {
+
+    fileSpring: function () {
+      if (resolved) { window.WIRE.toast("Already sorted — open the Library when ready."); return; }
+      springCount += 1;
+      setCounts();
+      resolveQ("✓ IMG_2214 filed to " + colName + " — " + springCount + " clips");
+    },
+
+    fileNew: function () {
+      if (resolved) { window.WIRE.toast("Already sorted — open the Library when ready."); return; }
+      var chips = $id("qChips");
+      if (chips.querySelector("input")) return;
+      var saved = chips.innerHTML;
+      chips.innerHTML = "";
+      var inp = document.createElement("input");
+      inp.placeholder = "Name it, press Enter (Esc cancels)";
+      inp.style.cssText = "font:11px Helvetica,Arial,sans-serif;border:1.5px solid #999;border-radius:999px;padding:4px 12px;width:230px;outline:none;color:#333;background:#fff";
+      chips.appendChild(inp);
+      inp.focus();
+      inp.addEventListener("keydown", function (ev) {
+        if (ev.key === "Escape") { chips.innerHTML = saved; return; }
+        if (ev.key !== "Enter") return;
+        var v = inp.value.replace(/^\s+|\s+$/g, "") || "New collection";
+        addRailCard(v, "1 clip");
+        resolveQ("✓ IMG_2214 filed to \"" + v + "\" — new collection");
+      });
+    },
+
+    fileUnsorted: function () {
+      if (resolved) { window.WIRE.toast("Already sorted — open the Library when ready."); return; }
+      addRailCard("unsorted", "1 clip");
+      resolveQ("✓ IMG_2214 → unsorted b-roll");
+    },
+
+    looksRight: function () {
+      if (resolved) { window.WIRE.toast("Already sorted — open the Library when ready."); return; }
+      userSay("looks right");
+      addRailCard("unsorted", "1 clip");
+      resolveQ("✓ IMG_2214 → unsorted b-roll");
+    },
+
+    renameShoot: function () {
+      var chip = $id("shootChip");
+      if (chip.querySelector("input")) return;
+      var savedFx = chip.getAttribute("data-fx");
+      chip.removeAttribute("data-fx");
+      var old = colName;
+      chip.innerHTML = "";
+      var inp = document.createElement("input");
+      inp.value = old;
+      inp.style.cssText = "font:11px Helvetica,Arial,sans-serif;border:none;background:transparent;color:#fff;width:120px;outline:none";
+      chip.appendChild(inp);
+      inp.focus();
+      inp.select();
+      function commit(val) {
+        colName = val.replace(/^\s+|\s+$/g, "") || old;
+        chip.innerHTML = "";
+        chip.appendChild(document.createTextNode("✓ collection \""));
+        var s = document.createElement("span");
+        s.className = "shootName";
+        s.textContent = colName;
+        chip.appendChild(s);
+        chip.appendChild(document.createTextNode("\""));
+        if (savedFx) chip.setAttribute("data-fx", savedFx);
+        setNames();
+        if (colName !== old) window.WIRE.toast("Renamed — every mention of \"" + old + "\" now reads \"" + colName + "\".");
+      }
+      inp.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter") commit(inp.value);
+        if (ev.key === "Escape") commit(old);
+      });
+    },
+
+    rawNotAds: function () {
+      if (rawFlipped) { window.WIRE.toast("Already refiled — they're source footage now."); return; }
+      rawFlipped = true;
+      springCount += 3;
+      setCounts();
+      $id("adsTitle").textContent = "OK — raw footage, filed to " + colName + " (+3)";
+      $id("adsSub").textContent = "corrected — captions read as overlays, not burn-ins";
+      var chips = $id("adsChips");
+      chips.innerHTML = "";
+      var c = document.createElement("span");
+      c.className = "chip on";
+      c.setAttribute("data-fx", "Refiled — the 3 files now cut like any other footage");
+      c.textContent = "✓ moved to " + colName;
+      chips.appendChild(c);
+      $id("adsNote").textContent = "These now cut like any other footage — the comparison shelf stays empty until you publish something.";
+      $id("railArchiveCount").textContent = "0 ads";
+      agentSay("Noted — treating those as source footage, not comparison ads.");
+    }
+  };
+})();
+</script>
+<script src="_wire.js"></script>
+</body>
+</html>

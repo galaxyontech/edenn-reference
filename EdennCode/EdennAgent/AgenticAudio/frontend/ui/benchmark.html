@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio activity benchmark</title><link rel="stylesheet" href="../styles.css">
+<style>body{overflow:auto;padding:24px}main{max-width:560px;margin:auto}.history{height:220px;overflow:auto;margin:16px 0}.studio-message{margin:8px 0}pre{white-space:pre-wrap}button{padding:8px;border:1px solid var(--border-default);border-radius:8px}</style>
+<main><h1>Studio component diagnostic</h1><p>Local synthetic workload: 100 formatted messages, then 12 activity updates. This measures this browser only.</p><button id="run">Run benchmark</button><pre id="result" role="status">Ready</pre><div id="activity" class="cot"></div><div id="history" class="history"></div></main>
+<script src="../js/ai-elements.js"></script>
+<script>
+const button = document.querySelector('#run'), result = document.querySelector('#result');
+button.onclick = async () => {
+  button.disabled = true;
+  const history = document.querySelector('#history'), host = document.querySelector('#activity');
+  history.replaceChildren();
+  const started = performance.now();
+  for (let i=0;i<100;i++) {
+    const node = document.createElement('div'); history.append(node);
+    EdennElements.message(node, `Take **${i+1}** is ready.\n\n- Warm pads\n- Soft percussion`);
+  }
+  await new Promise(requestAnimationFrame);
+  const initialMs = performance.now()-started;
+  const measure = (duration, update) => new Promise(resolve => {
+    const frames=[], start=performance.now(); let previous=start, count=0;
+    const tick = now => {
+      frames.push(now-previous); previous=now;
+      if(update && now-start >= count*180 && count<12) update(count++);
+      if(now-start<duration) requestAnimationFrame(tick); else resolve(frames.slice(1));
+    }; requestAnimationFrame(tick);
+  });
+  const idle = await measure(1000);
+  const activity = {id:'benchmark-activity', label:'Working',open:true,outcome:'active',spinning:true,steps:[],expandedHistory:false,onToggle(){},onHistory(){}};
+  const animated = await measure(2300, i => {
+    activity.steps.forEach(step=>step.status='complete');
+    activity.steps.push({id:String(i),label:`Processing clip ${i+1}`,status:'active'});
+    activity.label=`Processing clip ${i+1}`;
+    EdennElements.activity(host,activity);
+  });
+  activity.outcome='complete';activity.spinning=false;activity.label='Complete';EdennElements.activity(host,activity);
+  const summary = frames => { const sorted=[...frames].sort((a,b)=>a-b);return {p95Ms:+sorted[Math.floor(sorted.length*.95)].toFixed(1),maxMs:+Math.max(...frames).toFixed(1),framesOver50ms:frames.filter(x=>x>50).length}; };
+  result.textContent = JSON.stringify({messages:100,activityUpdates:12,initialRenderMs:+initialMs.toFixed(1),idle:summary(idle),updates:summary(animated),visibleSteps:host.querySelectorAll('.cot__step:not([hidden])').length},null,2);
+  button.disabled=false;
+};
+</script></html>

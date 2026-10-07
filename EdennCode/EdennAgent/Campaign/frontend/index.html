@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Edenn — Campaigns</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" />
+<!-- The product design system, linked from the stable agentic_audio frontend
+     (./ds is a symlink) so there is exactly one source of truth for tokens,
+     chat, glass, canvas (cv-*) and control styles. campaign.css only ADDS
+     cp-* components; it never restyles design-system classes. -->
+<link rel="stylesheet" href="./ds/styles.css" />
+<link rel="stylesheet" href="./campaign.css" />
+</head>
+<body>
+
+<div class="cp-app">
+  <!-- Sidebar: same .side/.brand/.nav vocabulary as the stable entrance. -->
+  <aside class="side cp-side" id="cp-side">
+    <div class="brand">
+      <span class="brand__mark"><i class="ti ti-sparkles"></i></span>
+      <span class="brand__text"><span class="brand__name">Edenn</span><span class="brand__tag">campaigns</span></span>
+    </div>
+    <nav class="nav" id="cp-nav">
+      <div class="nav__group-label">Workspace</div>
+      <button class="nav__item" data-route="#/home"><i class="ti ti-layout-grid"></i><span>Campaigns</span></button>
+      <button class="nav__item" data-route="#/library"><i class="ti ti-library-photo"></i><span>Library</span></button>
+      <div class="nav__group-label">Create</div>
+      <button class="nav__item" data-route="#/campaign"><i class="ti ti-message-2"></i><span>Launch week</span></button>
+      <button class="nav__item" data-route="#/studio" title="The audio creation surface — entrance, chat, canvas"><i class="ti ti-music"></i><span>Audio studio</span></button>
+    </nav>
+    <div class="side__spacer"></div>
+    <div class="upsell">
+      <div class="upsell__title"><i class="ti ti-flask"></i> Dev mount</div>
+      <div class="upsell__body">Real engines behind every click — local renders, sandbox channel, zero spend.</div>
+    </div>
+    <button class="account"><span class="account__avatar">S</span><span class="account__name">spring-beverage-co</span></button>
+  </aside>
+
+  <!-- Main region: the router renders exactly one screen into #cp-main. -->
+  <main class="cp-main" id="cp-main"></main>
+
+  <!-- Audio studio SECTION (owner: the studio IS part of campaign
+       management). The stable agentic_audio surface embedded persistently —
+       a same-origin frame that survives route changes so a session in
+       progress is never lost when flipping to Campaigns/Library. The
+       studio's own app-sidebar is suppressed on load (one shell, one nav);
+       everything else about the stable surface is untouched. -->
+  <section class="cp-main cp-studio" id="cp-studio" hidden>
+    <div class="topbar">
+      <span class="topbar__logo"><i class="ti ti-music"></i></span>
+      <div><div class="topbar__title">Audio studio</div></div>
+      <span class="spacer"></span>
+      <span class="conn mock">Stable surface — embedded · own mock backend</span>
+    </div>
+    <iframe id="cp-studio-frame" data-src="/studio/" title="Edenn agentic audio"></iframe>
+  </section>
+  <script>
+    (function () {
+      const frame = document.getElementById("cp-studio-frame");
+      frame.addEventListener("load", function () {
+        try {
+          const doc = frame.contentDocument;
+          if (!doc || !doc.head) return;
+          const style = doc.createElement("style");
+          style.textContent = ".entrance .side { display: none; }";
+          doc.head.appendChild(style);
+        } catch (e) { /* same-origin expected; degrade to full studio chrome */ }
+      });
+    })();
+  </script>
+</div>
+
+<!-- Spend-approval confirm — the design system's consent pattern, verbatim. -->
+<div class="overlay" id="confirm-overlay" hidden>
+  <div class="confirm-card" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
+    <h3 id="confirm-title">Confirm?</h3>
+    <p id="confirm-body"></p>
+    <div class="confirm-card__row">
+      <button class="btn-ghost" id="confirm-cancel" type="button">Cancel</button>
+      <button class="btn-primary" id="confirm-ok" type="button">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="./js/store.js"></script>
+<script src="./js/components.js"></script>
+<script src="./js/screens/home.js"></script>
+<script src="./js/screens/library.js"></script>
+<script src="./js/screens/thread.js"></script>
+<script src="./js/screens/canvas.js"></script>
+<script src="./js/screens/launch.js"></script>
+<script src="./js/screens/console.js"></script>
+<script src="./js/router.js"></script>
+</body>
+</html>

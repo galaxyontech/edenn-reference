@@ -1,0 +1,98 @@
+<!-- @dsCard group="A · Flow map (high-level)" name="W2 · Understanding review" subtitle="What we learned, shown back for correction — the trust gate" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>W2 — Understanding review</title><style>
+/* Shared wireframe language — deliberately low-fi. Structure, not visuals. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #fff; color: #3a3a3a; font: 13px/1.45 Helvetica, Arial, sans-serif; padding: 24px 28px; }
+h1 { font-size: 15px; font-weight: 700; letter-spacing: .02em; }
+.sub { color: #8a8a8a; font-size: 11.5px; margin: 3px 0 16px; }
+.wire { border: 1.5px solid #c9c9c9; border-radius: 8px; background: #fff; padding: 12px 14px; }
+.fill { background: #f2f2f2; }
+.dash { border-style: dashed; color: #9a9a9a; display: grid; place-items: center; text-align: center; }
+.lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 6px; }
+.row { display: flex; gap: 12px; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.grow { flex: 1; }
+.btn { display: inline-block; border: 1.5px solid #7a7a7a; border-radius: 6px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; color: #3a3a3a; background: #fff; }
+.btn.primary { background: #3a3a3a; color: #fff; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 0 4px 4px 0; }
+.note { position: relative; display: inline-flex; align-items: center; gap: 6px; color: #2b6cb0; font-size: 10.5px; }
+.note b { display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%;
+          border: 1.5px solid #2b6cb0; font-size: 9.5px; flex: none; }
+.legend { margin-top: 14px; border-top: 1px dashed #d5d5d5; padding-top: 10px; color: #2b6cb0; font-size: 10.5px; }
+.legend div { margin-bottom: 3px; }
+.arrow { color: #9a9a9a; font-size: 15px; align-self: center; }
+.kv { font-size: 11px; color: #6a6a6a; }
+.kv b { color: #3a3a3a; }
+table.wt { width: 100%; border-collapse: collapse; font-size: 11px; }
+table.wt th { text-align: left; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em;
+              color: #9a9a9a; border-bottom: 1px solid #d9d9d9; padding: 4px 6px; }
+table.wt td { border-bottom: 1px solid #efefef; padding: 5px 6px; }
+.spark { height: 16px; border-bottom: 1px solid #c9c9c9; background:
+         repeating-linear-gradient(90deg, transparent 0 6px, #e3e3e3 6px 7px); }
+.gate { border: 1.5px solid #7a7a7a; border-radius: 8px; background: #fafafa; padding: 10px 12px; }
+.gate .lbl { color: #3a3a3a; }
+</style></head>
+<body>
+<h1>W2 · Understanding review — "here's what we see in your brand"</h1>
+<div class="sub">The library after analysis. The advertiser corrects us BEFORE anything is planned — grounding is visible, not claimed.</div>
+
+<div class="row">
+  <div class="col" style="flex:1.5">
+    <div class="wire">
+      <div class="lbl">Library board (existing design, abbreviated)</div>
+      <div class="row">
+        <div class="wire dash grow" style="height:64px">source video<br><span class="kv">30 scenes · speech found</span></div>
+        <div class="wire dash grow" style="height:64px">source video<br><span class="kv">22 scenes · no speech</span></div>
+        <div class="wire dash grow" style="height:64px">track<br><span class="kv">118bpm</span></div>
+        <div class="wire dash grow" style="height:64px">stills ×8</div>
+      </div>
+    </div>
+    <div class="wire">
+      <div class="lbl">One asset expanded — moments we'd reach for</div>
+      <div class="row">
+        <div class="wire dash grow" style="height:46px">"product close-up"<br><span class="kv">0:14 · 3.9s</span></div>
+        <div class="wire dash grow" style="height:46px">"announcer pitch"<br><span class="kv">0:24 · 8.7s · speech</span></div>
+        <div class="wire dash grow" style="height:46px">"family scene"<br><span class="kv">2:59 · 2.9s</span></div>
+      </div>
+      <div style="margin-top:8px">
+        <span class="chip">✎ rename</span><span class="chip">★ hero moment</span><span class="chip">⊘ never use</span>
+      </div>
+      <div style="margin-top:6px" class="note"><b>1</b> corrections write back as annotations; ⊘ becomes a standing EXCLUDE role</div>
+    </div>
+  </div>
+
+  <div class="col grow">
+    <div class="wire">
+      <div class="lbl">Readiness checklist</div>
+      <table class="wt">
+        <tr><td>Assets analyzed</td><td><b>12 / 12 ✓</b></td></tr>
+        <tr><td>Speech transcribed</td><td><b>2 sources ✓</b></td></tr>
+        <tr><td>Music beat-mapped</td><td><b>1 track ✓</b></td></tr>
+        <tr><td>Brand kit</td><td>logo ✓ · claims ✓</td></tr>
+        <tr><td>Channel</td><td>TikTok <b>connected</b></td></tr>
+      </table>
+    </div>
+    <div class="wire fill">
+      <div class="lbl">Agent says (creative director hat)</div>
+      <div class="kv">"Strong announcer material and 3 hero-grade product moments.
+      Weak spot: no vertical b-roll — I'll crop, or you can add some."</div>
+      <div style="margin-top:6px" class="note"><b>2</b> honest gaps surfaced here, not discovered mid-campaign</div>
+    </div>
+    <div class="gate">
+      <div class="lbl">Exit</div>
+      <span class="btn primary">Start a campaign →</span>
+      <div class="kv" style="margin-top:6px">(returns here anytime; library is standing)</div>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <div><b>Backed by:</b> library service (board/detail/moments — built); corrections = new annotation producer (small gap).</div>
+  <div><b>Design rule:</b> nothing on this screen costs money; it exists to earn the right to plan.</div>
+</div>
+</body>
+</html>

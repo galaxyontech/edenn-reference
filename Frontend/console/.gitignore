@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+deploy/
+firebase.json
+.firebaserc
+.env.local
+.env*.local
+
+# The repo root ignores *.json wholesale. These two are the build's manifest and
+# its lockfile — without them nobody can install the console.
+!package.json
+!package-lock.json

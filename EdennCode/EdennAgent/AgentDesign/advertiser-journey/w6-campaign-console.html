@@ -1,0 +1,89 @@
+<!-- @dsCard group="A · Flow map (high-level)" name="W6 · Campaign console" subtitle="Live monitoring: variants, components, the agent's feed" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>W6 — Campaign console</title><style>
+/* Shared wireframe language — deliberately low-fi. Structure, not visuals. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #fff; color: #3a3a3a; font: 13px/1.45 Helvetica, Arial, sans-serif; padding: 24px 28px; }
+h1 { font-size: 15px; font-weight: 700; letter-spacing: .02em; }
+.sub { color: #8a8a8a; font-size: 11.5px; margin: 3px 0 16px; }
+.wire { border: 1.5px solid #c9c9c9; border-radius: 8px; background: #fff; padding: 12px 14px; }
+.fill { background: #f2f2f2; }
+.dash { border-style: dashed; color: #9a9a9a; display: grid; place-items: center; text-align: center; }
+.lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 6px; }
+.row { display: flex; gap: 12px; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.grow { flex: 1; }
+.btn { display: inline-block; border: 1.5px solid #7a7a7a; border-radius: 6px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; color: #3a3a3a; background: #fff; }
+.btn.primary { background: #3a3a3a; color: #fff; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 0 4px 4px 0; }
+.note { position: relative; display: inline-flex; align-items: center; gap: 6px; color: #2b6cb0; font-size: 10.5px; }
+.note b { display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%;
+          border: 1.5px solid #2b6cb0; font-size: 9.5px; flex: none; }
+.legend { margin-top: 14px; border-top: 1px dashed #d5d5d5; padding-top: 10px; color: #2b6cb0; font-size: 10.5px; }
+.legend div { margin-bottom: 3px; }
+.arrow { color: #9a9a9a; font-size: 15px; align-self: center; }
+.kv { font-size: 11px; color: #6a6a6a; }
+.kv b { color: #3a3a3a; }
+table.wt { width: 100%; border-collapse: collapse; font-size: 11px; }
+table.wt th { text-align: left; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em;
+              color: #9a9a9a; border-bottom: 1px solid #d9d9d9; padding: 4px 6px; }
+table.wt td { border-bottom: 1px solid #efefef; padding: 5px 6px; }
+.spark { height: 16px; border-bottom: 1px solid #c9c9c9; background:
+         repeating-linear-gradient(90deg, transparent 0 6px, #e3e3e3 6px 7px); }
+.gate { border: 1.5px solid #7a7a7a; border-radius: 8px; background: #fafafa; padding: 10px 12px; }
+.gate .lbl { color: #3a3a3a; }
+</style></head>
+<body>
+<h1>W6 · Campaign console — the market agent on duty</h1>
+<div class="sub">Day 4 of 14. Left: what's live. Right: the agent's running commentary — observations, not vibes; every claim traces to data.</div>
+
+<div class="row">
+  <div class="col" style="flex:1.6">
+    <div class="wire">
+      <div class="lbl">Variants live · day 4 · $438 spent of $1,500</div>
+      <table class="wt">
+        <tr><th>Variant</th><th>Impr</th><th>CTR</th><th>CVR</th><th>Trend</th><th>State</th></tr>
+        <tr><td>A · hook-first</td><td>212k</td><td><b>2.6% ▲</b></td><td>0.71%</td><td><div class="spark"></div></td><td>LEADING</td></tr>
+        <tr><td>B · original voice</td><td>171k</td><td>2.1%</td><td><b>0.84% ▲</b></td><td><div class="spark"></div></td><td>converting</td></tr>
+        <tr><td>C · rephrased</td><td>168k</td><td>1.8% ▼</td><td>0.62%</td><td><div class="spark"></div></td><td>fading</td></tr>
+      </table>
+    </div>
+    <div class="row">
+      <div class="wire grow">
+        <div class="lbl">Which opening carries the click?</div>
+        <div class="kv">product close-up (A) <b>+21%</b> ▮▮▮▮▮▮▮▮</div>
+        <div class="kv">announcer open (B) +4% ▮▮▮▮▮</div>
+        <div class="kv">rephrase open (C) −9% ▮▮▮</div>
+      </div>
+      <div class="wire grow">
+        <div class="lbl">Sound that converts</div>
+        <div class="kv">original voice (B) <b>CVR +18%</b> ▮▮▮▮▮▮▮</div>
+        <div class="kv">house voice (C) −5% ▮▮▮▮</div>
+        <div style="margin-top:4px" class="note"><b>1</b> component attribution over lineage edges — built</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col grow">
+    <div class="wire" style="min-height:210px">
+      <div class="lbl">Agent feed (market agent hat)</div>
+      <div class="kv" style="margin-bottom:6px"><b>day 2</b> · pacing nominal; no signal yet, holding.</div>
+      <div class="kv" style="margin-bottom:6px"><b>day 3</b> · A's product-close-up open outperforming both alternatives (+21% CTR). Reallocated 10% from C → A <span class="chip" style="font-size:10px">autonomous · logged</span></div>
+      <div class="kv" style="margin-bottom:6px"><b>day 4</b> · C fading toward kill criteria ($150 spend, CVR 0.62%). B converts best on sound. <b>Proposal drafted →</b></div>
+    </div>
+    <div class="wire fill row" style="align-items:center">
+      <div class="kv grow"><b>1 proposal waiting</b> — iterate creatives + retire C</div>
+      <span class="btn primary">Review →</span>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <div><b>Backed by:</b> collect_outcomes (dedup'd) + AttributionEngine + performance read-model — built; agent feed = new narration layer over them.</div>
+  <div><b>Design rule:</b> the console never has a raw "edit campaign" form — changes happen through the agent, as proposals or logged autonomous acts.</div>
+</div>
+</body>
+</html>

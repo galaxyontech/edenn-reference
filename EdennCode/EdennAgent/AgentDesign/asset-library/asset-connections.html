@@ -1,0 +1,148 @@
+<!-- @dsCard group="Screens" name="Asset — how it connects" subtitle="One asset selected: family, companions, similar" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Edenn — Asset connections</title>
+<style>
+  :root { --bg:#f6f4ee; --panel:#fff; --ink:#191919; --muted:#8c8779; --line:#e7e3d9;
+          --accent:#4a3ab8; --accent-soft:#edeafc; --gen:#1d8a6b; --gen-soft:#e6f2ec; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font:14px/1.45 -apple-system,"Segoe UI",sans-serif;
+         padding:26px 34px; }
+  .crumbs { color:var(--muted); font-size:12.5px; margin-bottom:16px; }
+  .crumbs b { color:var(--ink); }
+
+  .layout { display:grid; grid-template-columns:390px 1fr; gap:20px; max-width:1160px; }
+
+  /* hero: the selected asset */
+  .hero { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden;
+          height:fit-content; }
+  .hero .cover { aspect-ratio:16/10; background:linear-gradient(160deg,#31405e 40%,#c96a35 75%,#e8d9c4);
+                 position:relative; }
+  .hero .cover .play { position:absolute; inset:0; display:grid; place-items:center; }
+  .hero .cover .play i { width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.92);
+                         display:grid; place-items:center; font-size:18px; font-style:normal; padding-left:4px; }
+  .hero .body { padding:16px 18px; }
+  .hero h1 { font-size:16px; font-weight:650; }
+  .hero .facts { color:var(--muted); font-size:12.5px; margin:4px 0 10px; }
+  .hero p { font-size:13px; color:#4c4738; }
+  .tags { margin-top:10px; }
+  .tag { display:inline-block; background:#f2f0e8; border-radius:7px; padding:3px 9px; font-size:11.5px;
+         color:#5a5648; margin:0 5px 5px 0; }
+  .actions { display:flex; gap:8px; padding:0 18px 16px; }
+  .btn { border:1px solid var(--line); background:#faf9f5; border-radius:10px; padding:8px 14px;
+         font-size:12.5px; font-weight:600; cursor:pointer; }
+  .btn.primary { background:var(--ink); color:#fff; border-color:var(--ink); }
+
+  /* connection sections */
+  .connections { display:flex; flex-direction:column; gap:16px; }
+  .section { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .section > h2 { font-size:13.5px; font-weight:650; margin-bottom:2px; }
+  .section > .why { color:var(--muted); font-size:12px; margin-bottom:12px; }
+
+  /* family strip: source -> outputs */
+  .family { display:flex; align-items:center; gap:0; }
+  .fam { text-align:center; }
+  .fam .th { width:96px; aspect-ratio:9/13; border-radius:10px; margin:0 auto; position:relative; }
+  .fam.src .th { width:120px; aspect-ratio:16/10; outline:2.5px solid var(--accent);
+                 outline-offset:2px; }
+  .fam b { display:block; font-size:11.5px; font-weight:600; margin-top:7px; }
+  .fam span { font-size:10.5px; color:var(--muted); }
+  .arrow { flex:0 0 44px; text-align:center; color:#c2bcac; font-size:16px; position:relative; top:-12px; }
+  .arrow em { display:block; font-style:normal; font-size:9.5px; color:var(--muted); margin-top:2px; }
+  .th.t1 { background:linear-gradient(160deg,#c96a35,#31405e); }
+  .th.t2 { background:linear-gradient(160deg,#8fa0bd,#31405e 70%); }
+  .th.t3 { background:linear-gradient(160deg,#22304a,#6f8fc9); }
+  .th .mark { position:absolute; top:5px; left:5px; font-size:9px; font-weight:800; padding:1px 5px;
+              border-radius:4px; background:var(--gen-soft); color:var(--gen); }
+
+  /* companion + similar rows */
+  .row { display:flex; gap:12px; }
+  .mini-card { flex:1; display:flex; gap:10px; align-items:center; border:1px solid var(--line);
+               border-radius:12px; padding:9px 11px; cursor:pointer; }
+  .mini-card:hover { border-color:var(--accent); }
+  .mini-card .th { width:56px; height:36px; border-radius:7px; flex:none; }
+  .mini-card b { font-size:12.5px; display:block; }
+  .mini-card span { font-size:11px; color:var(--muted); }
+  .th.audio { background:repeating-linear-gradient(90deg,#4a3ab8 0 3px,#e6e2f8 3px 8px); }
+  .th.vo { background:repeating-linear-gradient(90deg,#b8543a 0 3px,#f5e4df 3px 8px); }
+  .th.still { background:linear-gradient(160deg,#e3d5bd,#b09a72); }
+  .th.crowd { background:linear-gradient(160deg,#3c4a68,#8fa0bd); }
+  .th.earth { background:radial-gradient(circle at 65% 30%, #6f8fc9 20%, #22304a 70%); }
+  .th.park { background:linear-gradient(160deg,#274232,#7fae8d 80%); }
+
+  .moments { display:flex; gap:8px; }
+  .moment { flex:1; border-radius:10px; aspect-ratio:16/9; position:relative; cursor:pointer; }
+  .moment:hover { outline:2px solid var(--accent); outline-offset:2px; }
+  .moment small { position:absolute; left:7px; bottom:6px; color:#fff; font-size:10px;
+                  text-shadow:0 1px 3px rgba(0,0,0,.6); }
+  .m1 { background:linear-gradient(160deg,#31405e,#22304a); }
+  .m2 { background:linear-gradient(160deg,#c96a35,#8e4520); }
+  .m3 { background:linear-gradient(160deg,#8fa0bd,#5e708e); }
+  .m4 { background:radial-gradient(circle at 60% 35%,#6f8fc9 25%,#22304a); }
+  .m5 { background:linear-gradient(160deg,#dfe6f2,#aebedb); }
+</style>
+</head>
+<body>
+
+<div class="crumbs">Library / Artemis launch / <b>Launch day master</b></div>
+
+<div class="layout">
+  <div>
+    <div class="hero">
+      <div class="cover"><div class="play"><i>▶</i></div></div>
+      <div class="body">
+        <h1>Launch day master</h1>
+        <div class="facts">Video · 14:00 · added by Maya · used in 3 pieces</div>
+        <p>Crewed launch coverage: crowds before dawn, suit-up and walkout, ignition and ascent, Earth views. Commentary throughout.</p>
+        <div class="tags"><span class="tag">launch</span><span class="tag">crew</span><span class="tag">crowds</span><span class="tag">rocket</span><span class="tag">Earth</span><span class="tag">has voice-over</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn primary">Make something from this</button>
+        <button class="btn">@ Mention in chat</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="connections">
+    <div class="section">
+      <h2>Made from this</h2>
+      <div class="why">Three shorts were cut from this footage — none of them reuse the same moment.</div>
+      <div class="family">
+        <div class="fam src"><div class="th" style="background:linear-gradient(160deg,#31405e 40%,#c96a35 75%,#e8d9c4)"></div><b>Launch day master</b><span>source · 14:00</span></div>
+        <div class="arrow">→<em>cut&nbsp;+&nbsp;score</em></div>
+        <div class="fam"><div class="th t1"><span class="mark">✦</span></div><b>Launch reel</b><span>0:32 · own track</span></div>
+        <div class="arrow">→<em>cut&nbsp;+&nbsp;voices</em></div>
+        <div class="fam"><div class="th t2"><span class="mark">✦</span></div><b>Mission recap</b><span>0:34 · NASA voices kept</span></div>
+        <div class="arrow">→<em>cut</em></div>
+        <div class="fam"><div class="th t3"><span class="mark">✦</span></div><b>Earth, quiet</b><span>0:26</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Appears together</h2>
+      <div class="why">Assets that show up in the same pieces as this one.</div>
+      <div class="row">
+        <div class="mini-card"><div class="th audio"></div><div><b>Trailer track</b><span>scores “Launch reel”</span></div></div>
+        <div class="mini-card"><div class="th vo"></div><div><b>Recap narration</b><span>voices “Mission recap”</span></div></div>
+        <div class="mini-card"><div class="th still"></div><div><b>Crew portrait</b><span>photo insert, drafts</span></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Moments teams keep using</h2>
+      <div class="why">The most-referenced stretches of this footage — tap to preview or @-mention one.</div>
+      <div class="moments">
+        <div class="moment m1"><small>walkout · 0:10</small></div>
+        <div class="moment m2"><small>ignition · 0:06</small></div>
+        <div class="moment m3"><small>crowd reacts · 0:05</small></div>
+        <div class="moment m4"><small>Earth from Orion · 0:08</small></div>
+        <div class="moment m5"><small>ascent cam · 0:04</small></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

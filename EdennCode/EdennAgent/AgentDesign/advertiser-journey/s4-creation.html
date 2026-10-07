@@ -1,0 +1,397 @@
+<!-- @dsCard group="B · Product screens (user view)" name="S4 · Variants — create ⇄ publish" subtitle="Grounding visible, published relatives as signal, publish one panel away" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>S4 — Variants workspace</title><style>
+/* Product-screen wireframe chrome — the app as the user sees it, gray-boxed. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #e9e9e9; color: #333; font: 12.5px/1.45 Helvetica, Arial, sans-serif; padding: 18px; }
+.cap { max-width: 1280px; margin: 0 auto 8px; color: #777; font-size: 11px; }
+.frame { width: 1280px; margin: 0 auto; background: #fff; border: 1.5px solid #b9b9b9; border-radius: 10px;
+         display: flex; min-height: 760px; overflow: hidden; }
+.side { width: 196px; border-right: 1px solid #ddd; padding: 14px 12px; background: #fafafa;
+        display: flex; flex-direction: column; gap: 4px; flex: none; }
+.side .logo { font-weight: 800; font-size: 14px; margin-bottom: 14px; }
+.side .nav { padding: 7px 10px; border-radius: 8px; color: #666; font-size: 12.5px; }
+.side .nav.on { background: #e8e8e8; color: #222; font-weight: 700; }
+.side .sect { font-size: 9px; text-transform: uppercase; letter-spacing: .07em; color: #aaa; margin: 10px 2px 2px; }
+.side .foot { margin-top: auto; color: #999; font-size: 11px; }
+.maincol { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.top { height: 46px; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 10px; padding: 0 16px; }
+.top b { font-size: 13px; }
+.top .spacer { flex: 1; }
+.stage { color: #999; font-size: 10.5px; }
+.stage b { color: #333; font-size: 10.5px; }
+.badge { border: 1px solid #ccc; border-radius: 999px; padding: 2px 9px; font-size: 10.5px; color: #666; background: #fafafa; }
+.tabs { display: flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden; font-size: 11px; }
+.tabs span { padding: 4px 11px; color: #888; }
+.tabs span.on { background: #333; color: #fff; font-weight: 700; }
+.content { flex: 1; display: flex; min-height: 0; }
+.thread { flex: 1; padding: 18px 22px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.rail { width: 296px; border-left: 1px solid #ddd; padding: 14px; background: #fcfcfc; flex: none; }
+.rail .lbl, .lbl { font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #aaa; margin-bottom: 6px; }
+.u { align-self: flex-end; max-width: 62%; background: #333; color: #fff; border-radius: 13px 13px 4px 13px;
+     padding: 9px 13px; font-size: 12.5px; }
+.a { display: flex; gap: 9px; max-width: 78%; }
+.a .av { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid #bbb; flex: none;
+         display: grid; place-items: center; font-size: 11px; color: #888; }
+.a .who { font-size: 9px; font-weight: 700; letter-spacing: .06em; color: #aaa; margin-bottom: 3px; }
+.a .txt { font-size: 12.5px; color: #333; }
+.card { border: 1.5px solid #c9c9c9; border-radius: 10px; background: #fff; padding: 10px 12px; margin-top: 7px; }
+.card.fill { background: #f4f4f4; }
+.dash { border: 1.5px dashed #c9c9c9; border-radius: 8px; background: #f7f7f7; color: #999;
+        display: grid; place-items: center; text-align: center; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 2px 4px 2px 0; color: #444; }
+.chip.on { background: #333; color: #fff; border-color: #333; }
+.btn { display: inline-block; border: 1.5px solid #777; border-radius: 7px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; background: #fff; color: #333; }
+.btn.primary { background: #333; color: #fff; }
+.row { display: flex; gap: 10px; }
+.grow { flex: 1; }
+.kv { font-size: 11px; color: #777; }
+.kv b { color: #333; }
+table.t { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+table.t th { text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: .06em; color: #aaa;
+             border-bottom: 1px solid #e2e2e2; padding: 5px 7px; }
+table.t td { border-bottom: 1px solid #f0f0f0; padding: 6px 7px; }
+.strip { position: relative; height: 40px; background: #f1f1f1; border: 1px solid #d5d5d5; border-radius: 7px;
+         overflow: hidden; margin: 6px 0; }
+.strip i { position: absolute; top: 5px; bottom: 5px; border: 1px solid #8a8a8a; background: #e2e2e2; border-radius: 4px; }
+.strip i.bite { background: #cfcfcf; border-style: double; }
+.composer { border-top: 1px solid #ddd; padding: 10px 22px; display: flex; gap: 8px; align-items: center; }
+.composer .box { flex: 1; border: 1.5px solid #ccc; border-radius: 999px; padding: 8px 14px; color: #aaa; font-size: 12px; }
+.spark { height: 14px; width: 74px; border-bottom: 1px solid #bbb;
+         background: repeating-linear-gradient(90deg, transparent 0 5px, #ddd 5px 6px); }
+.overlay { position: absolute; inset: 0; background: rgba(40,40,40,.28); display: grid; place-items: center; }
+.modal { width: 380px; background: #fff; border: 1.5px solid #999; border-radius: 12px; padding: 16px 18px; }
+.posrel { position: relative; }
+.notes { max-width: 1280px; margin: 10px auto 0; color: #2b6cb0; font-size: 11px; }
+</style></head>
+<body>
+<div class="cap">S4 · Variants workspace — creation and publishing are ONE place. Every new cut shows (a) what it's grounded on, (b) its closest PUBLISHED relative and that relative's real numbers.</div>
+
+<div class="frame posrel">
+  <div class="side">
+    <div class="logo">✳ Edenn</div>
+    <div class="sect">Workspace</div>
+    <div class="nav on" data-fx="You're here — this campaign's working thread.">▦ Campaigns</div>
+    <div class="nav" data-go="s2-library.html" data-fx="Opens the brand library — collections, meaning-search, families.">▤ Library</div>
+    <div class="sect">Create</div>
+    <div class="nav" data-go="s3-brief.html" data-fx="Starts a fresh brief thread — roles resolved by asking, not defaulting.">＋ New session</div>
+    <div class="nav" data-fx="Lists your past creation sessions — every round stays revisitable.">◫ My sessions</div>
+    <div class="foot">Ⓑ spring-beverage-co</div>
+  </div>
+
+  <div class="maincol">
+    <div class="top"><b>Launch week — spring line</b>
+      <span class="stage">Brief › Roles › <b>Create ⇄ Publish</b> › Live</span>
+      <span class="spacer"></span>
+      <div class="tabs"><span class="on" data-fx="You're here — the working thread.">Thread</span><span data-go="s4c-canvas.html" data-fx="Flip to the canvas — the built lineage tree + dock, with the three variants as branch heads.">Canvas</span><span data-go="s6-console.html" data-fx="Same campaign from the numbers side — the Console is another view of this thread.">Console</span></div>
+    </div>
+    <div class="content">
+      <div class="thread" id="thread">
+        <div class="a" id="round1"><div class="av">✳</div><div style="min-width:0; flex:1">
+          <div class="who">EDENN</div>
+          <div class="txt">Three cuts planned. Each card shows what it's built FROM, and how its nearest published relative actually performed — history is a signal, not a scrapbook.</div>
+
+          <div class="card" data-cap="built:plan → preview slots + beats (creation/service.py, creation/preview.py)">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">A · hook-first</b>
+              <span class="chip" style="font-size:10px" data-act="grounding" data-var="A" data-cap="partial:bundle sources are typed — the grounding chip surface is new" data-fx="See exactly what this cut is built from — every moment traced to your footage.">@Spring shoot · 6</span>
+              <span class="chip" id="stA" style="display:none; font-size:10px" data-fx="This cut's render status — appears once Gate ① is approved."></span>
+              <span class="spacer grow"></span><span class="chip" data-act="watchVariant" data-var="A" data-fx="Free preview — watch the assembled cut before anything renders.">▶ watch</span>
+            </div>
+            <div class="strip" id="stripA"><i id="slotA1" style="left:2%;width:6%"></i><i style="left:9%;width:13%"></i><i style="left:23%;width:8%"></i><i style="left:32%;width:17%"></i><i style="left:50%;width:12%"></i><i style="left:63%;width:9%"></i><i style="left:73%;width:11%"></i><i style="left:85%;width:12%"></i></div>
+            <span class="chip" style="font-size:10px" data-more="#relA" data-cap="new:published-relative matching vs the archive" data-fx="Expands the full history for this variant — the closest published cut and its real numbers.">≈ April teaser · 2.6% ▸</span>
+            <div class="row" id="relA" style="display:none; align-items:center; background:#f6f6f6; border-radius:7px; padding:5px 8px; margin-top:4px" data-fx="History as a signal: the closest published cut and its real numbers.">
+              <span class="kv">≈ relative: <b>"April teaser"</b> (published) — same pour-shot opening · <b>2.6% CTR</b>, fatigued day 9</span>
+              <span class="spacer grow"></span><span class="chip" style="font-size:10px" data-act="sideBySide" data-fx="A's strip over April teaser's — same pour-shot opening, real numbers alongside.">view side-by-side</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">B · founder's voice</b>
+              <span class="chip" style="font-size:10px" data-act="grounding" data-var="B" data-fx="See exactly what this cut is built from — the founder bite stays intact.">@event_reel · bite intact</span>
+              <span class="chip" id="stB" style="display:none; font-size:10px" data-fx="This cut's render status — appears once Gate ① is approved."></span>
+              <span class="spacer grow"></span><span class="chip" data-act="watchVariant" data-var="B" data-fx="Free preview — watch the assembled cut before anything renders.">▶ watch</span>
+            </div>
+            <div class="strip" id="stripB"><i style="left:2%;width:9%"></i><i class="bite" style="left:12%;width:34%"></i><i style="left:47%;width:12%"></i><i style="left:60%;width:12%"></i><i style="left:73%;width:11%"></i><i style="left:85%;width:12%"></i></div>
+            <span class="chip" style="font-size:10px" data-more="#relB" data-fx="Expands the full history for this variant — voice-led relatives and their real numbers.">≈ Founder story · CVR +18% ▸</span>
+            <div class="row" id="relB" style="display:none; align-items:center; background:#f6f6f6; border-radius:7px; padding:5px 8px; margin-top:4px" data-fx="History as a signal: voice-led relatives and their real numbers.">
+              <span class="kv">≈ relative: <b>"Founder story"</b> (archive) — voice-led ads ran <b>CVR +18%</b> for this brand</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">C · rephrased, house voice</b>
+              <span class="chip" style="font-size:10px" data-act="grounding" data-var="C" data-fx="See exactly what this cut is built from — transcript rewrite, house voice.">transcript → house voice</span>
+              <span class="chip" id="stC" style="display:none; font-size:10px" data-fx="This cut's render status — appears once Gate ① is approved."></span>
+              <span class="spacer grow"></span><span class="chip" data-act="watchVariant" data-var="C" data-fx="Free preview — watch the assembled cut before anything renders.">▶ watch</span>
+            </div>
+            <div class="strip" id="stripC"><i style="left:2%;width:8%"></i><i style="left:11%;width:14%"></i><i style="left:26%;width:10%"></i><i style="left:37%;width:16%"></i><i style="left:54%;width:14%"></i><i style="left:69%;width:13%"></i><i style="left:83%;width:14%"></i></div>
+            <div class="kv" id="cMusic" style="display:none; margin-top:4px">♫ music: spring_track → variant in its style, alt mood — preview updated, still free.</div>
+            <span class="chip" style="font-size:10px" data-more="#relC" data-fx="Expands the full history for this variant — C has none; it's the round's deliberate experiment.">≈ no relative · the new bet ▸</span>
+            <div class="row" id="relC" style="display:none; align-items:center; background:#f6f6f6; border-radius:7px; padding:5px 8px; margin-top:4px" data-fx="No relative — C is the round's deliberate experiment.">
+              <span class="kv">≈ no published relative — this is the NEW bet in the set (one true experiment per round)</span>
+            </div>
+          </div>
+        </div></div>
+
+        <div class="a" id="round2" style="display:none"><div class="av">✳</div><div style="min-width:0; flex:1">
+          <div class="who">EDENN</div>
+          <div class="txt">Round 2 — seeded by what actually ran, not a fresh guess. The proposal you approved compiled straight into this round's constraints.</div>
+
+          <div class="card fill" data-fx="The seed — round-1 outcomes compiled into this round's constraints.">
+            <div class="kv"><b>Round 2 — seeded by campaign outcomes:</b> A's opening <b>LOCKED</b> · B's voice <b>LOCKED</b> · C's close <b>EXCLUDED</b> — vary only the close.</div>
+          </div>
+
+          <div class="card" data-cap="built:plan → preview slots + beats (creation/service.py, creation/preview.py)">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">A2 · champion remix (A's opening + B's voice)</b>
+              <span class="chip" style="font-size:10px" data-act="grounding" data-var="A2" data-cap="partial:bundle sources are typed — the grounding chip surface is new" data-fx="Locks carried from round 1 — see exactly what's inherited.">locks from round 1</span>
+              <span class="chip" id="stA2" style="display:none; font-size:10px" data-fx="This cut's render status — appears once Gate ① is approved."></span>
+              <span class="spacer grow"></span><span class="chip" data-act="watchVariant" data-var="A2" data-fx="Free preview — watch the assembled cut before anything renders.">▶ watch</span>
+            </div>
+            <div class="strip" id="stripA2"><i class="bite" style="left:2%;width:10%"></i><i class="bite" style="left:13%;width:28%"></i><i style="left:42%;width:14%"></i><i style="left:57%;width:13%"></i><i style="left:71%;width:12%"></i><i style="left:84%;width:13%"></i></div>
+            <span class="chip" style="font-size:10px" data-more="#relA2" data-cap="new:published-relative matching vs the archive" data-fx="Expands the full history for this variant — round-1 LIVE numbers, outcomes not vibes.">≈ parent A · 2.9% LIVE ▸</span>
+            <div class="row" id="relA2" style="display:none; align-items:center; background:#f6f6f6; border-radius:7px; padding:5px 8px; margin-top:4px" data-fx="Cites round-1 LIVE numbers — outcomes, not vibes.">
+              <span class="kv">≈ parent: <b>A</b> ran <b>2.9% CTR</b> LIVE in round 1 — best of the set · voice from <b>B</b>, CVR +22% on its slice</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">B2 · new close — product hero</b>
+              <span class="chip" style="font-size:10px" data-act="grounding" data-var="B2" data-fx="Locks carried from round 1 plus the one fresh close.">locks · new close</span>
+              <span class="chip" id="stB2" style="display:none; font-size:10px" data-fx="This cut's render status — appears once Gate ① is approved."></span>
+              <span class="spacer grow"></span><span class="chip" data-act="watchVariant" data-var="B2" data-fx="Free preview — watch the assembled cut before anything renders.">▶ watch</span>
+            </div>
+            <div class="strip" id="stripB2"><i class="bite" style="left:2%;width:10%"></i><i style="left:13%;width:16%"></i><i style="left:30%;width:14%"></i><i style="left:45%;width:16%"></i><i style="left:62%;width:14%"></i><i style="left:77%;width:20%"></i></div>
+            <span class="chip" style="font-size:10px" data-more="#relB2" data-fx="Expands the full history for this variant — round-1 LIVE numbers, outcomes not vibes.">≈ parent · 2.9% CTR ▸</span>
+            <div class="row" id="relB2" style="display:none; align-items:center; background:#f6f6f6; border-radius:7px; padding:5px 8px; margin-top:4px" data-fx="Cites round-1 LIVE numbers — outcomes, not vibes.">
+              <span class="kv">≈ parent ran <b>2.9% CTR</b> in round 1 — only the close varies, so the read will be clean</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">C2 · new close — street pour</b>
+              <span class="chip" style="font-size:10px" data-act="grounding" data-var="C2" data-fx="Locks carried from round 1; C's old close is excluded by rule.">locks · close excluded</span>
+              <span class="chip" id="stC2" style="display:none; font-size:10px" data-fx="This cut's render status — appears once Gate ① is approved."></span>
+              <span class="spacer grow"></span><span class="chip" data-act="watchVariant" data-var="C2" data-fx="Free preview — watch the assembled cut before anything renders.">▶ watch</span>
+            </div>
+            <div class="strip" id="stripC2"><i class="bite" style="left:2%;width:10%"></i><i style="left:13%;width:15%"></i><i style="left:29%;width:13%"></i><i style="left:43%;width:17%"></i><i style="left:61%;width:15%"></i><i style="left:77%;width:20%"></i></div>
+            <span class="chip" style="font-size:10px" data-more="#relC2" data-fx="Expands the full history for this variant — the excluded close is cited too; negative outcomes steer as much as wins.">≈ replaces 0.9% close ▸</span>
+            <div class="row" id="relC2" style="display:none; align-items:center; background:#f6f6f6; border-radius:7px; padding:5px 8px; margin-top:4px" data-fx="The excluded close is cited too — negative outcomes steer as much as wins.">
+              <span class="kv">≈ replaces C's excluded close (<b>0.9% CTR</b> in round 1) — this round's one new bet</span>
+            </div>
+          </div>
+
+          <div class="card fill">
+            <b style="font-size:12px">⟲ The loop, closed</b>
+            <div class="kv" style="margin:6px 0 8px">Outcomes wrote this brief. Live numbers → proposal → approved actions → this round's locks — no meetings in between.</div>
+            <span class="btn primary" id="toMap" data-go="w0-loop-map.html" data-fx="The full loop, end to end — you've just walked it.">Back to the map</span>
+            <span class="btn" data-go="s1-home.html" data-fx="Run the walkthrough again from Home.">Restart</span>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="rail" data-cap="partial:publisher exists (ads/campaign.py) — create⇄publish adjacency is new">
+        <div class="lbl">Publish — right here, not later</div>
+        <div class="card" data-fx="Channel + flight from the brief; the split is the agent's draft from the relatives' history — you can override it. Publish lives one panel away, never in another tool."><div class="kv">Channel <b>TikTok 9:16</b><br>Flight <b>May 1–14</b> · Budget <b>$1,500</b><br>Split (draft) A <b>40%</b> · B <b>30%</b> · C <b>30%</b></div></div>
+        <span class="btn" id="lockBtn" data-act="lockRender" data-story data-fx="Gate ① of two — approves the small render cost; channel budget is NOT touched. Gate ① render → Gate ② launch: same screen, two consents, never two far-apart tools." style="display:block; text-align:center; margin-top:8px">Lock &amp; render all 3</span>
+        <span class="btn primary" id="launchBtn" data-fx="Enabled after Gate ① — render before launch. Gate ② then consents to real channel budget on this same screen." style="display:block; text-align:center; margin-top:6px; opacity:.45">…then Launch →</span>
+      </div>
+    </div>
+    <div id="quickRow" style="padding:6px 22px 0" data-cap="built:locks + treatment knobs (creation/treatments.py incl. rephrase-original)">
+      <span class="chip" data-more="#adjChips" data-fx="Expands the quick adjustments — each re-plans instantly; previews stay free.">adjust ▸</span>
+      <span id="adjChips" style="display:none">
+        <span class="chip" data-act="adjOpen" data-fx="Re-plans A to open on the pour close-up — preview updates, still free.">open on @pour_closeup</span>
+        <span class="chip" data-act="adjMusic" data-fx="Swaps C's track for a variant in the same style — instant re-plan, still free.">swap C's music</span>
+      </span>
+    </div>
+    <div class="composer"><div class="box" data-fx="Type any adjustment in plain words — the agent re-plans instantly; previews stay free.">Adjust anything — "open on @pour_closeup", "swap C's music"…</div><span class="btn" data-fx="Sends the adjustment — instant re-plan, nothing renders, nothing is spent.">↑</span></div>
+  </div>
+
+  <div class="overlay" id="previewModal" style="display:none">
+    <div class="modal" data-cap="built:free preview before any render — show-before-spend">
+      <b id="pvTitle" style="font-size:13px">A · hook-first</b>
+      <div class="dash" style="height:150px; margin:10px 0" data-fx="Plays the assembled preview — free, nothing rendered yet.">▶ preview — assembled from your moments, free</div>
+      <div class="strip" id="pvStrip"></div>
+      <div class="kv" style="margin-top:4px">The slot strip mirrors the plan — every segment traces to a source moment.</div>
+      <div class="row" style="justify-content:flex-end; margin-top:10px">
+        <span class="btn" data-act="closePreview" data-fx="Closes the preview — nothing was rendered or spent.">Close</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="compareModal" style="display:none">
+    <div class="modal" style="width:460px">
+      <b style="font-size:13px">Side-by-side — A vs its published relative</b>
+      <div class="kv" style="margin-top:8px"><b>A · hook-first</b> (planned)</div>
+      <div class="strip" id="cmpStripA"></div>
+      <div class="kv"><b>"April teaser"</b> (published) — <b>2.6% CTR</b>, fatigued day 9</div>
+      <div class="strip"><i class="bite" style="left:2%;width:7%"></i><i style="left:10%;width:15%"></i><i style="left:26%;width:10%"></i><i style="left:37%;width:19%"></i><i style="left:57%;width:14%"></i><i style="left:72%;width:12%"></i><i style="left:85%;width:12%"></i></div>
+      <div class="kv" style="margin-top:4px">Same pour-shot opening — that's why it's the relative. History is a signal, not a scrapbook.</div>
+      <div class="row" style="justify-content:flex-end; margin-top:10px">
+        <span class="btn" data-act="closeCompare" data-fx="Closes the comparison.">Close</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="groundModal" style="display:none">
+    <div class="modal">
+      <b style="font-size:13px">Grounding — <span id="gTitle">A · hook-first</span></b>
+      <div class="card fill" style="margin-top:8px"><div class="kv" id="gList">pour ★ · terrace · hands · bottle · close — 6 from @Spring shoot · 0 generated</div></div>
+      <div class="kv" style="margin-top:6px">Every segment traces to footage you own. Nothing invented, nothing untracked.</div>
+      <div class="row" style="justify-content:flex-end; margin-top:10px">
+        <span class="btn" data-act="closeGround" data-fx="Closes the grounding list.">Close</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="gateModal" style="display:none">
+    <div class="modal" data-cap="built:render refuses un-previewed plans (creation/service.py render_short)">
+      <b style="font-size:13px">Render 3 × 15s?</b>
+      <div class="kv" style="margin:8px 0">Render cost applies now. <b>No channel budget is spent until Launch.</b></div>
+      <div class="row" style="justify-content:flex-end; margin-top:10px">
+        <span class="btn" data-act="gateCancel" data-fx="Cancels — nothing renders, nothing is spent.">Cancel</span>
+        <span class="btn primary" data-act="doRender" data-fx="Approves Gate ① — all three cuts render; channel budget untouched.">Render — Gate ①</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="notes">Notes · "relatives" = lineage/moment overlap + treatment match against the Published archive (S2b) and past campaigns · budget draft cites the relatives — the auxiliary signal the owner asked for · creation backbone unchanged; this frame just brings publish adjacent · interactive — ⚡ lists every click's effect · ⚙ maps each region to the built system · ▸ chips expand the detail they replaced.</div>
+
+<script>
+window.WIRE_PAGE = { title: "S4 · Variants — create ⇄ publish" };
+
+(function () {
+  "use strict";
+
+  var IS_R2 = /(^|[?&])seed=round2/.test(location.search);
+  var rendered = false;
+
+  function el(id) { return document.getElementById(id); }
+
+  function agent(text) {
+    var wrap = document.createElement("div");
+    wrap.className = "a";
+    wrap.innerHTML = '<div class="av">✳</div><div style="min-width:0; flex:1"><div class="who">EDENN</div><div class="txt"></div></div>';
+    wrap.querySelector(".txt").textContent = text;
+    el("thread").appendChild(wrap);
+    return wrap;
+  }
+
+  var VTITLE = {
+    A: "A · hook-first",
+    B: "B · founder's voice",
+    C: "C · rephrased, house voice",
+    A2: "A2 · champion remix",
+    B2: "B2 · new close — product hero",
+    C2: "C2 · new close — street pour"
+  };
+
+  var GROUND = {
+    A: "pour ★ · terrace · hands · bottle · close — 6 from @Spring shoot · 0 generated",
+    B: "founder bite 00:41–00:54 (intact) · 4 support moments from @Spring shoot · 0 generated",
+    C: "founder transcript → rewrite, house voice · 7 moments from @Spring shoot · 0 generated",
+    A2: "LOCKED from round 1: A's opening + B's voice · close: new — 1 fresh moment from @Spring shoot",
+    B2: "LOCKED from round 1: A's opening · new close: product hero — 2 fresh moments from @Spring shoot",
+    C2: "LOCKED from round 1: A's opening · new close: street pour — 1 fresh moment · C's old close EXCLUDED"
+  };
+
+  /* Round-2 state: hide round-1 thread, show #round2, move the story pulse. */
+  if (IS_R2) {
+    el("round1").style.display = "none";
+    el("round2").style.display = "";
+    el("quickRow").style.display = "none";
+    el("lockBtn").removeAttribute("data-story");
+    el("toMap").setAttribute("data-story", "");
+  }
+
+  window.WIRE_ACTS = {
+
+    watchVariant: function (elm) {
+      var v = elm.getAttribute("data-var") || "A";
+      el("pvTitle").textContent = VTITLE[v] || v;
+      el("pvStrip").innerHTML = el("strip" + v).innerHTML;
+      WIRE.open("#previewModal");
+    },
+    closePreview: function () { WIRE.close("#previewModal"); },
+
+    sideBySide: function () {
+      el("cmpStripA").innerHTML = el("stripA").innerHTML;
+      WIRE.open("#compareModal");
+    },
+    closeCompare: function () { WIRE.close("#compareModal"); },
+
+    grounding: function (elm) {
+      var v = elm.getAttribute("data-var") || "A";
+      el("gTitle").textContent = VTITLE[v] || v;
+      el("gList").textContent = GROUND[v] || "";
+      WIRE.open("#groundModal");
+    },
+    closeGround: function () { WIRE.close("#groundModal"); },
+
+    adjOpen: function (elm) {
+      el("slotA1").classList.add("bite");
+      elm.classList.add("on");
+      agent("A now opens on the pour close-up — preview updated, still free.");
+      WIRE.toast("Re-planned. No render, no cost.");
+    },
+
+    adjMusic: function (elm) {
+      el("cMusic").style.display = "";
+      elm.classList.add("on");
+      agent("C's track swapped for a variant in its style — preview updated, still free.");
+      WIRE.toast("C re-planned around the new track. Still free.");
+    },
+
+    lockRender: function () {
+      if (rendered) { WIRE.toast("Already rendered this round — continue to Launch."); return; }
+      WIRE.open("#gateModal");
+    },
+    gateCancel: function () {
+      WIRE.close("#gateModal");
+      WIRE.toast("Cancelled — nothing rendered, nothing spent.");
+    },
+
+    doRender: function () {
+      WIRE.close("#gateModal");
+      if (rendered) { WIRE.toast("Already rendered this round."); return; }
+      rendered = true;
+      var ids = IS_R2 ? ["stA2", "stB2", "stC2"] : ["stA", "stB", "stC"];
+      ids.forEach(function (id) {
+        var c = el(id);
+        c.style.display = "";
+        c.textContent = "rendering…";
+      });
+      ids.forEach(function (id, ix) {
+        setTimeout(function () {
+          var c = el(id);
+          c.textContent = "✓ rendered";
+          c.classList.add("on");
+        }, 600 * (ix + 1));
+      });
+      setTimeout(function () {
+        agent("Rendered. The market agent has a launch plan ready — the split on the right cites each cut's relatives.");
+        var lb = el("lockBtn");
+        lb.textContent = "✓ rendered ×3";
+        lb.setAttribute("data-fx", "Done — Gate ① already approved this round.");
+        var b = el("launchBtn");
+        b.style.opacity = "1";
+        b.setAttribute("data-go", "s5-launch.html");
+        b.setAttribute("data-fx", "Continue to Launch — Gate ② consents to real channel budget.");
+        if (!IS_R2) WIRE.story("#launchBtn");
+      }, 2100);
+    }
+  };
+})();
+</script>
+<script src="_wire.js"></script>
+</body>
+</html>

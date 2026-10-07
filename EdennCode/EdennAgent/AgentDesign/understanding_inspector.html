@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Edenn — Asset Understanding (design mockup)</title>
+<style>
+  :root {
+    --bg: #f4f2ec; --panel: #ffffff; --ink: #1a1a1a; --muted: #8a8578;
+    --line: #e6e2d8; --accent: #4a3ab8; --accent-soft: #ece9fb;
+    --scene: #d8d2f2; --scene2: #cfe4d8; --scene3: #f2e3cf; --scene4: #e3cfe0;
+    --speech: #f0b429; --bite: #e2574c;
+    --use1: #4a3ab8; --use2: #1d8a6b; --use3: #b8543a; --use4: #7a6ab8;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--ink);
+         font: 14px/1.45 -apple-system, "Segoe UI", sans-serif; padding: 22px 26px; }
+  .crumbs { color: var(--muted); font-size: 12.5px; margin-bottom: 14px; }
+  .crumbs b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- library strip (collapsed) ---------- */
+  .library { display: flex; gap: 10px; margin-bottom: 18px; align-items: stretch; }
+  .search { flex: 0 0 300px; background: var(--panel); border: 1px solid var(--line);
+            border-radius: var(--radius); padding: 10px 14px; color: var(--muted);
+            display: flex; align-items: center; gap: 8px; }
+  .search kbd { background: var(--accent-soft); color: var(--accent); border-radius: 5px;
+                padding: 1px 7px; font-weight: 700; font-family: inherit; }
+  .asset-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+                padding: 9px 12px; display: flex; gap: 10px; align-items: center; min-width: 215px; }
+  .asset-card.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+  .thumb { width: 46px; height: 30px; border-radius: 6px;
+           background: linear-gradient(120deg, #2b3a5e 30%, #cf6b3a 60%, #dfe6f2 100%); }
+  .thumb.wave { background: repeating-linear-gradient(90deg, #4a3ab8 0 2px, #d9d4f2 2px 5px); height: 22px; }
+  .a-meta { font-size: 12px; }
+  .a-meta b { display: block; font-size: 12.5px; }
+  .layers { display: flex; gap: 3px; margin-top: 3px; }
+  .lchip { font-size: 9.5px; font-weight: 700; padding: 0 5px; border-radius: 4px;
+           background: #e8f2ec; color: #1d8a6b; }
+  .lchip.pend { background: #f5eede; color: #b08a2e; }
+  .usebar { height: 3px; border-radius: 2px; background: var(--line); margin-top: 4px; overflow: hidden; }
+  .usebar i { display: block; height: 100%; width: 34%; background: var(--accent); }
+
+  /* ---------- inspector ---------- */
+  .inspector { display: grid; grid-template-columns: 1fr 320px; gap: 16px; }
+  .timeline-panel { background: var(--panel); border: 1px solid var(--line);
+                    border-radius: var(--radius); padding: 16px 18px; }
+  .tl-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .tl-head h1 { font-size: 15.5px; font-weight: 650; }
+  .tl-head .flags { font-size: 11.5px; color: var(--muted); }
+  .flag { background: #fdf3f2; color: var(--bite); border-radius: 5px; padding: 1px 7px;
+          font-weight: 600; margin-left: 6px; }
+  .flag.ok { background: #e8f2ec; color: #1d8a6b; }
+
+  .lane { display: grid; grid-template-columns: 86px 1fr; align-items: center;
+          gap: 10px; margin-bottom: 7px; }
+  .lane label { font-size: 11px; color: var(--muted); text-align: right;
+                text-transform: uppercase; letter-spacing: .04em; }
+  .track { position: relative; height: 26px; border-radius: 7px; background: #faf9f5;
+           border: 1px solid var(--line); overflow: hidden; }
+  .track.tall { height: 40px; }
+  .track.short { height: 16px; }
+
+  .film { display: flex; height: 100%; }
+  .film i { flex: 1; border-right: 1px solid rgba(255,255,255,.5); }
+  .f1 { background: linear-gradient(#33415e, #22304a); } .f2 { background: linear-gradient(#cf7a3a, #a45a28); }
+  .f3 { background: linear-gradient(#8a9ab8, #5e708e); } .f4 { background: linear-gradient(#2b3a5e, #1c2840); }
+  .f5 { background: linear-gradient(#dfe6f2, #aebedb); } .f6 { background: linear-gradient(#cf6b3a, #8e4520); }
+
+  .seg { position: absolute; top: 2px; bottom: 2px; border-radius: 5px; font-size: 10px;
+         display: flex; align-items: center; padding: 0 7px; overflow: hidden; white-space: nowrap;
+         color: #33305e; cursor: pointer; }
+  .seg:hover { outline: 2px solid var(--accent); }
+  .seg.sel { outline: 2.5px solid var(--accent); box-shadow: 0 2px 8px rgba(74,58,184,.25); }
+
+  .spark { display: block; width: 100%; height: 100%; }
+  .usage { position: absolute; top: 3px; height: 8px; border-radius: 3px; }
+  .usage.r2 { top: 14px; }
+  .bite-tag { position: absolute; top: 1px; bottom: 1px; border-radius: 4px;
+              background: repeating-linear-gradient(45deg, #fbe6e4 0 6px, #f7d2ce 6px 12px);
+              border: 1.5px solid var(--bite); }
+  .axis { display: grid; grid-template-columns: 86px 1fr; gap: 10px; margin-top: 2px; }
+  .axis div { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; }
+
+  .legend { display: flex; gap: 14px; margin-top: 12px; font-size: 11px; color: var(--muted); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 3px; margin-right: 5px; }
+
+  /* ---------- span card ---------- */
+  .span-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+               padding: 16px; height: fit-content; }
+  .refchip { display: inline-flex; align-items: center; gap: 7px; background: var(--accent-soft);
+             color: var(--accent); border-radius: 8px; padding: 5px 10px; font-weight: 650;
+             font-size: 12.5px; font-family: ui-monospace, monospace; }
+  .refchip .mini { width: 22px; height: 15px; border-radius: 3px;
+                   background: linear-gradient(#33415e, #22304a); }
+  .copy { color: var(--muted); font-size: 11px; margin-left: 8px; cursor: pointer; }
+  .span-card h2 { font-size: 13.5px; margin: 12px 0 4px; }
+  .span-card p { font-size: 12.5px; color: #4a463c; }
+  .ents { margin-top: 8px; }
+  .ent { display: inline-block; background: #f2f0e8; border-radius: 6px; padding: 2px 8px;
+         font-size: 11px; margin: 0 4px 4px 0; color: #5a5648; }
+  .sig-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted);
+             border-top: 1px dashed var(--line); padding: 7px 0 0; margin-top: 8px; }
+  .sig-row b { color: var(--ink); font-weight: 600; }
+  .used { margin-top: 12px; }
+  .used h3 { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .used-item { display: flex; align-items: center; gap: 8px; font-size: 12.5px; padding: 6px 0;
+               border-bottom: 1px solid #f2f0e8; }
+  .used-item .dot { margin: 0; }
+  .used-item span { color: var(--muted); font-size: 11px; margin-left: auto; }
+  .actions { display: flex; gap: 8px; margin-top: 14px; }
+  .btn { border: 1px solid var(--line); background: #faf9f5; border-radius: 9px; padding: 7px 13px;
+         font-size: 12.5px; font-weight: 600; cursor: pointer; }
+  .btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="crumbs">Library / <b>artemis2_day1.mp4</b> &nbsp;·&nbsp; asset_9f31 &nbsp;·&nbsp; 14:00 &nbsp;·&nbsp; 1080×1920 source</div>
+
+<!-- collapsed library strip: where "@" starts -->
+<div class="library">
+  <div class="search">🔎 <span>Find a moment, scene, or asset…</span> <kbd>@</kbd></div>
+  <div class="asset-card active">
+    <div class="thumb"></div>
+    <div class="a-meta"><b>artemis2_day1.mp4</b>
+      <div class="layers"><span class="lchip">L0</span><span class="lchip">L1</span><span class="lchip">L2</span><span class="lchip pend">L3</span></div>
+      <div class="usebar"><i style="width:34%"></i></div>
+    </div>
+  </div>
+  <div class="asset-card">
+    <div class="thumb wave"></div>
+    <div class="a-meta"><b>launch_trailer_track.mp3</b>
+      <div class="layers"><span class="lchip">L0</span><span class="lchip">L1</span></div>
+      <div class="usebar"><i style="width:82%; background:#1d8a6b"></i></div>
+    </div>
+  </div>
+  <div class="asset-card">
+    <div class="thumb" style="background:linear-gradient(#e8ddc8,#c9b98f)"></div>
+    <div class="a-meta"><b>crew_portrait.jpg</b>
+      <div class="layers"><span class="lchip">L0</span><span class="lchip">L2</span></div>
+      <div class="usebar"><i style="width:8%"></i></div>
+    </div>
+  </div>
+</div>
+
+<div class="inspector">
+  <div class="timeline-panel">
+    <div class="tl-head">
+      <h1>Understanding — one time axis, every layer a lane</h1>
+      <div class="flags">auto-flags: <span class="flag ok">bright ✓ no restore</span><span class="flag">speech-heavy 120/123</span></div>
+    </div>
+
+    <div class="lane"><label>filmstrip</label>
+      <div class="track tall"><div class="film">
+        <i class="f1"></i><i class="f2"></i><i class="f3"></i><i class="f4"></i><i class="f5"></i><i class="f6"></i><i class="f1"></i><i class="f3"></i><i class="f2"></i><i class="f5"></i>
+      </div></div>
+    </div>
+
+    <div class="lane"><label>scenes · L2</label>
+      <div class="track">
+        <div class="seg" style="left:0%; width:13%; background:var(--scene)">crowd gathers pre-dawn</div>
+        <div class="seg" style="left:13.5%; width:9%; background:var(--scene2)">crew suit-up</div>
+        <div class="seg sel" style="left:23%; width:12%; background:var(--scene3)">walkout ceremony</div>
+        <div class="seg" style="left:35.5%; width:8%; background:var(--scene4)">pad, vehicle fueled</div>
+        <div class="seg" style="left:44%; width:10%; background:var(--scene)">control room checks</div>
+        <div class="seg" style="left:54.5%; width:9%; background:var(--scene2)">ignition + liftoff</div>
+        <div class="seg" style="left:64%; width:12%; background:var(--scene3)">ascent cams</div>
+        <div class="seg" style="left:76.5%; width:11%; background:var(--scene4)">spectators react</div>
+        <div class="seg" style="left:88%; width:12%; background:var(--scene)">Earth from Orion</div>
+      </div>
+    </div>
+
+    <div class="lane"><label>speech · L1</label>
+      <div class="track short">
+        <div style="position:absolute; left:2%; width:20%; top:4px; height:8px; border-radius:3px; background:var(--speech)"></div>
+        <div class="bite-tag" style="left:24%; width:11%" title="bite-eligible"></div>
+        <div style="position:absolute; left:37%; width:14%; top:4px; height:8px; border-radius:3px; background:var(--speech)"></div>
+        <div style="position:absolute; left:53%; width:9%; top:4px; height:8px; border-radius:3px; background:var(--speech)"></div>
+        <div class="bite-tag" style="left:88%; width:10%" title="bite-eligible"></div>
+      </div>
+    </div>
+
+    <div class="lane"><label>motion</label>
+      <div class="track short">
+        <svg class="spark" viewBox="0 0 100 16" preserveAspectRatio="none">
+          <polygon fill="#dcd7f5" points="0,16 0,12 8,11 16,12 24,9 32,10 40,8 48,11 54,4 58,2 66,3 74,6 82,9 90,12 100,13 100,16"/>
+          <polyline fill="none" stroke="#4a3ab8" stroke-width="1.6" vector-effect="non-scaling-stroke"
+            points="0,12 8,11 16,12 24,9 32,10 40,8 48,11 54,4 58,2 66,3 74,6 82,9 90,12 100,13"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="lane"><label>usage</label>
+      <div class="track">
+        <div class="usage" style="left:23%; width:12%; background:var(--use1)" title="short2b bite"></div>
+        <div class="usage" style="left:54.5%; width:6%; background:var(--use2)"></div>
+        <div class="usage" style="left:65%; width:4%; background:var(--use2)"></div>
+        <div class="usage r2" style="left:44%; width:5%; background:var(--use3)"></div>
+        <div class="usage r2" style="left:77%; width:5%; background:var(--use3)"></div>
+        <div class="usage" style="left:89%; width:8%; background:var(--use4)"></div>
+      </div>
+    </div>
+
+    <div class="axis"><i></i><div><span>0:00</span><span>3:30</span><span>7:00</span><span>10:30</span><span>14:00</span></div></div>
+
+    <div class="legend">
+      <span><i class="dot" style="background:var(--use1)"></i>recap_with_bites</span>
+      <span><i class="dot" style="background:var(--use2)"></i>short1_launch</span>
+      <span><i class="dot" style="background:var(--use3)"></i>short2_recap</span>
+      <span><i class="dot" style="background:var(--use4)"></i>short3_wonder</span>
+      <span><i class="dot" style="background:repeating-linear-gradient(45deg,#fbe6e4 0 3px,#f7d2ce 3px 6px); border:1px solid var(--bite)"></i>bite-eligible speech</span>
+    </div>
+  </div>
+
+  <!-- the atom: span card -->
+  <div class="span-card">
+    <span class="refchip"><span class="mini"></span>@asset_9f31#t=193.2–203.5</span><span class="copy">⧉ copy ref</span>
+    <h2>Walkout ceremony</h2>
+    <p>The crew, suited, walks the gantry corridor as teams line the walls; helmets lock and the hatch team waits. Mood: reverent, charged.</p>
+    <div class="ents">
+      <span class="ent">crew</span><span class="ent">suits</span><span class="ent">gantry</span>
+      <span class="ent">helmets</span><span class="ent">ceremony</span>
+    </div>
+    <div class="sig-row"><span>motion <b>0.31</b></span><span>luma <b>124</b></span><span>speech <b>0.86</b></span><span>dur <b>10.3s</b></span></div>
+    <div class="used">
+      <h3>Ledger — used in</h3>
+      <div class="used-item"><i class="dot" style="background:var(--use1)"></i> recap_with_bites · slot 2 <span>sound bite · voice intact</span></div>
+      <div class="used-item"><i class="dot" style="background:#c9c4b4"></i> plan_7788 (draft) <span>superseded</span></div>
+    </div>
+    <div class="actions">
+      <button class="btn primary">@ Reference in chat</button>
+      <button class="btn">▶ Preview</button>
+      <button class="btn">Lock</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

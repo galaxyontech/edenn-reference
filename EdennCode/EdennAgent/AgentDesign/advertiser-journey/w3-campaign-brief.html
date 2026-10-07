@@ -1,0 +1,94 @@
+<!-- @dsCard group="A · Flow map (high-level)" name="W3 · Campaign brief" subtitle="NLP brief + @refs + constraints; ask-first before any plan" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>W3 — Campaign brief</title><style>
+/* Shared wireframe language — deliberately low-fi. Structure, not visuals. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #fff; color: #3a3a3a; font: 13px/1.45 Helvetica, Arial, sans-serif; padding: 24px 28px; }
+h1 { font-size: 15px; font-weight: 700; letter-spacing: .02em; }
+.sub { color: #8a8a8a; font-size: 11.5px; margin: 3px 0 16px; }
+.wire { border: 1.5px solid #c9c9c9; border-radius: 8px; background: #fff; padding: 12px 14px; }
+.fill { background: #f2f2f2; }
+.dash { border-style: dashed; color: #9a9a9a; display: grid; place-items: center; text-align: center; }
+.lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 6px; }
+.row { display: flex; gap: 12px; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.grow { flex: 1; }
+.btn { display: inline-block; border: 1.5px solid #7a7a7a; border-radius: 6px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; color: #3a3a3a; background: #fff; }
+.btn.primary { background: #3a3a3a; color: #fff; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 0 4px 4px 0; }
+.note { position: relative; display: inline-flex; align-items: center; gap: 6px; color: #2b6cb0; font-size: 10.5px; }
+.note b { display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%;
+          border: 1.5px solid #2b6cb0; font-size: 9.5px; flex: none; }
+.legend { margin-top: 14px; border-top: 1px dashed #d5d5d5; padding-top: 10px; color: #2b6cb0; font-size: 10.5px; }
+.legend div { margin-bottom: 3px; }
+.arrow { color: #9a9a9a; font-size: 15px; align-self: center; }
+.kv { font-size: 11px; color: #6a6a6a; }
+.kv b { color: #3a3a3a; }
+table.wt { width: 100%; border-collapse: collapse; font-size: 11px; }
+table.wt th { text-align: left; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em;
+              color: #9a9a9a; border-bottom: 1px solid #d9d9d9; padding: 4px 6px; }
+table.wt td { border-bottom: 1px solid #efefef; padding: 5px 6px; }
+.spark { height: 16px; border-bottom: 1px solid #c9c9c9; background:
+         repeating-linear-gradient(90deg, transparent 0 6px, #e3e3e3 6px 7px); }
+.gate { border: 1.5px solid #7a7a7a; border-radius: 8px; background: #fafafa; padding: 10px 12px; }
+.gate .lbl { color: #3a3a3a; }
+</style></head>
+<body>
+<h1>W3 · Campaign brief — one box, hard questions next</h1>
+<div class="sub">A campaign starts as a sentence plus constraints. Ambiguity becomes QUESTIONS (owner rule: never silent defaults).</div>
+
+<div class="col" style="max-width:760px">
+  <div class="wire">
+    <div class="lbl">Brief (natural language + @ refs)</div>
+    <div class="wire dash" style="height:56px; text-align:left; padding:10px">
+      "Launch week for the spring line. 3 variants for TikTok, 15s each —
+      one hook-first, one keeping <b>@announcer_pitch</b>, one rephrased in our voice.
+      Score with <b>@spring_track</b>."
+    </div>
+    <div style="margin-top:8px">
+      <span class="chip">@ ads reel A</span><span class="chip">@ ads reel B</span>
+      <span class="chip">@ spring track</span><span class="chip">+ @ mention</span>
+    </div>
+  </div>
+
+  <div class="wire">
+    <div class="lbl">Constraints (structured, next to the prose)</div>
+    <div class="row">
+      <div class="kv">Variants <span class="chip">3</span></div>
+      <div class="kv">Duration <span class="chip">15s</span></div>
+      <div class="kv">Channel <span class="chip">TikTok · 9:16</span></div>
+      <div class="kv">Flight <span class="chip">May 1–14</span></div>
+      <div class="kv">Budget <span class="chip">$1,500</span></div>
+    </div>
+  </div>
+
+  <div class="wire fill">
+    <div class="lbl">Ask-first (agent, before any plan)</div>
+    <div class="col" style="gap:8px">
+      <div class="row" style="align-items:center">
+        <div class="kv grow">Q1 · "Which video leads? The other becomes b-roll."</div>
+        <span class="chip">reel A</span><span class="chip">reel B</span>
+      </div>
+      <div class="row" style="align-items:center">
+        <div class="kv grow">Q2 · "You referenced a track AND asked for fresh music on variant 2 — use it, vary it, or generate?"</div>
+        <span class="chip">use</span><span class="chip">variant-of</span><span class="chip">generate</span>
+      </div>
+    </div>
+    <div style="margin-top:8px" class="note"><b>1</b> resolver output (role_conflict / contradiction / gate) rendered as chat chips — built</div>
+  </div>
+
+  <div class="gate row" style="align-items:center">
+    <div class="kv grow"><b>Exit:</b> roles resolved → the agent plans all 3 variants. Free until previewed.</div>
+    <span class="btn primary">Plan the 3 variants →</span>
+  </div>
+</div>
+
+<div class="legend">
+  <div><b>Backed by:</b> RequestBundle/roles + BundleResolver (built) · ShortSpec×N with per-variant TreatmentSpec (built).</div>
+  <div><b>New in shell:</b> campaign object wrapping the request (flight, budget, channel) — thin.</div>
+</div>
+</body>
+</html>

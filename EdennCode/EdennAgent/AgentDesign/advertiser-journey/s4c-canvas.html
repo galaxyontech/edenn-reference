@@ -1,0 +1,297 @@
+<!-- @dsCard group="B · Product screens (user view)" name="S4c · Canvas — the campaign in the lineage tree" subtitle="The real canvas (tree + dock): variants are branch heads, the relative is an overlay" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>S4c — Canvas lineage tree</title><style>
+/* Product-screen wireframe chrome — the app as the user sees it, gray-boxed. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #e9e9e9; color: #333; font: 12.5px/1.45 Helvetica, Arial, sans-serif; padding: 18px; }
+.cap { max-width: 1280px; margin: 0 auto 8px; color: #777; font-size: 11px; }
+.frame { width: 1280px; margin: 0 auto; background: #fff; border: 1.5px solid #b9b9b9; border-radius: 10px;
+         display: flex; min-height: 760px; overflow: hidden; }
+.side { width: 196px; border-right: 1px solid #ddd; padding: 14px 12px; background: #fafafa;
+        display: flex; flex-direction: column; gap: 4px; flex: none; }
+.side .logo { font-weight: 800; font-size: 14px; margin-bottom: 14px; }
+.side .nav { padding: 7px 10px; border-radius: 8px; color: #666; font-size: 12.5px; }
+.side .nav.on { background: #e8e8e8; color: #222; font-weight: 700; }
+.side .sect { font-size: 9px; text-transform: uppercase; letter-spacing: .07em; color: #aaa; margin: 10px 2px 2px; }
+.side .foot { margin-top: auto; color: #999; font-size: 11px; }
+.maincol { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.top { height: 46px; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 10px; padding: 0 16px; flex: none; }
+.top b { font-size: 13px; }
+.top .spacer { flex: 1; }
+.stage { color: #999; font-size: 10.5px; }
+.stage b { color: #333; font-size: 10.5px; }
+.tabs { display: flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden; font-size: 11px; }
+.tabs span { padding: 4px 11px; color: #888; }
+.tabs span.on { background: #333; color: #fff; font-weight: 700; }
+.card { border: 1.5px solid #c9c9c9; border-radius: 10px; background: #fff; padding: 10px 12px; margin-top: 7px; }
+.dash { border: 1.5px dashed #c9c9c9; border-radius: 8px; background: #f7f7f7; color: #999;
+        display: grid; place-items: center; text-align: center; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 2px 4px 2px 0; color: #444; }
+.chip.on { background: #333; color: #fff; border-color: #333; }
+.btn { display: inline-block; border: 1.5px solid #777; border-radius: 7px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; background: #fff; color: #333; }
+.btn.primary { background: #333; color: #fff; }
+.row { display: flex; gap: 10px; }
+.grow { flex: 1; }
+.kv { font-size: 11px; color: #777; }
+.kv b { color: #333; }
+.overlay { position: absolute; inset: 0; background: rgba(40,40,40,.28); display: grid; place-items: center; }
+.modal { width: 380px; background: #fff; border: 1.5px solid #999; border-radius: 12px; padding: 16px 18px; }
+.posrel { position: relative; }
+.notes { max-width: 1280px; margin: 10px auto 0; color: #2b6cb0; font-size: 11px; }
+
+/* ---- the canvas: legend bar, lineage tree, campaign strip, dock ---- */
+.legendbar { display: flex; align-items: center; gap: 16px; padding: 8px 16px; color: #888;
+             font-size: 10.5px; border-bottom: 1px solid #eee; flex: none; }
+.ln { display: inline-block; width: 22px; border-top: 3px solid #222; vertical-align: middle; margin-right: 5px; }
+.ln.branch { border-top: 1.5px solid #b5b5b5; }
+.zoomer { margin-left: auto; display: flex; gap: 4px; }
+.zoomer span { width: 24px; height: 24px; border: 1px solid #bbb; border-radius: 6px;
+               display: grid; place-items: center; background: #fafafa; color: #555; font-size: 12px; }
+.tree { position: relative; flex: 1; min-height: 440px; overflow: hidden; background: #fdfdfd; }
+.tree svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.edge { stroke: #b5b5b5; stroke-width: 1.5; }
+.edge.lock { stroke: #222; stroke-width: 3; }
+.edge.ctx { stroke: #c9c9c9; stroke-width: 1.5; stroke-dasharray: 3 4; }
+.node { position: absolute; width: 210px; border: 1.5px dashed #a8a8a8; border-radius: 9px;
+        background: #fff; padding: 8px 10px; }
+.node .nm { font-size: 11.5px; font-weight: 700; color: #333; }
+.node .meta { font-size: 10px; color: #999; margin: 3px 0 4px; }
+.node .chip { font-size: 10px; padding: 2px 8px; }
+.node.focus { border: 2.5px solid #222; }
+.node.focus::after { content: "focused"; position: absolute; top: -8px; right: 8px; background: #222;
+                     color: #fff; font-size: 8.5px; padding: 1px 6px; border-radius: 4px; letter-spacing: .05em; }
+.node.ghost { opacity: .72; background: #f7f7f7; }
+.node .gtag { display: inline-block; border: 1px dashed #a8a8a8; border-radius: 4px; padding: 1px 6px;
+              font-size: 8.5px; color: #888; letter-spacing: .05em; text-transform: uppercase; }
+.locktag { position: absolute; background: #222; color: #fff; font-size: 8.5px; padding: 1px 6px;
+           border-radius: 4px; letter-spacing: .05em; }
+.cstrip { display: flex; align-items: center; gap: 10px; padding: 8px 16px; border-top: 1px solid #eee; flex: none; }
+.dock { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-top: 1px solid #ddd;
+        background: #fafafa; flex: none; }
+.dock .thumb { width: 58px; height: 40px; flex: none; }
+.dock .playb { width: 32px; height: 32px; border: 1.5px solid #777; border-radius: 50%; background: #fff;
+               display: grid; place-items: center; font-size: 11px; color: #333; flex: none; }
+.dock .main { flex: 1; min-width: 0; }
+.dock .ttl { font-weight: 700; font-size: 12px; color: #333; }
+.dock .time { color: #999; font-size: 10.5px; margin-left: 8px; }
+.dock .path { color: #888; font-size: 10.5px; margin: 2px 0 5px; }
+.scrub { position: relative; height: 8px; border: 1px dashed #c0c0c0; border-radius: 5px; background: #f1f1f1; }
+.scrub .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 34%; background: #d5d5d5; border-radius: 5px; }
+.dock .btns { display: flex; gap: 6px; flex: none; }
+</style></head>
+<body>
+<div class="cap">S4c · Canvas — the REAL canvas: a pannable lineage tree of takes + a dock player for the focused one. The campaign just projects onto it — variants are branch heads, rounds are generations, the published relative is an overlay. Nothing new is invented.</div>
+
+<div class="frame posrel">
+  <div class="side">
+    <div class="logo">✳ Edenn</div>
+    <div class="sect">Workspace</div>
+    <div class="nav on" data-fx="You're here — this campaign's canvas, the lineage tree view.">▦ Campaigns</div>
+    <div class="nav" data-go="s2-library.html" data-fx="Opens the brand library — collections, meaning-search, families.">▤ Library</div>
+    <div class="sect">Create</div>
+    <div class="nav" data-go="s3-brief.html" data-fx="Starts a fresh brief thread — roles resolved by asking, not defaulting.">＋ New session</div>
+    <div class="nav" data-fx="Lists your past creation sessions — every round stays revisitable.">◫ My sessions</div>
+    <div class="foot">Ⓑ spring-beverage-co</div>
+  </div>
+
+  <div class="maincol">
+    <div class="top"><b>Launch week — spring line</b>
+      <span class="stage">Brief › Roles › <b>Create ⇄ Publish</b> › Live</span>
+      <span class="spacer"></span>
+      <div class="tabs"><span data-go="s4-creation.html" data-fx="Back to the conversation view — same session, chat projection of these branch heads.">Thread</span><span class="on" data-fx="You're here — the lineage tree view of the same session.">Canvas</span><span data-fx="Goes live after launch.">Console</span></div>
+    </div>
+
+    <div class="legendbar"><span><span class="ln"></span>locked path</span><span><span class="ln branch"></span>branches</span><span>drag to pan · scroll to zoom</span>
+      <span class="zoomer"><span data-fx="Zooms the tree in.">＋</span><span data-fx="Zooms the tree out.">−</span><span data-fx="Fits the whole tree in view and re-centers.">⛶</span></span>
+    </div>
+
+    <div class="tree" data-cap="built:canvas mode — pannable lineage tree of takes (agentic_audio frontend/js/canvas-mode.js)" data-fx="Drag to pan, scroll to zoom — the whole session laid out by generation, rooted at your footage.">
+      <svg xmlns="http://www.w3.org/2000/svg">
+        <line id="edgeA" class="edge lock" x1="246" y1="228" x2="340" y2="80"></line>
+        <line id="edgeB" class="edge" x1="246" y1="228" x2="340" y2="230"></line>
+        <line id="edgeC" class="edge" x1="246" y1="228" x2="340" y2="380"></line>
+        <line id="edgeCtx" class="edge ctx" x1="550" y1="80" x2="660" y2="66"></line>
+      </svg>
+      <span class="locktag" id="lockTag" style="left:262px; top:138px" data-fx="The locked path — the selected take's chain from the source. 'Use this' in the dock moves it.">locked path</span>
+
+      <div class="node" id="nodesrc" data-node="src" data-act="focusNode" data-fx="Focuses the source — the dock scrubs the original footage the whole tree is rooted at." style="left:36px; top:200px">
+        <div class="nm">▶ launch_footage</div>
+        <div class="meta">source · 3:30</div>
+      </div>
+
+      <div style="position:absolute; left:340px; top:40px; width:210px; height:420px" data-cap="new:variant branch heads labeled by campaign role">
+        <div class="node focus" id="nodeA" data-node="A" data-act="focusNode" data-fx="Focuses this branch head — the dock and lineage path retarget to it." style="left:0; top:0">
+          <div class="nm">A · hook-first — take 1</div>
+          <div class="meta">15s · from 6 moments</div>
+          <span class="chip" data-act="focusNode" data-fx="Focuses this take — the dock retargets to it (title, lineage path, scrubber).">▶ focus</span>
+          <span class="chip" id="stA" style="display:none" data-fx="This branch's render status — appears once Gate ① is approved."></span>
+        </div>
+        <div class="node" id="nodeB" data-node="B" data-act="focusNode" data-fx="Focuses this branch head — the dock and lineage path retarget to it." style="left:0; top:150px">
+          <div class="nm">B · founder voice — take 1</div>
+          <div class="meta">15s · from 5 moments · bite intact</div>
+          <span class="chip" data-act="focusNode" data-fx="Focuses this take — the dock retargets to it (title, lineage path, scrubber).">▶ focus</span>
+          <span class="chip" id="stB" style="display:none" data-fx="This branch's render status — appears once Gate ① is approved."></span>
+        </div>
+        <div class="node" id="nodeC" data-node="C" data-act="focusNode" data-fx="Focuses this branch head — the dock and lineage path retarget to it." style="left:0; top:300px">
+          <div class="nm">C · rephrased — take 1</div>
+          <div class="meta">15s · from 7 moments · house voice</div>
+          <span class="chip" data-act="focusNode" data-fx="Focuses this take — the dock retargets to it (title, lineage path, scrubber).">▶ focus</span>
+          <span class="chip" id="stC" style="display:none" data-fx="This branch's render status — appears once Gate ① is approved."></span>
+        </div>
+      </div>
+
+      <div class="node ghost" data-cap="new:published-relative overlay on the tree" data-fx="Campaign overlay — the published relative shown as context beside its child. Not a node in this session's lineage; its numbers come from the archive." style="left:660px; top:36px">
+        <div class="nm">≈ April teaser · published · 2.6% CTR</div>
+        <div class="meta">same pour-shot opening · fatigued day 9</div>
+        <span class="gtag">campaign overlay</span>
+      </div>
+    </div>
+
+    <div class="cstrip" data-cap="built:render refuses un-previewed plans (creation/service.py render_short)">
+      <span class="kv" id="stripNote"><b>3 branch heads planned</b> · previews free</span>
+      <span class="spacer grow"></span>
+      <span class="btn" id="lockBtn" data-act="lockRender" data-fx="Gate ① of two — approves the small render cost; channel budget is NOT touched.">Lock &amp; render all 3 — Gate ①</span>
+      <span class="btn primary" id="toLaunch" data-go="s5-launch.html" data-fx="Continue to Launch in the thread — Gate ② consents to real channel budget." style="display:none">Open launch in thread →</span>
+    </div>
+
+    <div class="dock" data-cap="built:dock player — focused take, lineage path, Use this / Branch (canvas-mode.js buildDock)">
+      <div class="dash thumb" data-fx="The focused take's poster frame — playback happens right here in the dock.">▶</div>
+      <span class="playb" data-fx="Plays the focused take — the dock is the master clock; scrub anywhere on the bar.">▶</span>
+      <div class="main">
+        <span class="ttl" id="dockTitle">A · hook-first — take 1</span><span class="time" id="dockTime">0:00 / 0:15</span>
+        <div class="path" id="dockPath">launch_footage › hook-first › take 1</div>
+        <div class="scrub" data-fx="Scrubs the focused take — click anywhere on the bar to seek."><div class="fill"></div></div>
+      </div>
+      <div class="btns">
+        <span class="btn primary" id="useBtn" data-act="useTake" data-fx="Locks the focused take as the campaign's pick — the locked-path tag moves to its branch.">✓ Use this</span>
+        <span class="btn" data-fx="Creates a child node from this take — same /choices contract as chat, still free until Gate ①.">⑂ Branch</span>
+        <span class="btn" data-fx="Downloads the focused take's file.">↓ Download</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="gateModal" style="display:none">
+    <div class="modal">
+      <b style="font-size:13px">Render 3 × 15s?</b>
+      <div class="kv" style="margin:8px 0">Render cost applies now. <b>No channel budget is spent until Launch.</b></div>
+      <div class="row" style="justify-content:flex-end; margin-top:10px">
+        <span class="btn" data-act="gateCancel" data-fx="Cancels — nothing renders, nothing is spent.">Cancel</span>
+        <span class="btn primary" data-act="doRender" data-fx="Approves Gate ① — all three cuts render; channel budget untouched.">Render — Gate ①</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="notes">Notes · this IS the built canvas (agentic_audio frontend/js/canvas-mode.js) — pannable lineage tree + dock player, locked path highlighted · the campaign adds only labels and overlays: branch heads = variants, ghost node = the published relative, rounds = generations · every canvas action routes through the same /choices contract as the chat cards · interactive — ⚡ lists every click's effect · ⚙ maps each region to the built system.</div>
+
+<script>
+window.WIRE_PAGE = { title: "S4c · Canvas — the campaign in the lineage tree" };
+
+(function () {
+  "use strict";
+
+  var rendered = false;
+  var focused = "A";
+  var locked = "A";
+
+  function el(id) { return document.getElementById(id); }
+
+  var NODE = {
+    src: { title: "launch_footage · source", time: "0:00 / 3:30", path: "launch_footage" },
+    A: { title: "A · hook-first — take 1", time: "0:00 / 0:15", path: "launch_footage › hook-first › take 1" },
+    B: { title: "B · founder voice — take 1", time: "0:00 / 0:15", path: "launch_footage › founder voice › take 1" },
+    C: { title: "C · rephrased — take 1", time: "0:00 / 0:15", path: "launch_footage › rephrased › take 1" }
+  };
+
+  /* Where the "locked path" tag sits, per locked branch (edge midpoints). */
+  var TAGPOS = { A: [262, 138], B: [262, 212], C: [262, 290] };
+
+  function setFocus(key) {
+    focused = key;
+    ["src", "A", "B", "C"].forEach(function (k) {
+      var n = el("node" + k);
+      if (n) n.classList.toggle("focus", k === key);
+    });
+    var d = NODE[key];
+    el("dockTitle").textContent = d.title;
+    el("dockPath").textContent = d.path;
+    el("dockTime").textContent = d.time;
+    el("useBtn").textContent = (key === locked) ? "✓ Locked" : "✓ Use this";
+  }
+
+  window.WIRE_ACTS = {
+
+    focusNode: function (elm) {
+      var h = elm.closest("[data-node]");
+      var key = h ? h.getAttribute("data-node") : "A";
+      setFocus(key);
+      WIRE.toast(key === "src"
+        ? "Source focused — the dock scrubs your original footage."
+        : "Focused — the dock now plays " + NODE[key].title + ".");
+    },
+
+    useTake: function () {
+      if (focused === "src") {
+        WIRE.toast("The source is the root — locks apply to takes. Focus a branch head first.");
+        return;
+      }
+      if (focused === locked) {
+        WIRE.toast("Already locked — this take is the campaign's pick for " + focused + ".");
+        return;
+      }
+      locked = focused;
+      ["A", "B", "C"].forEach(function (k) {
+        el("edge" + k).classList.toggle("lock", k === locked);
+      });
+      el("lockTag").style.left = TAGPOS[locked][0] + "px";
+      el("lockTag").style.top = TAGPOS[locked][1] + "px";
+      el("useBtn").textContent = "✓ Locked";
+      WIRE.toast("Locked — the campaign will render this take for " + locked + ".");
+    },
+
+    lockRender: function () {
+      if (rendered) { WIRE.toast("Already rendered this round — open launch in the thread."); return; }
+      WIRE.open("#gateModal");
+    },
+    gateCancel: function () {
+      WIRE.close("#gateModal");
+      WIRE.toast("Cancelled — nothing rendered, nothing spent.");
+    },
+
+    doRender: function () {
+      WIRE.close("#gateModal");
+      if (rendered) { WIRE.toast("Already rendered this round."); return; }
+      rendered = true;
+      ["stA", "stB", "stC"].forEach(function (id) {
+        var c = el(id);
+        c.style.display = "";
+        c.textContent = "rendering…";
+      });
+      ["stA", "stB", "stC"].forEach(function (id, ix) {
+        setTimeout(function () {
+          var c = el(id);
+          c.textContent = "✓ rendered";
+          c.classList.add("on");
+        }, 600 * (ix + 1));
+      });
+      setTimeout(function () {
+        el("stripNote").innerHTML = "<b>✓ 3 branch heads rendered</b> — channel budget untouched";
+        var lb = el("lockBtn");
+        lb.textContent = "✓ rendered ×3";
+        lb.setAttribute("data-fx", "Done — Gate ① already approved this round.");
+        el("toLaunch").style.display = "";
+        WIRE.story("#toLaunch");
+        WIRE.toast("Rendered — channel budget untouched. Launch waits one gate away.");
+      }, 2100);
+    }
+  };
+
+  setFocus("A");
+})();
+</script>
+<script src="_wire.js"></script>
+</body>
+</html>

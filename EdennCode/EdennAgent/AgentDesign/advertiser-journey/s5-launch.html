@@ -1,0 +1,223 @@
+<!-- @dsCard group="B · Product screens (user view)" name="S5 · Campaign thread — launch" subtitle="The market agent's plan + the real-budget consent" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>S5 — Launch</title><style>
+/* Product-screen wireframe chrome — the app as the user sees it, gray-boxed. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #e9e9e9; color: #333; font: 12.5px/1.45 Helvetica, Arial, sans-serif; padding: 18px; }
+.cap { max-width: 1280px; margin: 0 auto 8px; color: #777; font-size: 11px; }
+.frame { width: 1280px; margin: 0 auto; background: #fff; border: 1.5px solid #b9b9b9; border-radius: 10px;
+         display: flex; min-height: 760px; overflow: hidden; }
+.side { width: 196px; border-right: 1px solid #ddd; padding: 14px 12px; background: #fafafa;
+        display: flex; flex-direction: column; gap: 4px; flex: none; }
+.side .logo { font-weight: 800; font-size: 14px; margin-bottom: 14px; }
+.side .nav { padding: 7px 10px; border-radius: 8px; color: #666; font-size: 12.5px; }
+.side .nav.on { background: #e8e8e8; color: #222; font-weight: 700; }
+.side .sect { font-size: 9px; text-transform: uppercase; letter-spacing: .07em; color: #aaa; margin: 10px 2px 2px; }
+.side .foot { margin-top: auto; color: #999; font-size: 11px; }
+.maincol { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.top { height: 46px; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 10px; padding: 0 16px; }
+.top b { font-size: 13px; }
+.top .spacer { flex: 1; }
+.stage { color: #999; font-size: 10.5px; }
+.stage b { color: #333; font-size: 10.5px; }
+.badge { border: 1px solid #ccc; border-radius: 999px; padding: 2px 9px; font-size: 10.5px; color: #666; background: #fafafa; }
+.tabs { display: flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden; font-size: 11px; }
+.tabs span { padding: 4px 11px; color: #888; }
+.tabs span.on { background: #333; color: #fff; font-weight: 700; }
+.content { flex: 1; display: flex; min-height: 0; }
+.thread { flex: 1; padding: 18px 22px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.rail { width: 296px; border-left: 1px solid #ddd; padding: 14px; background: #fcfcfc; flex: none; }
+.rail .lbl, .lbl { font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #aaa; margin-bottom: 6px; }
+.u { align-self: flex-end; max-width: 62%; background: #333; color: #fff; border-radius: 13px 13px 4px 13px;
+     padding: 9px 13px; font-size: 12.5px; }
+.a { display: flex; gap: 9px; max-width: 78%; }
+.a .av { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid #bbb; flex: none;
+         display: grid; place-items: center; font-size: 11px; color: #888; }
+.a .who { font-size: 9px; font-weight: 700; letter-spacing: .06em; color: #aaa; margin-bottom: 3px; }
+.a .txt { font-size: 12.5px; color: #333; }
+.card { border: 1.5px solid #c9c9c9; border-radius: 10px; background: #fff; padding: 10px 12px; margin-top: 7px; }
+.card.fill { background: #f4f4f4; }
+.dash { border: 1.5px dashed #c9c9c9; border-radius: 8px; background: #f7f7f7; color: #999;
+        display: grid; place-items: center; text-align: center; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 2px 4px 2px 0; color: #444; }
+.chip.on { background: #333; color: #fff; border-color: #333; }
+.btn { display: inline-block; border: 1.5px solid #777; border-radius: 7px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; background: #fff; color: #333; }
+.btn.primary { background: #333; color: #fff; }
+.row { display: flex; gap: 10px; }
+.grow { flex: 1; }
+.kv { font-size: 11px; color: #777; }
+.kv b { color: #333; }
+table.t { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+table.t th { text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: .06em; color: #aaa;
+             border-bottom: 1px solid #e2e2e2; padding: 5px 7px; }
+table.t td { border-bottom: 1px solid #f0f0f0; padding: 6px 7px; }
+.strip { position: relative; height: 40px; background: #f1f1f1; border: 1px solid #d5d5d5; border-radius: 7px;
+         overflow: hidden; margin: 6px 0; }
+.strip i { position: absolute; top: 5px; bottom: 5px; border: 1px solid #8a8a8a; background: #e2e2e2; border-radius: 4px; }
+.strip i.bite { background: #cfcfcf; border-style: double; }
+.composer { border-top: 1px solid #ddd; padding: 10px 22px; display: flex; gap: 8px; align-items: center; }
+.composer .box { flex: 1; border: 1.5px solid #ccc; border-radius: 999px; padding: 8px 14px; color: #aaa; font-size: 12px; }
+.spark { height: 14px; width: 74px; border-bottom: 1px solid #bbb;
+         background: repeating-linear-gradient(90deg, transparent 0 5px, #ddd 5px 6px); }
+.overlay { position: absolute; inset: 0; background: rgba(40,40,40,.28); display: grid; place-items: center; }
+.modal { width: 380px; background: #fff; border: 1.5px solid #999; border-radius: 12px; padding: 16px 18px; }
+.posrel { position: relative; }
+.notes { max-width: 1280px; margin: 10px auto 0; color: #2b6cb0; font-size: 11px; }
+</style></head>
+<body>
+<div class="cap">S5 · Launch stage — hat handoff in the SAME thread; the consent modal is the only thing that can spend budget</div>
+
+<div class="frame posrel">
+  <div class="side">
+    <div class="logo">✳ Edenn</div>
+    <div class="sect">Workspace</div>
+    <div class="nav on" data-go="s1-home.html" data-fx="Back to the campaigns home">▦ Campaigns</div>
+    <div class="nav" data-go="s2-library.html" data-fx="Opens the brand library — collections, meaning-search, families">▤ Library</div>
+    <div class="sect">Create</div>
+    <div class="nav" data-go="s3-brief.html" data-fx="Starts a fresh brief thread">＋ New session</div>
+    <div class="nav" data-fx="Lists your past threads — every campaign is a conversation you can reopen">◫ My sessions</div>
+    <div class="foot">Ⓑ spring-beverage-co</div>
+  </div>
+
+  <div class="maincol">
+    <div class="top"><b>Launch week — spring line</b>
+      <span class="stage">Brief › Roles › Create › <b>Launch</b> › Live</span>
+      <span class="spacer"></span>
+      <div class="tabs"><span class="on" data-fx="You're here — the launch conversation">Thread</span><span data-go="s6-console.html" data-fx="The numbers view of this same campaign — quiet until launch">Console</span></div>
+    </div>
+    <div class="content">
+      <div class="thread">
+        <div class="a"><div class="av">◈</div><div style="min-width:0; flex:1">
+          <div class="who">EDENN · MARKET AGENT</div>
+          <div class="txt">Three rendered variants ready. Here's my launch plan — one axis varies per pair, so we'll actually learn something.</div>
+
+          <div class="card" data-cap="new:LaunchPlan — the market agent's first artifact">
+            <table class="t">
+              <tr><th>Variant</th><th>Budget</th><th>Why</th></tr>
+              <tr><td>A · hook-first</td><td id="budA">$600 · 40%</td><td data-fx="Why 40%: A showed the strongest opening seconds in the free previews — each split cites preview evidence, the agent must justify its draft">strongest opener</td></tr>
+              <tr><td>B · founder voice</td><td id="budB">$450 · 30%</td><td data-fx="Why 30%: B tests the founder's authentic voice against A's polished hook — one axis varies per pair, so we learn cleanly">authenticity vs A</td></tr>
+              <tr><td>C · rephrased</td><td id="budC">$450 · 30%</td><td data-fx="Why 30%: C tests the rephrased message's clarity against B — the round's deliberate experiment">clarity vs B</td></tr>
+            </table>
+            <div class="kv" style="margin-top:6px" data-fx="Criteria become standing orders — the agent acts on them without another meeting">Pacing: even, May 1–14 · daily cap $110 · promote at CTR ≥ 2.4% (3 days) · kill at CVR &lt; 0.4% after $150</div>
+          </div>
+
+          <div class="card fill" data-cap="new:autonomy boundary">
+            <div class="lbl">What I'll do on my own vs. ask</div>
+            <div id="rulesSummary" data-fx="The standing boundary — what the agent may do on its own (every action logged) vs what it must ask about first"><div class="kv" id="rulesText">Autonomy: daily outcomes · alerts · realloc ≤15% — asks before pause / new round</div></div>
+            <div style="margin-top:6px"><span class="chip" id="editRulesChip" data-act="editRules" data-fx="Turns the autonomy summary into an editable boundary — checkboxes and caps">edit rules</span></div>
+            <div id="rulesForm" style="display:none; margin-top:6px">
+              <div class="lbl">Autonomous</div>
+              <div class="kv" style="display:flex; flex-direction:column; gap:5px">
+                <label><input type="checkbox" id="cbDaily" checked> pull outcomes daily</label>
+                <label><input type="checkbox" id="cbAlert" checked> alert on criteria</label>
+                <label>reallocate cap: <select id="selCap"><option>5%</option><option selected>15%</option><option>25%</option></select> (logged)</label>
+              </div>
+              <div class="lbl" style="margin-top:8px">Asks first</div>
+              <div class="kv" style="display:flex; flex-direction:column; gap:5px">
+                <label><input type="checkbox" id="cbPause" checked> pause a variant</label>
+                <label><input type="checkbox" id="cbRound" checked> new creative round</label>
+              </div>
+              <div style="margin-top:8px"><span class="btn" data-act="saveRules" data-fx="Saves the boundary — the summary re-renders with your chosen caps">Save boundary</span></div>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:8px"><span class="btn" data-act="adjustPlan" data-fx="Reveals safe one-click adjustments to the budget split">Adjust plan</span><span class="btn primary" id="btnLaunch" data-act="openLaunch" data-story data-fx="Gate ② — opens the real-budget consent">Launch →</span></div>
+          <div id="adjChips" style="display:none; margin-top:6px">
+            <span class="chip" id="chipEven" data-act="evenSplit" data-fx="Rebalances the table to 34/33/33 — learn slower, risk less">even split</span>
+            <span class="chip" id="chipProtect" data-act="protectC" data-fx="Floors C at $500 so the experiment gets a fair read">protect the experiment — min $500 on C</span>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="rail" data-cap="built:rendered takes from the creation loop">
+        <div class="lbl">Rendered variants</div>
+        <div class="dash" style="height:84px" data-fx="Rewatch the rendered cut">▶ A · 15s</div>
+        <div class="dash" style="height:84px; margin-top:8px" data-fx="Rewatch the rendered cut">▶ B · 15s</div>
+        <div class="dash" style="height:84px; margin-top:8px" data-fx="Rewatch the rendered cut">▶ C · 15s</div>
+      </div>
+    </div>
+    <div class="composer"><div class="box" data-fx="Reply in the thread — adjusting the plan is conversation, not a settings page">Reply — or adjust the plan…</div><span class="btn" data-fx="Sends your reply to the market agent">↑</span></div>
+  </div>
+
+  <div class="overlay" id="launchModal" style="display:none">
+    <div class="modal" data-cap="built:same spend-consent pattern as generation (sandbox channel live — ads/sandbox.py, TikTok env-gated ads/tiktok.py)">
+      <b>Launch this campaign?</b>
+      <div class="kv" style="margin:8px 0 12px">3 variants go live on TikTok. <b>$1,500 over 14 days</b> from your connected ad account. The market agent operates within the rules you just saw.</div>
+      <div class="row" style="justify-content:flex-end"><span class="btn" data-act="closeLaunch" data-fx="Backs out — nothing is spent, the plan stays put">Cancel</span><span class="btn primary" id="modalLaunchGo" data-go="s6-console.html?just=launched" data-fx="Consents to real spend — the campaign goes live and opens at its Console">Launch — spends budget</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="notes">Notes · the market agent has a distinct avatar/label but lives in the same thread · Gate ② modal follows the exact consent pattern the product already uses for generation spend · interactive — ⚡ lists every click's effect.</div>
+
+<script>
+window.WIRE_PAGE = { title: "S5 · Launch — Gate ②" };
+window.WIRE_ACTS = (function () {
+  function agentLine(txt) {
+    var thread = document.querySelector(".thread");
+    var a = document.createElement("div");
+    a.className = "a";
+    a.innerHTML = '<div class="av">◈</div><div style="min-width:0; flex:1"><div class="who">EDENN · MARKET AGENT</div><div class="txt"></div></div>';
+    a.querySelector(".txt").textContent = txt;
+    thread.appendChild(a);
+  }
+  function setBudgets(a, b, c) {
+    document.getElementById("budA").textContent = a;
+    document.getElementById("budB").textContent = b;
+    document.getElementById("budC").textContent = c;
+  }
+  return {
+    openLaunch: function () {
+      WIRE.open("#launchModal");
+      WIRE.story("#modalLaunchGo");
+    },
+    closeLaunch: function () {
+      WIRE.close("#launchModal");
+      WIRE.story("#btnLaunch");
+    },
+    adjustPlan: function () {
+      var d = document.getElementById("adjChips");
+      d.style.display = d.style.display === "none" ? "block" : "none";
+    },
+    evenSplit: function (el) {
+      setBudgets("$510 · 34%", "$495 · 33%", "$495 · 33%");
+      el.classList.add("on");
+      document.getElementById("chipProtect").classList.remove("on");
+      agentLine("Evened. We learn slower but risk less.");
+    },
+    protectC: function (el) {
+      setBudgets("$550 · 37%", "$450 · 30%", "$500 · 33%");
+      el.classList.add("on");
+      document.getElementById("chipEven").classList.remove("on");
+      agentLine("C is floored at $500 — the experiment gets a fair read even if it starts slow.");
+    },
+    editRules: function () {
+      document.getElementById("rulesSummary").style.display = "none";
+      document.getElementById("editRulesChip").style.display = "none";
+      document.getElementById("rulesForm").style.display = "block";
+    },
+    saveRules: function () {
+      var autos = [];
+      if (document.getElementById("cbDaily").checked) autos.push("daily outcomes");
+      if (document.getElementById("cbAlert").checked) autos.push("alerts");
+      autos.push("realloc ≤" + document.getElementById("selCap").value);
+      var asks = [];
+      if (document.getElementById("cbPause").checked) asks.push("pause");
+      if (document.getElementById("cbRound").checked) asks.push("new round");
+      document.getElementById("rulesText").textContent =
+        "Autonomy: " + autos.join(" · ") +
+        " — asks before " + (asks.length ? asks.join(" / ") : "nothing (full autonomy inside the caps)");
+      document.getElementById("rulesForm").style.display = "none";
+      document.getElementById("rulesSummary").style.display = "";
+      document.getElementById("editRulesChip").style.display = "";
+      WIRE.toast("The agent's autonomy is a setting, not a personality.");
+    }
+  };
+})();
+</script>
+<script src="_wire.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!-- @dsCard group="A · Flow map (high-level)" name="W5 · Launch plan" subtitle="The market agent takes the wheel — with its rules of engagement" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>W5 — Launch plan</title><style>
+/* Shared wireframe language — deliberately low-fi. Structure, not visuals. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #fff; color: #3a3a3a; font: 13px/1.45 Helvetica, Arial, sans-serif; padding: 24px 28px; }
+h1 { font-size: 15px; font-weight: 700; letter-spacing: .02em; }
+.sub { color: #8a8a8a; font-size: 11.5px; margin: 3px 0 16px; }
+.wire { border: 1.5px solid #c9c9c9; border-radius: 8px; background: #fff; padding: 12px 14px; }
+.fill { background: #f2f2f2; }
+.dash { border-style: dashed; color: #9a9a9a; display: grid; place-items: center; text-align: center; }
+.lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 6px; }
+.row { display: flex; gap: 12px; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.grow { flex: 1; }
+.btn { display: inline-block; border: 1.5px solid #7a7a7a; border-radius: 6px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; color: #3a3a3a; background: #fff; }
+.btn.primary { background: #3a3a3a; color: #fff; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 0 4px 4px 0; }
+.note { position: relative; display: inline-flex; align-items: center; gap: 6px; color: #2b6cb0; font-size: 10.5px; }
+.note b { display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%;
+          border: 1.5px solid #2b6cb0; font-size: 9.5px; flex: none; }
+.legend { margin-top: 14px; border-top: 1px dashed #d5d5d5; padding-top: 10px; color: #2b6cb0; font-size: 10.5px; }
+.legend div { margin-bottom: 3px; }
+.arrow { color: #9a9a9a; font-size: 15px; align-self: center; }
+.kv { font-size: 11px; color: #6a6a6a; }
+.kv b { color: #3a3a3a; }
+table.wt { width: 100%; border-collapse: collapse; font-size: 11px; }
+table.wt th { text-align: left; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em;
+              color: #9a9a9a; border-bottom: 1px solid #d9d9d9; padding: 4px 6px; }
+table.wt td { border-bottom: 1px solid #efefef; padding: 5px 6px; }
+.spark { height: 16px; border-bottom: 1px solid #c9c9c9; background:
+         repeating-linear-gradient(90deg, transparent 0 6px, #e3e3e3 6px 7px); }
+.gate { border: 1.5px solid #7a7a7a; border-radius: 8px; background: #fafafa; padding: 10px 12px; }
+.gate .lbl { color: #3a3a3a; }
+</style></head>
+<body>
+<h1>W5 · Launch plan — the ads market agent's contract</h1>
+<div class="sub">Hat handoff: the market agent proposes HOW the rendered variants go live. This screen IS the consent surface for real budget.</div>
+
+<div class="row">
+  <div class="col" style="flex:1.4">
+    <div class="wire">
+      <div class="lbl">Proposed launch (editable)</div>
+      <table class="wt">
+        <tr><th>Variant</th><th>Channel</th><th>Budget</th><th>Why</th></tr>
+        <tr><td>A · hook-first</td><td>TikTok feed</td><td>$600 · 40%</td><td>strongest opener in preview scores</td></tr>
+        <tr><td>B · original voice</td><td>TikTok feed</td><td>$450 · 30%</td><td>authenticity test vs A</td></tr>
+        <tr><td>C · rephrased</td><td>TikTok feed</td><td>$450 · 30%</td><td>message-clarity test vs B</td></tr>
+      </table>
+      <div style="margin-top:6px" class="kv">Schedule: even pacing, May 1–14 · daily cap $110</div>
+      <div style="margin-top:6px" class="note"><b>1</b> a real A/B: same footage pool, ONE axis varies per pair — attribution stays interpretable</div>
+    </div>
+    <div class="wire">
+      <div class="lbl">Success / kill criteria (from brand goals, editable)</div>
+      <div class="kv">Promote when: CTR ≥ 2.4% sustained 3 days · Kill when: CVR &lt; 0.4% after $150 spend</div>
+    </div>
+  </div>
+
+  <div class="col grow">
+    <div class="wire fill">
+      <div class="lbl">Rules of engagement — what the agent may do</div>
+      <table class="wt">
+        <tr><td>Pull daily outcomes</td><td><b>autonomous</b></td></tr>
+        <tr><td>Alert on criteria hits</td><td><b>autonomous</b></td></tr>
+        <tr><td>Reallocate ≤15% budget</td><td><b>autonomous, logged</b></td></tr>
+        <tr><td>Pause a variant</td><td><b>asks first</b></td></tr>
+        <tr><td>New creative round</td><td><b>asks first (Gate ③)</b></td></tr>
+      </table>
+      <div style="margin-top:6px" class="note"><b>2</b> the autonomy boundary is explicit, adjustable, and shown before launch — not buried in settings</div>
+    </div>
+    <div class="gate">
+      <div class="lbl">Gate ② — real budget</div>
+      <div class="kv">"Launch 3 variants on TikTok — $1,500 over 14 days."</div>
+      <div class="row" style="margin-top:8px">
+        <span class="btn">Adjust</span>
+        <span class="btn primary">Launch — spends budget</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <div><b>Backed by:</b> CampaignPublisher + ChannelRegistry (built; sandbox fallback = dry-run launch, full loop, zero spend).</div>
+  <div><b>New in shell:</b> launch-plan object (splits/criteria/autonomy), pacing logic — the market agent's first real surface.</div>
+</div>
+</body>
+</html>

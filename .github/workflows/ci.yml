@@ -1,0 +1,338 @@
+name: CI
+
+# In this snapshot the media fixtures and deployment surface were removed
+# (REDACTIONS.md, rules R2 and R6), so these jobs cannot pass here. They are
+# kept as a record of how the project is actually gated, and set to run only
+# on request so the snapshot does not advertise failures it was built to have.
+on:
+  workflow_dispatch:
+
+jobs:
+  local-core:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Ensure Git LFS media is present
+        run: |
+          git lfs pull
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run core local test suite
+        shell: bash
+        run: |
+          mkdir -p test-results
+          set -o pipefail
+          pytest -v -m "not remote_integration" \
+            --ignore=EdennCode/Deployment/Testing/test_api_video_generation_compression.py \
+            --ignore=EdennCode/Deployment/Testing/test_api_multi_image_generation.py \
+            --ignore=EdennCode/Deployment/Testing/test_api_audio_creative_edit.py \
+            --ignore=EdennCode/Deployment/Testing/test_api_video_alignment.py \
+            2>&1 | tee test-results/local-core.log
+
+      - name: Upload core local logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: local-core-results
+          path: test-results/
+          if-no-files-found: warn
+
+  api-local:
+    name: API Local - ${{ matrix.endpoint }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - endpoint: video
+            slug: video
+            test_file: EdennCode/Deployment/Testing/test_api_video_generation_compression.py
+          - endpoint: multi-image
+            slug: multi-image
+            test_file: EdennCode/Deployment/Testing/test_api_multi_image_generation.py
+          - endpoint: audio-creative-edit
+            slug: audio-creative-edit
+            test_file: EdennCode/Deployment/Testing/test_api_audio_creative_edit.py
+          - endpoint: video-align-audio
+            slug: video-align-audio
+            test_file: EdennCode/Deployment/Testing/test_api_video_alignment.py
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Ensure Git LFS media is present
+        run: |
+          git lfs pull
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run local API tests for ${{ matrix.endpoint }}
+        shell: bash
+        run: |
+          mkdir -p test-results
+          set -o pipefail
+          pytest -v "${{ matrix.test_file }}" 2>&1 | tee "test-results/${{ matrix.slug }}-local.log"
+
+      - name: Upload local API logs for ${{ matrix.endpoint }}
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-local-${{ matrix.slug }}-results
+          path: test-results/
+          if-no-files-found: warn
+
+  api-remote:
+    name: API Remote - ${{ matrix.endpoint }}
+    runs-on: ubuntu-latest
+    # Paid provider suites: run nightly or on demand only, never on every push/PR.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs:
+      - local-core
+      - api-local
+    environment: integration
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - endpoint: video
+            slug: video
+            test_file: EdennCode/Deployment/Testing/test_api_video_generation_remote_integration.py
+          - endpoint: video-golden
+            slug: video-golden
+            test_file: EdennCode/Deployment/Testing/test_api_video_generation_golden_remote_integration.py
+          - endpoint: multi-image
+            slug: multi-image
+            test_file: EdennCode/Deployment/Testing/test_api_multi_image_generation_remote_integration.py
+          - endpoint: audio-creative-edit
+            slug: audio-creative-edit
+            test_file: EdennCode/Deployment/Testing/test_api_audio_creative_edit_remote_integration.py
+    env:
+      STRICT_REMOTE_INTEGRATION: "1"
+      AZURE_ENDPOINT: ${{ vars.AZURE_ENDPOINT }}
+      AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
+      AZURE_MODEL: ${{ vars.AZURE_MODEL }}
+      AZURE_API_VERSION: ${{ vars.AZURE_API_VERSION }}
+      AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+      AZURE_STORAGE_UPLOAD_CONTAINER: ${{ vars.AZURE_STORAGE_UPLOAD_CONTAINER }}
+      AZURE_STORAGE_OUTPUT_CONTAINER: ${{ vars.AZURE_STORAGE_OUTPUT_CONTAINER }}
+      AZURE_STORAGE_LLM_IMAGE_CONTAINER: ${{ vars.AZURE_STORAGE_LLM_IMAGE_CONTAINER }}
+      PROVIDER_A_API_KEY: ${{ secrets.PROVIDER_A_API_KEY }}
+      PROVIDER_A_VOICE_ID: ${{ vars.PROVIDER_A_VOICE_ID }}
+      PROVIDER_B_API_KEY: ${{ secrets.PROVIDER_B_API_KEY }}
+      PROVIDER_B_API_KEY_1: ${{ secrets.PROVIDER_B_API_KEY_1 }}
+      PROVIDER_B_API_KEY_2: ${{ secrets.PROVIDER_B_API_KEY_2 }}
+      PROVIDER_B_API_KEY_3: ${{ secrets.PROVIDER_B_API_KEY_3 }}
+      PROVIDER_B_API_KEY_4: ${{ secrets.PROVIDER_B_API_KEY_4 }}
+      PROVIDER_B_API_KEY_5: ${{ secrets.PROVIDER_B_API_KEY_5 }}
+      PROVIDER_B_API_KEY_6: ${{ secrets.PROVIDER_B_API_KEY_6 }}
+      PROVIDER_B_API_KEY_7: ${{ secrets.PROVIDER_B_API_KEY_7 }}
+      PROVIDER_B_API_KEY_8: ${{ secrets.PROVIDER_B_API_KEY_8 }}
+      PROVIDER_B_API_KEY_9: ${{ secrets.PROVIDER_B_API_KEY_9 }}
+      EDENN_ENHANCED_PROVIDER_B_API_KEY: ${{ secrets.EDENN_ENHANCED_PROVIDER_B_API_KEY }}
+      PROVIDER_B_PG_LOCK_ENABLED: ${{ vars.PROVIDER_B_PG_LOCK_ENABLED || 'false' }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL || vars.DATABASE_URL }}
+      PGHOST: ${{ vars.PGHOST }}
+      PGPORT: ${{ vars.PGPORT }}
+      PGDATABASE: ${{ vars.PGDATABASE }}
+      PGUSER: ${{ vars.PGUSER }}
+      PGPASSWORD: ${{ secrets.PGPASSWORD }}
+      PGSSLMODE: ${{ vars.PGSSLMODE }}
+      PROVIDER_B_PG_LOCK_POOL_SIZE: ${{ vars.PROVIDER_B_PG_LOCK_POOL_SIZE || '1' }}
+      PROVIDER_B_KEY_HEALTH_POOL_SIZE: ${{ vars.PROVIDER_B_KEY_HEALTH_POOL_SIZE || '1' }}
+      PROVIDER_B_KEY_COOLDOWN_BASE_S: ${{ vars.PROVIDER_B_KEY_COOLDOWN_BASE_S }}
+      PROVIDER_B_KEY_COOLDOWN_MAX_S: ${{ vars.PROVIDER_B_KEY_COOLDOWN_MAX_S }}
+      PROVIDER_C_API_KEY: ${{ secrets.PROVIDER_C_API_KEY }}
+      PROVIDER_C_CALLBACK_URL: ${{ vars.PROVIDER_C_CALLBACK_URL }}
+      PROVIDER_C_MODEL: ${{ vars.PROVIDER_C_MODEL }}
+      PROVIDER_C_STATUS_ENDPOINT: ${{ vars.PROVIDER_C_STATUS_ENDPOINT }}
+      EDEN_ADMIN_SECRET: ${{ secrets.EDEN_ADMIN_SECRET }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Ensure Git LFS media is present
+        run: |
+          git lfs pull
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run remote API tests for ${{ matrix.endpoint }}
+        shell: bash
+        env:
+          SAVE_REMOTE_VIDEO_API_PAYLOADS_DIR: test-results/${{ matrix.slug }}-payloads
+        run: |
+          mkdir -p test-results
+          set -o pipefail
+          pytest -v -m remote_integration "${{ matrix.test_file }}" 2>&1 | tee "test-results/${{ matrix.slug }}-remote.log"
+
+      - name: Upload remote API logs for ${{ matrix.endpoint }}
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-remote-${{ matrix.slug }}-results
+          path: test-results/
+          if-no-files-found: warn
+
+  remote-workflows:
+    name: Remote Workflow - ${{ matrix.workflow }}
+    runs-on: ubuntu-latest
+    # Paid provider suites: run nightly or on demand only, never on every push/PR.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs:
+      - local-core
+      - api-local
+    environment: integration
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - workflow: prompt-preprocessor
+            slug: prompt-preprocessor
+            test_file: EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/test_user_prompt_preprocessor_remote_integration.py
+          - workflow: video-music
+            slug: video-music
+            test_file: EdennCode/WorkflowFactory/VideoMusicWorkflow/Testing/test_video_music_workflow_e2e_integration.py
+          - workflow: multi-image
+            slug: multi-image
+            test_file: EdennCode/WorkflowFactory/MultiImageWorkflow/Testing/test_multi_image_workflow_e2e_remote_integration.py
+    env:
+      STRICT_REMOTE_INTEGRATION: "1"
+      AZURE_ENDPOINT: ${{ vars.AZURE_ENDPOINT }}
+      AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
+      AZURE_MODEL: ${{ vars.AZURE_MODEL }}
+      AZURE_API_VERSION: ${{ vars.AZURE_API_VERSION }}
+      AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+      AZURE_STORAGE_UPLOAD_CONTAINER: ${{ vars.AZURE_STORAGE_UPLOAD_CONTAINER }}
+      AZURE_STORAGE_OUTPUT_CONTAINER: ${{ vars.AZURE_STORAGE_OUTPUT_CONTAINER }}
+      AZURE_STORAGE_LLM_IMAGE_CONTAINER: ${{ vars.AZURE_STORAGE_LLM_IMAGE_CONTAINER }}
+      PROVIDER_A_API_KEY: ${{ secrets.PROVIDER_A_API_KEY }}
+      PROVIDER_A_VOICE_ID: ${{ vars.PROVIDER_A_VOICE_ID }}
+      PROVIDER_B_API_KEY: ${{ secrets.PROVIDER_B_API_KEY }}
+      PROVIDER_B_API_KEY_1: ${{ secrets.PROVIDER_B_API_KEY_1 }}
+      PROVIDER_B_API_KEY_2: ${{ secrets.PROVIDER_B_API_KEY_2 }}
+      PROVIDER_B_API_KEY_3: ${{ secrets.PROVIDER_B_API_KEY_3 }}
+      PROVIDER_B_API_KEY_4: ${{ secrets.PROVIDER_B_API_KEY_4 }}
+      PROVIDER_B_API_KEY_5: ${{ secrets.PROVIDER_B_API_KEY_5 }}
+      PROVIDER_B_API_KEY_6: ${{ secrets.PROVIDER_B_API_KEY_6 }}
+      PROVIDER_B_API_KEY_7: ${{ secrets.PROVIDER_B_API_KEY_7 }}
+      PROVIDER_B_API_KEY_8: ${{ secrets.PROVIDER_B_API_KEY_8 }}
+      PROVIDER_B_API_KEY_9: ${{ secrets.PROVIDER_B_API_KEY_9 }}
+      EDENN_ENHANCED_PROVIDER_B_API_KEY: ${{ secrets.EDENN_ENHANCED_PROVIDER_B_API_KEY }}
+      PROVIDER_B_PG_LOCK_ENABLED: ${{ vars.PROVIDER_B_PG_LOCK_ENABLED || 'false' }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL || vars.DATABASE_URL }}
+      PGHOST: ${{ vars.PGHOST }}
+      PGPORT: ${{ vars.PGPORT }}
+      PGDATABASE: ${{ vars.PGDATABASE }}
+      PGUSER: ${{ vars.PGUSER }}
+      PGPASSWORD: ${{ secrets.PGPASSWORD }}
+      PGSSLMODE: ${{ vars.PGSSLMODE }}
+      PROVIDER_B_PG_LOCK_POOL_SIZE: ${{ vars.PROVIDER_B_PG_LOCK_POOL_SIZE || '1' }}
+      PROVIDER_B_KEY_HEALTH_POOL_SIZE: ${{ vars.PROVIDER_B_KEY_HEALTH_POOL_SIZE || '1' }}
+      PROVIDER_B_KEY_COOLDOWN_BASE_S: ${{ vars.PROVIDER_B_KEY_COOLDOWN_BASE_S }}
+      PROVIDER_B_KEY_COOLDOWN_MAX_S: ${{ vars.PROVIDER_B_KEY_COOLDOWN_MAX_S }}
+      PROVIDER_C_API_KEY: ${{ secrets.PROVIDER_C_API_KEY }}
+      PROVIDER_C_CALLBACK_URL: ${{ vars.PROVIDER_C_CALLBACK_URL }}
+      PROVIDER_C_MODEL: ${{ vars.PROVIDER_C_MODEL }}
+      PROVIDER_C_STATUS_ENDPOINT: ${{ vars.PROVIDER_C_STATUS_ENDPOINT }}
+      EDEN_ADMIN_SECRET: ${{ secrets.EDEN_ADMIN_SECRET }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Ensure Git LFS media is present
+        run: |
+          git lfs pull
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run remote workflow tests for ${{ matrix.workflow }}
+        shell: bash
+        run: |
+          mkdir -p test-results
+          set -o pipefail
+          pytest -v -m remote_integration "${{ matrix.test_file }}" 2>&1 | tee "test-results/${{ matrix.slug }}-workflow-remote.log"
+
+      - name: Upload remote workflow logs for ${{ matrix.workflow }}
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: remote-workflow-${{ matrix.slug }}-results
+          path: test-results/
+          if-no-files-found: warn

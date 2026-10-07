@@ -1,0 +1,147 @@
+<!-- @dsCard group="Screens" name="Performance — what's working" subtitle="CTR/CVR flows back onto the components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Edenn — Performance loop</title>
+<style>
+  :root { --bg:#f6f4ee; --panel:#fff; --ink:#191919; --muted:#8c8779; --line:#e7e3d9;
+          --accent:#4a3ab8; --accent-soft:#edeafc; --gen:#1d8a6b; --gen-soft:#e6f2ec;
+          --up:#1d8a6b; --down:#b8543a; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font:14px/1.45 -apple-system,"Segoe UI",sans-serif;
+         padding:26px 34px; }
+  .head { display:flex; align-items:baseline; gap:12px; margin-bottom:16px; max-width:1140px; }
+  .head h1 { font-size:16px; font-weight:650; }
+  .head span { color:var(--muted); font-size:12.5px; }
+  .head .live { margin-left:auto; font-size:11.5px; color:var(--gen); font-weight:700; }
+  .live i { display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--gen);
+            margin-right:5px; }
+
+  .wrap { max-width:1140px; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:16px; }
+
+  .variant { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  .variant.win { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent-soft); }
+  .v-cover { aspect-ratio:16/7; position:relative; }
+  .vc-a { background:linear-gradient(160deg,#c96a35,#31405e); }
+  .vc-b { background:linear-gradient(160deg,#31405e,#8fa0bd); }
+  .vc-c { background:radial-gradient(circle at 60% 30%,#6f8fc9 25%,#22304a); }
+  .v-cover .name { position:absolute; left:12px; bottom:9px; color:#fff; font-weight:650; font-size:13px;
+                   text-shadow:0 1px 4px rgba(0,0,0,.5); }
+  .v-cover .crown { position:absolute; top:9px; right:10px; background:#fff; border-radius:7px;
+                    font-size:10.5px; font-weight:800; color:var(--accent); padding:2px 8px; }
+  .v-body { padding:12px 14px; }
+  .chans { display:flex; gap:6px; margin-bottom:10px; }
+  .chan { font-size:10px; font-weight:700; border:1px solid var(--line); border-radius:6px;
+          padding:2px 7px; color:#55503f; }
+  .nums { display:flex; gap:0; }
+  .num { flex:1; }
+  .num b { display:block; font-size:17px; font-weight:700; }
+  .num span { font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+  .num .d { font-size:11px; font-weight:700; }
+  .d.up { color:var(--up); } .d.down { color:var(--down); }
+
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .panel h2 { font-size:13.5px; font-weight:650; }
+  .panel .sub { font-size:11.5px; color:var(--muted); margin-bottom:13px; }
+
+  .comp { display:flex; align-items:center; gap:10px; padding:7px 0; }
+  .comp .th { width:44px; height:28px; border-radius:7px; flex:none; }
+  .comp b { font-size:12.5px; display:block; }
+  .comp span { font-size:10.5px; color:var(--muted); }
+  .bar { flex:1; height:8px; border-radius:4px; background:#f0ede3; overflow:hidden; margin:0 4px; }
+  .bar i { display:block; height:100%; border-radius:4px; background:var(--accent); }
+  .lift { width:56px; text-align:right; font-size:12px; font-weight:700; }
+  .t-ignite { background:linear-gradient(160deg,#c96a35,#8e4520); }
+  .t-walkout { background:linear-gradient(160deg,#31405e,#22304a); }
+  .t-earth { background:radial-gradient(circle at 60% 35%,#6f8fc9 25%,#22304a); }
+  .t-track { background:repeating-linear-gradient(90deg,#4a3ab8 0 3px,#e6e2f8 3px 8px); }
+  .t-fair { background:repeating-linear-gradient(90deg,#1d8a6b 0 3px,#e0efe9 3px 8px); }
+  .note { font-size:10.5px; color:var(--muted); margin-top:10px; }
+  .note b { color:#8a6d3b; }
+
+  .iterate { display:flex; align-items:center; gap:14px; background:var(--panel);
+             border:1px solid var(--line); border-left:4px solid var(--accent);
+             border-radius:14px; padding:14px 18px; }
+  .iterate .spark { font-size:18px; }
+  .iterate p { font-size:13.5px; }
+  .iterate p b { font-weight:650; }
+  .iterate .btns { margin-left:auto; display:flex; gap:8px; }
+  .btn { border:1px solid var(--line); background:#faf9f5; border-radius:10px; padding:9px 15px;
+         font-size:12.5px; font-weight:600; cursor:pointer; white-space:nowrap; }
+  .btn.primary { background:var(--ink); color:#fff; border-color:var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>Launch week — live on 3 channels</h1><span>day 4 · pulled 2h ago</span>
+    <span class="live"><i></i>collecting</span>
+  </div>
+
+  <div class="grid">
+    <div class="variant win">
+      <div class="v-cover vc-a"><span class="name">A · hook-first</span><span class="crown">LEADING</span></div>
+      <div class="v-body">
+        <div class="chans"><span class="chan">TikTok</span><span class="chan">Reels</span><span class="chan">YT Shorts</span></div>
+        <div class="nums">
+          <div class="num"><b>2.9%</b><span>CTR</span> <span class="d up">+23%</span></div>
+          <div class="num"><b>0.84%</b><span>CVR</span> <span class="d up">+11%</span></div>
+          <div class="num"><b>$1.2k</b><span>spend</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="variant">
+      <div class="v-cover vc-b"><span class="name">B · human-first</span></div>
+      <div class="v-body">
+        <div class="chans"><span class="chan">TikTok</span><span class="chan">Reels</span></div>
+        <div class="nums">
+          <div class="num"><b>2.2%</b><span>CTR</span> <span class="d down">−6%</span></div>
+          <div class="num"><b>0.81%</b><span>CVR</span> <span class="d up">+7%</span></div>
+          <div class="num"><b>$0.9k</b><span>spend</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="variant">
+      <div class="v-cover vc-c"><span class="name">C · awe-first</span></div>
+      <div class="v-body">
+        <div class="chans"><span class="chan">TikTok</span><span class="chan">YT Shorts</span></div>
+        <div class="nums">
+          <div class="num"><b>2.4%</b><span>CTR</span> <span class="d up">+2%</span></div>
+          <div class="num"><b>0.66%</b><span>CVR</span> <span class="d down">−13%</span></div>
+          <div class="num"><b>$0.8k</b><span>spend</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <h2>Which opening carries the click?</h2>
+      <div class="sub">Same moment, wherever it appears — performance follows the component, not the video.</div>
+      <div class="comp"><div class="th t-ignite"></div><div style="width:110px"><b>ignition</b><span>opens A · in B, C</span></div><div class="bar"><i style="width:88%"></i></div><div class="lift" style="color:var(--up)">+23%</div></div>
+      <div class="comp"><div class="th t-earth"></div><div style="width:110px"><b>Earth reveal</b><span>opens C</span></div><div class="bar"><i style="width:52%"></i></div><div class="lift" style="color:var(--up)">+2%</div></div>
+      <div class="comp"><div class="th t-walkout"></div><div style="width:110px"><b>walkout</b><span>opens B</span></div><div class="bar"><i style="width:38%"></i></div><div class="lift" style="color:var(--down)">−6%</div></div>
+      <div class="note">Observed across placements · <b>not yet a controlled test</b> — “Iterate” below runs one.</div>
+    </div>
+    <div class="panel">
+      <h2>Sound that converts</h2>
+      <div class="sub">Tracks and voices, ranked by the CVR of every piece they score.</div>
+      <div class="comp"><div class="th t-track"></div><div style="width:110px"><b>Trailer track ✦</b><span>scores A, C</span></div><div class="bar"><i style="width:74%"></i></div><div class="lift" style="color:var(--up)">+9%</div></div>
+      <div class="comp"><div class="th t-walkout"></div><div style="width:110px"><b>NASA voices kept</b><span>in B</span></div><div class="bar"><i style="width:66%"></i></div><div class="lift" style="color:var(--up)">+7%</div></div>
+      <div class="comp"><div class="th t-fair"></div><div style="width:110px"><b>Fairground swing ✦</b><span>other campaign</span></div><div class="bar"><i style="width:30%"></i></div><div class="lift" style="color:var(--muted)">n/a</div></div>
+      <div class="note">Voices-kept converts on Reels; consider it for B-style cuts there.</div>
+    </div>
+  </div>
+
+  <div class="iterate">
+    <span class="spark">✦</span>
+    <p><b>The ignition hook is carrying CTR (+23%), and kept-voices carry CVR on Reels.</b><br>
+       Cut 3 new takes: keep the ignition open, vary only the close — a clean test of what ends best.</p>
+    <div class="btns"><button class="btn">Promote A</button><button class="btn primary">Iterate — 3 takes</button></div>
+  </div>
+</div>
+</body>
+</html>

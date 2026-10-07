@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Edenn — setup widget options</title>
+<style>
+:root{
+  --primary:#1a1a1a; --bg-canvas:#f0ede8; --bg-surface:#fff; --bg-surface-2:#f7f5f2; --bg-surface-3:#f0ede8;
+  --text-primary:#1a1a1a; --text-secondary:#5f6368; --text-tertiary:#9aa0a6; --text-inverse:#fff;
+  --border-subtle:#e8eaed; --border-default:#d0ccc8; --border-strong:#1a1a1a;
+  --teal:#1D9E75; --teal-light:#E1F5EE; --teal-dark:#0F6E56; --teal-text:#085041;
+  --blue:#378ADD; --blue-light:#E6F1FB; --blue-dark:#185FA5; --blue-text:#0C447C;
+  --indigo:#3C3489; --indigo-light:#EEEDFE;
+  --red:#E24B4A; --red-light:#FFF0F0; --amber:#EF9F27; --amber-light:#FEF9E7;
+  --glass-backdrop:#e4dfd5;
+  --r-xs:4px; --r-sm:6px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-pill:99px; --r-full:9999px;
+  --s-xs:4px; --s-sm:8px; --s-md:12px; --s-lg:16px; --s-xl:24px; --s-2xl:32px;
+  --e-card:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --e-raised:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.06);
+  --font-sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-canvas);color:var(--text-primary);font-family:var(--font-sans);
+  font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 28px 96px}
+
+/* ---------- page chrome ---------- */
+.masthead{margin-bottom:28px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary)}
+h1{font-size:26px;font-weight:600;margin:6px 0 8px;letter-spacing:-.01em}
+.lede{color:var(--text-secondary);max-width:66ch;margin:0}
+h2{font-size:17px;font-weight:600;margin:0 0 4px;letter-spacing:-.01em}
+.sec{margin-top:44px}
+.sec__hd{border-top:1px solid var(--border-default);padding-top:18px;margin-bottom:22px}
+.sec__hd p{margin:4px 0 0;color:var(--text-secondary);max-width:70ch}
+
+/* ---------- audit ---------- */
+.audit{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);
+  padding:18px 20px;box-shadow:var(--e-card)}
+.audit h2{margin-bottom:12px}
+.find{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:9px 0}
+.find+.find{border-top:1px solid var(--bg-surface-3)}
+.find__k{width:22px;height:22px;border-radius:var(--r-full);display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.k-warn{background:var(--red-light);color:var(--red)}
+.k-ok{background:var(--teal-light);color:var(--teal-dark)}
+.k-note{background:var(--blue-light);color:var(--blue-dark)}
+.find__t{font-weight:600}
+.find__d{color:var(--text-secondary);font-size:13px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:var(--bg-surface-3);
+  padding:1px 5px;border-radius:var(--r-xs)}
+
+/* ---------- option layout ---------- */
+.opt{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);
+  box-shadow:var(--e-card);margin-bottom:20px;overflow:hidden}
+.opt__hd{display:flex;align-items:flex-start;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border-subtle)}
+.opt__n{width:26px;height:26px;border-radius:var(--r-full);background:var(--primary);color:var(--text-inverse);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.opt__ttl{font-size:15px;font-weight:600}
+.opt__sub{font-size:13px;color:var(--text-secondary)}
+.opt__body{display:grid;grid-template-columns:396px 1fr;gap:0}
+@media(max-width:900px){.opt__body{grid-template-columns:1fr}}
+.stagecol{background:var(--bg-canvas);padding:22px 24px;border-right:1px solid var(--border-subtle)}
+@media(max-width:900px){.stagecol{border-right:none;border-bottom:1px solid var(--border-subtle)}}
+.stagecol__cap{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-tertiary);margin-bottom:10px}
+/* the real constraint: the chat pane is 300–560px, default 380 */
+.pane{width:348px;max-width:100%}
+.notes{padding:18px 22px}
+.notes dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:baseline}
+.notes dt{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;padding-top:2px}
+.dt-for{color:var(--teal-dark)} .dt-cost{color:var(--red)} .dt-needs{color:var(--blue-dark)}
+.notes dd{margin:0;font-size:13px;color:var(--text-secondary)}
+
+/* ---------- chat primitives (mirrors styles.css) ---------- */
+.agent-row{display:flex;gap:10px;align-items:flex-start}
+.av{width:28px;height:28px;border-radius:var(--r-full);background:var(--indigo-light);color:var(--indigo);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.abody{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.aname{font-size:11px;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em}
+.atext{font-size:15px;color:var(--text-primary);line-height:1.6}
+.qtext{font-size:14px}
+.ico{width:16px;height:16px;display:block}
+.ico-sm{width:13px;height:13px}
+.ico-lg{width:18px;height:18px}
+
+/* lane accent per layer — same trio as the timeline lanes */
+.l-music{--lane:var(--indigo);--lane-bg:var(--indigo-light);--lane-tx:var(--indigo)}
+.l-voice{--lane:var(--teal);--lane-bg:var(--teal-light);--lane-tx:var(--teal-text)}
+.l-sfx{--lane:var(--amber);--lane-bg:var(--amber-light);--lane-tx:#854F0B}
+
+/* ---------- O1 checklist ---------- */
+.chk{display:flex;flex-direction:column;gap:6px}
+.chkrow{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg-surface);
+  border:1px solid var(--border-subtle);border-radius:var(--r-md);text-align:left;width:100%;transition:.12s}
+.chkrow:hover:not(.is-dead){border-color:var(--border-default)}
+.chkrow.is-on{border-color:var(--lane);background:var(--lane-bg)}
+.chkrow.is-dead{opacity:.5;cursor:not-allowed}
+.chkbox{width:18px;height:18px;border-radius:var(--r-xs);border:1.5px solid var(--border-default);
+  background:var(--bg-surface);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff}
+.chkrow.is-on .chkbox{background:var(--lane);border-color:var(--lane)}
+.chkrow:not(.is-on) .chkbox .ico{display:none}
+.chkic{width:26px;height:26px;border-radius:var(--r-sm);background:var(--bg-surface-2);color:var(--text-secondary);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chkrow.is-on .chkic{background:var(--bg-surface);color:var(--lane-tx)}
+.chkttl{display:block;font-size:13px;font-weight:600;line-height:1.25}
+.chkdesc{display:block;font-size:11.5px;color:var(--text-secondary);line-height:1.35;margin-top:1px}
+.chktag{margin-left:auto;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--text-tertiary);background:var(--bg-surface-3);padding:2px 7px;border-radius:var(--r-pill);flex-shrink:0}
+
+/* ---------- shared confirm bar ---------- */
+.gorow{display:flex;align-items:center;gap:8px;margin-top:4px}
+.btn-primary{background:var(--primary);color:var(--text-inverse);font-size:13px;font-weight:600;
+  padding:8px 14px;border-radius:var(--r-sm);display:inline-flex;align-items:center;gap:6px}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed}
+.btn-ghost{font-size:12.5px;color:var(--text-secondary);padding:8px 10px;border-radius:var(--r-sm)}
+.btn-ghost:hover{background:var(--bg-surface-2);color:var(--text-primary)}
+.gonote{font-size:11px;color:var(--text-tertiary);margin-left:auto;text-align:right;line-height:1.35}
+
+/* ---------- O2 recommended plan ---------- */
+.plan{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);
+  padding:14px;box-shadow:var(--e-card)}
+.plan__hd{display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--teal-dark);margin-bottom:9px}
+.plan__s{font-size:14px;line-height:1.65}
+.tok{display:inline-flex;align-items:center;gap:5px;padding:2px 9px 2px 7px;border-radius:var(--r-pill);
+  font-size:12.5px;font-weight:600;background:var(--lane-bg);color:var(--lane-tx);
+  border:1px solid transparent;vertical-align:baseline}
+.tok.is-off{background:var(--bg-surface-2);color:var(--text-tertiary);border-color:var(--border-subtle);
+  text-decoration:line-through;text-decoration-thickness:1px}
+.plan__why{font-size:11.5px;color:var(--text-tertiary);margin-top:9px;padding-top:9px;
+  border-top:1px solid var(--bg-surface-3);display:flex;gap:6px}
+
+/* ---------- O3 lane preview ---------- */
+.lanes{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);
+  padding:12px;box-shadow:var(--e-card)}
+.lanes__hd{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-tertiary);margin-bottom:9px}
+.scn{display:flex;gap:2px;margin-bottom:7px;padding-left:64px}
+.scn i{flex:1;height:14px;border-radius:2px;background:var(--bg-surface-3);font-style:normal;font-size:8.5px;
+  color:var(--text-tertiary);display:flex;align-items:center;padding-left:4px;overflow:hidden}
+.lane{display:grid;grid-template-columns:60px 1fr;gap:4px;align-items:center;margin-bottom:5px}
+.lane__l{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--text-secondary);
+  cursor:pointer;user-select:none}
+.lane__sw{width:9px;height:9px;border-radius:var(--r-full);background:var(--border-default);flex-shrink:0}
+.lane.is-on .lane__sw{background:var(--lane)}
+.lane.is-on .lane__l{color:var(--text-primary)}
+.lane__t{height:24px;border-radius:var(--r-xs);background:repeating-linear-gradient(-45deg,
+  var(--bg-surface-2) 0 6px,var(--bg-surface-3) 6px 12px);display:flex;align-items:center;padding:0 8px;
+  font-size:10.5px;color:var(--text-tertiary);transition:.14s}
+.lane.is-on .lane__t{background:var(--lane-bg);color:var(--lane-tx);font-weight:600;
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--lane) 30%,transparent)}
+.lane__bars{display:flex;align-items:center;gap:1.5px;height:11px;margin-right:7px}
+.lane__bars i{width:2px;border-radius:1px;background:var(--lane);opacity:.55}
+.lane.is-on .lane__t .lane__bars{display:flex}
+.lane:not(.is-on) .lane__bars{display:none}
+.lanes__ft{font-size:11px;color:var(--text-tertiary);margin-top:8px;padding-top:8px;
+  border-top:1px solid var(--bg-surface-3)}
+
+/* ---------- O4 segmented ---------- */
+.seg{display:flex;background:var(--bg-surface-2);border:1px solid var(--border-subtle);
+  border-radius:var(--r-pill);padding:3px;gap:2px}
+.seg button{flex:1;font-size:12px;font-weight:600;padding:7px 4px;border-radius:var(--r-pill);
+  color:var(--text-secondary);display:flex;flex-direction:column;align-items:center;gap:3px;line-height:1.2}
+.seg button .ico{opacity:.65}
+.seg button.is-on{background:var(--bg-surface);color:var(--text-primary);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.seg button.is-on .ico{opacity:1;color:var(--indigo)}
+.segcap{font-size:11.5px;color:var(--text-tertiary);margin-top:8px;min-height:32px}
+
+/* ---------- O5 switch rows ---------- */
+.sw{display:flex;flex-direction:column;background:var(--bg-surface);border:1px solid var(--border-subtle);
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e-card)}
+.swrow{display:flex;align-items:center;gap:10px;padding:11px 13px;text-align:left;width:100%}
+.swrow+.swrow{border-top:1px solid var(--bg-surface-3)}
+.swrow__ic{width:24px;height:24px;border-radius:var(--r-sm);background:var(--bg-surface-2);
+  color:var(--text-tertiary);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.swrow.is-on .swrow__ic{background:var(--lane-bg);color:var(--lane-tx)}
+.swtoggle{width:34px;height:20px;border-radius:var(--r-pill);background:var(--border-default);
+  flex-shrink:0;margin-left:auto;position:relative;transition:.16s}
+.swtoggle::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:var(--r-full);
+  background:#fff;transition:.16s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.swrow.is-on .swtoggle{background:var(--lane)}
+.swrow.is-on .swtoggle::after{transform:translateX(14px)}
+.swsum{background:var(--bg-surface-2);padding:10px 13px;font-size:12.5px;color:var(--text-secondary);
+  line-height:1.5;border-top:1px solid var(--border-subtle)}
+.swsum strong{color:var(--text-primary);font-weight:600}
+
+/* ---------- O6 no widget ---------- */
+.inline-plan{font-size:15px;line-height:1.7}
+.uline{border-bottom:1.5px dashed var(--border-default);cursor:pointer;font-weight:600;padding-bottom:1px}
+.uline:hover{border-bottom-color:var(--primary);background:var(--bg-surface-2)}
+.microbar{display:flex;gap:6px;margin-top:10px}
+.micro{font-size:12px;color:var(--text-secondary);background:var(--bg-surface);border:1px solid var(--border-subtle);
+  border-radius:var(--r-pill);padding:5px 11px}
+.micro:hover{border-color:var(--blue-dark);color:var(--blue-dark);background:var(--blue-light)}
+
+/* ---------- section B: direction cards ---------- */
+.glass{background:var(--glass-backdrop);border-radius:var(--r-lg);padding:12px}
+.glass__note{font-size:11.5px;color:var(--text-secondary);display:flex;gap:6px;align-items:flex-start;
+  margin-bottom:10px;line-height:1.4}
+.dcard{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-md);
+  padding:11px 12px;margin-bottom:8px}
+.dcard.rec{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal)}
+.dbadge{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;
+  border-radius:var(--r-pill);display:inline-block}
+.dbadge.rec{background:var(--teal-light);color:var(--teal-dark)}
+.dbadge.alt{background:var(--bg-surface-3);color:var(--text-secondary)}
+.dttl{font-size:13.5px;font-weight:600;margin:6px 0 3px}
+.ddesc{font-size:12px;color:var(--text-secondary);line-height:1.45}
+.ddesc.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dmore{font-size:11.5px;color:var(--blue-dark);font-weight:600;margin-top:2px}
+.dattrs{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}
+.dattr{font-size:11px;font-weight:600;color:var(--text-secondary);background:var(--bg-surface-2);
+  border:1px solid var(--border-subtle);border-radius:var(--r-pill);padding:3px 9px;display:inline-flex;
+  align-items:center;gap:5px}
+.dattr.hot{background:var(--indigo-light);color:var(--indigo);border-color:transparent}
+.duse{width:100%;background:var(--primary);color:var(--text-inverse);font-size:12.5px;font-weight:600;
+  padding:8px;border-radius:var(--r-sm);margin-top:8px}
+.dghost{width:100%;background:var(--bg-surface-2);color:var(--text-secondary);font-size:12.5px;font-weight:600;
+  padding:8px;border-radius:var(--r-sm);margin-top:8px;border:1px solid var(--border-subtle)}
+/* A/B diff */
+.ab{display:flex;flex-direction:column;gap:0;background:var(--bg-surface);border:1px solid var(--border-subtle);
+  border-radius:var(--r-md);overflow:hidden}
+.abhd{display:grid;grid-template-columns:56px 1fr 1fr;font-size:10.5px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--text-tertiary);background:var(--bg-surface-2);
+  border-bottom:1px solid var(--border-subtle)}
+.abhd>div{padding:7px 8px}
+.abrow{display:grid;grid-template-columns:56px 1fr 1fr;font-size:12px;border-bottom:1px solid var(--bg-surface-3)}
+.abrow>div{padding:8px}
+.abk{color:var(--text-tertiary);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.abdiff{background:var(--amber-light)}
+.abpick{display:grid;grid-template-columns:56px 1fr 1fr}
+.abpick>div{padding:8px}
+/* energy arc */
+.arc{height:38px;display:flex;align-items:flex-end;gap:2px;margin:8px 0 2px}
+.arc i{flex:1;border-radius:1.5px 1.5px 0 0;background:var(--indigo);opacity:.75}
+.arccuts{display:flex;gap:2px;font-size:8.5px;color:var(--text-tertiary)}
+.arccuts i{flex:1;font-style:normal;border-top:1px solid var(--border-subtle);padding-top:3px;overflow:hidden;
+  white-space:nowrap}
+.needs{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--blue-dark);
+  background:var(--blue-light);border-radius:var(--r-pill);padding:2px 8px;display:inline-block}
+
+/* ---------- inventory table ---------- */
+.tbl{width:100%;border-collapse:collapse;background:var(--bg-surface);border:1px solid var(--border-subtle);
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e-card)}
+.tbl th{text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-tertiary);padding:10px 14px;background:var(--bg-surface-2);border-bottom:1px solid var(--border-subtle)}
+.tbl td{padding:11px 14px;font-size:13px;border-bottom:1px solid var(--bg-surface-3);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-weight:600;white-space:nowrap}
+.tbl td code{white-space:nowrap}
+.verdict{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;
+  border-radius:var(--r-pill);white-space:nowrap}
+.v-ok{background:var(--teal-light);color:var(--teal-dark)}
+.v-mid{background:var(--amber-light);color:#854F0B}
+.v-bad{background:var(--red-light);color:var(--red)}
+
+/* ---------- recommendation ---------- */
+.rec-box{background:var(--primary);color:var(--text-inverse);border-radius:var(--r-lg);padding:22px 24px}
+.rec-box h2{color:#fff;margin-bottom:10px}
+.rec-box ol{margin:0;padding-left:20px}
+.rec-box li{margin-bottom:8px;color:rgba(255,255,255,.82)}
+.rec-box strong{color:#fff}
+.rec-box code{background:rgba(255,255,255,.16);color:#fff}
+</style>
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M9 18V5l12-2v13"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 12h2l2-6 3 12 3-15 3 18 2-9h3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 12l5 5L20 6"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2c.35 4 3.6 7.2 7.6 7.6-4 .35-7.25 3.6-7.6 7.6-.35-4-3.6-7.25-7.6-7.6C8.4 9.2 11.65 6 12 2z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="5" width="14" height="14" rx="2"/><path d="M16 10l6-3v10l-6-3"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2l9 5-9 5-9-5 9-5M3 12l9 5 9-5M3 17l9 5 9-5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+</svg>
+
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="eyebrow">Edenn · agentic audio console</div>
+    <h1>Setting up a session: six options</h1>
+    <p class="lede">An audit of what the generation flow actually gates, then six ways to replace the
+      three-card modality question — plus what to do about the other choose-one widgets in the thread.
+      Every widget below is drawn at <strong>348px</strong>, the real width of the chat pane.</p>
+  </div>
+
+  <!-- ============================== AUDIT ============================== -->
+  <div class="audit">
+    <h2>What the audit found</h2>
+
+    <div class="find">
+      <span class="find__k k-warn">!</span>
+      <div>
+        <div class="find__t">Sound effects are not a layer you can offer.</div>
+        <div class="find__d">Two places strip it on purpose. <code>agent.py</code>: "SFX isn't a shipped layer
+          yet, so it is intentionally NOT planned." <code>tools/impls.py</code> filters
+          <code>layer != AUDIO_LAYER_SFX</code> out of every plan, even if the model asks for it. A checklist
+          with SFX checked by default would be the console promising a track the pipeline silently drops.</div>
+      </div>
+    </div>
+
+    <div class="find">
+      <span class="find__k k-ok">✓</span>
+      <div>
+        <div class="find__t">A checklist is a faithful shape for the other two.</div>
+        <div class="find__d">The gate maps to <code>(mode, layers)</code>:
+          full_audio → <code>full_e2e,[music,voiceover]</code>; music_only → <code>music_first,[music]</code>;
+          voiceover_only → <code>music_first,[voiceover]</code>. The mode is derivable from the layer count,
+          so two checkboxes carry exactly the same information as three exclusive cards — nothing is lost.</div>
+      </div>
+    </div>
+
+    <div class="find">
+      <span class="find__k k-note">i</span>
+      <div>
+        <div class="find__t">This gate is routing, not spending.</div>
+        <div class="find__d">Money is gated separately and later, by <code>confirmSpend()</code> on
+          <em>Use this</em> and on <em>Generate voice-over</em>. So checking both layers by default costs
+          nothing — it just means the agent also drafts a script. The fear that a permissive default burns
+          credits doesn't apply here.</div>
+      </div>
+    </div>
+
+    <div class="find">
+      <span class="find__k k-warn">!</span>
+      <div>
+        <div class="find__t">The three cards were built for a full-width thread.</div>
+        <div class="find__d"><code>.cards-row</code> uses <code>flex:1 1 150px</code>. That was fine in a 680px
+          centred column; in the 380px pane it wraps 2 + 1 and the third card sits alone on its own line. This
+          is most of why the widget looks wrong now — it isn't only a content problem.</div>
+      </div>
+    </div>
+
+    <div class="find">
+      <span class="find__k k-note">i</span>
+      <div>
+        <div class="find__t">One setup question is already being asked in the wrong place.</div>
+        <div class="find__d"><em>"Keep the video's original audio under the music"</em> lives in the mix panel,
+          three steps later. It's a fact about the footage you already have, not a balance decision — and the
+          observation pane knows the answer (<code>detected_include_vocals</code>) before you're asked.
+          Options 3 and 5 pull it forward.</div>
+      </div>
+    </div>
+
+    <div class="find">
+      <span class="find__k k-note">i</span>
+      <div>
+        <div class="find__t">Two proposal fields are in the model and never rendered.</div>
+        <div class="find__d"><code>MusicProposalCard.include_vocals</code> and <code>vocal_gender</code> exist
+          on every direction and appear nowhere in the UI. Instrumental-vs-vocal is the single most audible
+          difference between two directions, and it's free — see section B.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ SECTION A ============================ -->
+  <div class="sec">
+    <div class="sec__hd">
+      <h2>A. The setup widget</h2>
+      <p>Ordered loosely from "closest to what you asked for" to "furthest". Each is live — click them.</p>
+    </div>
+
+    <!-- ---------- OPTION 1 ---------- -->
+    <div class="opt">
+      <div class="opt__hd">
+        <span class="opt__n">1</span>
+        <div>
+          <div class="opt__ttl">Layer checklist</div>
+          <div class="opt__sub">Literally what you asked for, with SFX present but honest about itself.</div>
+        </div>
+      </div>
+      <div class="opt__body">
+        <div class="stagecol">
+          <div class="stagecol__cap">Chat pane · 348px</div>
+          <div class="pane">
+            <div class="agent-row">
+              <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+              <div class="abody">
+                <div class="aname">Edenn</div>
+                <div class="atext qtext">Here's what I'll build. Uncheck anything you don't want.</div>
+                <div class="chk" id="o1">
+                  <button class="chkrow l-music is-on" data-layer="music">
+                    <span class="chkbox"><svg class="ico ico-sm"><use href="#i-check"/></svg></span>
+                    <span class="chkic"><svg class="ico"><use href="#i-music"/></svg></span>
+                    <span><span class="chkttl">Music</span>
+                      <span class="chkdesc">A scored bed cut to your 4 scenes</span></span>
+                  </button>
+                  <button class="chkrow l-voice is-on" data-layer="voiceover">
+                    <span class="chkbox"><svg class="ico ico-sm"><use href="#i-check"/></svg></span>
+                    <span class="chkic"><svg class="ico"><use href="#i-mic"/></svg></span>
+                    <span><span class="chkttl">Voice-over</span>
+                      <span class="chkdesc">I'll draft a script, you approve it</span></span>
+                  </button>
+                  <button class="chkrow l-sfx is-dead" disabled>
+                    <span class="chkbox"></span>
+                    <span class="chkic"><svg class="ico"><use href="#i-wave"/></svg></span>
+                    <span><span class="chkttl">Sound effects</span>
+                      <span class="chkdesc">Not in the pipeline yet</span></span>
+                    <span class="chktag">Soon</span>
+                  </button>
+                </div>
+                <div class="gorow">
+                  <button class="btn-primary" id="o1go">Start</button>
+                  <span class="gonote" id="o1note">Nothing generates until you pick a direction.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <dl>
+            <dt class="dt-for">For</dt>
+            <dd>Rows stack, so it fits 348px with room to spare. The disabled SFX row answers "where are the
+              sound effects?" once, permanently, instead of leaving a hole people keep asking about.</dd>
+            <dt class="dt-cost">Cost</dt>
+            <dd>Adds a second click (check, then Start) where the cards took one. Unchecking both is a valid
+              gesture that means nothing — needs the disabled-Start guard shown here.</dd>
+            <dt class="dt-needs">Needs</dt>
+            <dd>Frontend only. Map <code>{music}→music_first</code>, <code>{voiceover}→music_first</code>,
+              <code>{both}→full_e2e</code> and send the existing <code>gate:"intent"</code> answer.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- OPTION 2 ---------- -->
+    <div class="opt">
+      <div class="opt__hd">
+        <span class="opt__n">2</span>
+        <div>
+          <div class="opt__ttl">Recommended plan, one click to accept</div>
+          <div class="opt__sub">Read the observation, state a plan as a sentence, let them edit the nouns.</div>
+        </div>
+      </div>
+      <div class="opt__body">
+        <div class="stagecol">
+          <div class="stagecol__cap">Chat pane · 348px</div>
+          <div class="pane">
+            <div class="agent-row">
+              <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+              <div class="abody">
+                <div class="aname">Edenn</div>
+                <div class="plan">
+                  <div class="plan__hd"><svg class="ico ico-sm"><use href="#i-check"/></svg> Suggested plan</div>
+                  <div class="plan__s" id="o2">
+                    Score it with <span class="tok l-music" data-tok="music">
+                      <svg class="ico ico-sm"><use href="#i-music"/></svg>music</span>
+                    and skip the <span class="tok l-voice is-off" data-tok="voiceover">
+                      <svg class="ico ico-sm"><use href="#i-mic"/></svg>voice-over</span>.
+                  </div>
+                  <div class="plan__why"><svg class="ico ico-sm" style="flex-shrink:0;margin-top:2px"><use href="#i-info"/></svg>
+                    <span id="o2why">Your clip has no dialogue and runs 0:15 — narration rarely lands that short.</span></div>
+                </div>
+                <div class="gorow">
+                  <button class="btn-primary">Looks right</button>
+                  <button class="btn-ghost">Change</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <dl>
+            <dt class="dt-for">For</dt>
+            <dd>One click on the common path, and it's the only option that <em>justifies</em> itself. Tapping a
+              token toggles it inline, so editing costs nothing. Scales cleanly if a third layer ever ships.</dd>
+            <dt class="dt-cost">Cost</dt>
+            <dd>A wrong recommendation is worse than no recommendation — it has to actually read the
+              observation, not print a constant. Inline tokens are a less obvious tap target than a checkbox.</dd>
+            <dt class="dt-needs">Needs</dt>
+            <dd>Frontend only, but real logic: <code>detected_include_vocals</code> and <code>duration_s</code>
+              are already on <code>state.observation</code> by the time this renders.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- OPTION 3 ---------- -->
+    <div class="opt">
+      <div class="opt__hd">
+        <span class="opt__n">3</span>
+        <div>
+          <div class="opt__ttl">Lane preview — set up by drawing the timeline</div>
+          <div class="opt__sub">The widget is a small version of the thing it's about to build.</div>
+        </div>
+      </div>
+      <div class="opt__body">
+        <div class="stagecol">
+          <div class="stagecol__cap">Chat pane · 348px</div>
+          <div class="pane">
+            <div class="agent-row">
+              <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+              <div class="abody">
+                <div class="aname">Edenn</div>
+                <div class="atext qtext">Which lanes should I fill?</div>
+                <div class="lanes" id="o3">
+                  <div class="lanes__hd">Your timeline · 0:15</div>
+                  <div class="scn"><i>Opening</i><i>Action</i><i>Product</i><i>Close</i></div>
+                  <div class="lane l-music is-on" data-layer="music">
+                    <span class="lane__l"><span class="lane__sw"></span>Music</span>
+                    <span class="lane__t"><span class="lane__bars"></span>Scored bed</span>
+                  </div>
+                  <div class="lane l-voice is-on" data-layer="voiceover">
+                    <span class="lane__l"><span class="lane__sw"></span>Voice</span>
+                    <span class="lane__t"><span class="lane__bars"></span>Narration</span>
+                  </div>
+                  <div class="lane l-sfx" data-layer="sfx" data-dead="1">
+                    <span class="lane__l"><span class="lane__sw"></span>SFX</span>
+                    <span class="lane__t">Not available yet</span>
+                  </div>
+                  <div class="lanes__ft" id="o3ft">Two lanes over your own audio.</div>
+                </div>
+                <div class="gorow"><button class="btn-primary">Start</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <dl>
+            <dt class="dt-for">For</dt>
+            <dd>Teaches the timeline before you get there — the setup gesture and the editor share one mental
+              model, and the scene strip makes the video the subject of the question. Most visual of the six.</dd>
+            <dt class="dt-cost">Cost</dt>
+            <dd>Most pixels and most new CSS. The bars are decorative at this stage since nothing is generated
+              yet, which sits awkwardly next to timeline-mode's rule that it never draws unmeasured audio.</dd>
+            <dt class="dt-needs">Needs</dt>
+            <dd>Frontend only. Scene rects come from <code>observation.scenes[]</code>, which is real by the
+              time the gate is asked.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- OPTION 4 ---------- -->
+    <div class="opt">
+      <div class="opt__hd">
+        <span class="opt__n">4</span>
+        <div>
+          <div class="opt__ttl">Segmented pill — same semantics, one line</div>
+          <div class="opt__sub">Keep the exclusive three-way, just stop spending a paragraph on it.</div>
+        </div>
+      </div>
+      <div class="opt__body">
+        <div class="stagecol">
+          <div class="stagecol__cap">Chat pane · 348px</div>
+          <div class="pane">
+            <div class="agent-row">
+              <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+              <div class="abody">
+                <div class="aname">Edenn</div>
+                <div class="atext qtext">What are you adding today?</div>
+                <div>
+                  <div class="seg" id="o4">
+                    <button data-v="full" class="is-on"><svg class="ico"><use href="#i-layers"/></svg>Both</button>
+                    <button data-v="music"><svg class="ico"><use href="#i-music"/></svg>Music</button>
+                    <button data-v="voice"><svg class="ico"><use href="#i-mic"/></svg>Voice</button>
+                  </div>
+                  <div class="segcap" id="o4cap">Music and a voice-over, built together.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <dl>
+            <dt class="dt-for">For</dt>
+            <dd>Smallest footprint by a wide margin, and it's the same control as the Timeline/Canvas toggle you
+              already have — one segmented-pill pattern for the whole console. Zero backend change, zero
+              semantic change; the caption carries the explanation the cards spent three columns on.</dd>
+            <dt class="dt-cost">Cost</dt>
+            <dd>Doesn't answer your actual question — it's still a fork, not a checklist, and there's still
+              nowhere to put SFX when it ships.</dd>
+            <dt class="dt-needs">Needs</dt>
+            <dd>Nothing. This is a CSS swap on <code>renderClarify</code>'s card branch.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- OPTION 5 ---------- -->
+    <div class="opt">
+      <div class="opt__hd">
+        <span class="opt__n">5</span>
+        <div>
+          <div class="opt__ttl">Switch rows with a self-writing summary</div>
+          <div class="opt__sub">Folds in the "keep original audio" question that's currently stranded in the mix panel.</div>
+        </div>
+      </div>
+      <div class="opt__body">
+        <div class="stagecol">
+          <div class="stagecol__cap">Chat pane · 348px</div>
+          <div class="pane">
+            <div class="agent-row">
+              <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+              <div class="abody">
+                <div class="aname">Edenn</div>
+                <div class="atext qtext">Set the session up — you can change any of this later.</div>
+                <div class="sw" id="o5">
+                  <button class="swrow l-music is-on" data-k="music">
+                    <span class="swrow__ic"><svg class="ico"><use href="#i-music"/></svg></span>
+                    <span><span class="chkttl">Music</span></span>
+                    <span class="swtoggle"></span>
+                  </button>
+                  <button class="swrow l-voice" data-k="voiceover">
+                    <span class="swrow__ic"><svg class="ico"><use href="#i-mic"/></svg></span>
+                    <span><span class="chkttl">Voice-over</span></span>
+                    <span class="swtoggle"></span>
+                  </button>
+                  <button class="swrow l-music" data-k="keep">
+                    <span class="swrow__ic"><svg class="ico"><use href="#i-video"/></svg></span>
+                    <span><span class="chkttl">Keep your video's audio</span></span>
+                    <span class="swtoggle"></span>
+                  </button>
+                  <div class="swsum" id="o5sum"></div>
+                </div>
+                <div class="gorow"><button class="btn-primary">Start</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <dl>
+            <dt class="dt-for">For</dt>
+            <dd>The summary line is the whole trick: it says what the switches mean in sentence form, so nobody
+              has to simulate the combination in their head. Moves a decision to where the user has the context
+              to make it.</dd>
+            <dt class="dt-cost">Cost</dt>
+            <dd>Three switches reads as more configuration than the job deserves, and it drags a mix parameter
+              into a gate that currently only carries <code>production_plan</code>.</dd>
+            <dt class="dt-needs">Needs</dt>
+            <dd>A small backend change: the intent-gate answer would need to carry
+              <code>preserve_original_audio</code> through to the mix, or the frontend fires a second
+              <code>choice_type:"mix"</code> right after.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- OPTION 6 ---------- -->
+    <div class="opt">
+      <div class="opt__hd">
+        <span class="opt__n">6</span>
+        <div>
+          <div class="opt__ttl">No widget — a sentence with editable nouns</div>
+          <div class="opt__sub">The position your own product philosophy implies: editing stays in chat.</div>
+        </div>
+      </div>
+      <div class="opt__body">
+        <div class="stagecol">
+          <div class="stagecol__cap">Chat pane · 348px</div>
+          <div class="pane">
+            <div class="agent-row">
+              <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+              <div class="abody">
+                <div class="aname">Edenn</div>
+                <div class="inline-plan">I'll write <span class="uline">music only</span> for this —
+                  no dialogue to work around, and 0:15 is tight for narration.</div>
+                <div class="microbar">
+                  <button class="micro">Add a voice-over</button>
+                  <button class="micro">Music only</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <dl>
+            <dt class="dt-for">For</dt>
+            <dd>Zero chrome, and consistent with the line already in <code>timeline-mode.js</code>: "editing
+              stays in chat, by design." The fastest possible path when the guess is right, which the
+              observation makes likely.</dd>
+            <dt class="dt-cost">Cost</dt>
+            <dd>It stops being a gate. Today the agent won't propose until <code>production_plan</code> is set,
+              so something has to auto-accept — which means a wrong guess silently becomes the plan. That's a
+              real regression in determinism, and the gate exists precisely to be "explicit and durable —
+              independent of the LLM."</dd>
+            <dt class="dt-needs">Needs</dt>
+            <dd>Backend: <code>require_intent_gate</code> would have to accept a default plan rather than
+              blocking. Don't do this one lightly.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ SECTION B ============================ -->
+  <div class="sec">
+    <div class="sec__hd">
+      <h2>B. The other pick-one-of-two: directions</h2>
+      <p>This is the text-heaviest widget in the thread — two cards, each a title plus a full prompt paragraph.
+        The honest constraint is that a direction is a text idea with no media behind it yet, so it can't have a
+        thumbnail. But two of its real fields are being thrown away today.</p>
+    </div>
+
+    <div class="opt">
+      <div class="opt__hd">
+        <span class="opt__n">B1</span>
+        <div>
+          <div class="opt__ttl">Attribute chips + clamped prompt</div>
+          <div class="opt__sub">Ships today. Surfaces <code>include_vocals</code> and <code>modelspec</code>; the prompt stops being the headline.</div>
+        </div>
+      </div>
+      <div class="opt__body">
+        <div class="stagecol">
+          <div class="stagecol__cap">Chat pane · 348px</div>
+          <div class="pane">
+            <div class="glass">
+              <div class="glass__note"><svg class="ico ico-sm" style="flex-shrink:0;margin-top:2px"><use href="#i-info"/></svg>
+                Pick a direction, or tell me what you'd rather hear.</div>
+              <div class="dcard rec">
+                <span class="dbadge rec">Recommended</span>
+                <div class="dttl">Arc-driven electronic</div>
+                <div class="dattrs">
+                  <span class="dattr hot"><svg class="ico ico-sm"><use href="#i-wave"/></svg>Instrumental</span>
+                  <span class="dattr">Enhanced</span>
+                </div>
+                <div class="ddesc clamp">Uptempo electronic that builds with the cuts; drops land on the scene
+                  changes and the last eight bars open out for the close.</div>
+                <div class="dmore">More</div>
+                <button class="duse">Use this</button>
+              </div>
+              <div class="dcard">
+                <span class="dbadge alt">Alternative</span>
+                <div class="dttl">Cinematic ambient</div>
+                <div class="dattrs">
+                  <span class="dattr hot"><svg class="ico ico-sm"><use href="#i-mic"/></svg>Female vocal</span>
+                  <span class="dattr">Enhanced</span>
+                </div>
+                <div class="ddesc clamp">Slower, textural cinematic bed — warm, premium, emotional close.</div>
+                <button class="dghost">Use this</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <dl>
+            <dt class="dt-for">For</dt>
+            <dd>Vocal-vs-instrumental is the loudest difference between two takes and it's already on the model,
+              free. Clamping the prompt to two lines cuts the block roughly in half without deleting anything.</dd>
+            <dt class="dt-cost">Cost</dt>
+            <dd>Still fundamentally a text comparison. Chips only differentiate when the two proposals actually
+              differ on those fields — often they won't.</dd>
+            <dt class="dt-needs">Needs</dt>
+            <dd>Frontend only. Add two lines to <code>proposalCard()</code>.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="opt">
+      <div class="opt__hd">
+        <span class="opt__n">B2</span>
+        <div>
+          <div class="opt__ttl">Difference table — show only what differs</div>
+          <div class="opt__sub">Stop making the reader diff two paragraphs by eye.</div>
+        </div>
+      </div>
+      <div class="opt__body">
+        <div class="stagecol">
+          <div class="stagecol__cap">Chat pane · 348px</div>
+          <div class="pane">
+            <div class="glass">
+              <div class="glass__note"><svg class="ico ico-sm" style="flex-shrink:0;margin-top:2px"><use href="#i-info"/></svg>
+                Two directions. Differences highlighted.</div>
+              <div class="ab">
+                <div class="abhd"><div></div><div>Arc-driven</div><div>Cinematic</div></div>
+                <div class="abrow"><div class="abk">Feel</div><div class="abdiff">Uptempo, builds</div><div class="abdiff">Slow, textural</div></div>
+                <div class="abrow"><div class="abk">Voice</div><div class="abdiff">Instrumental</div><div class="abdiff">Female vocal</div></div>
+                <div class="abrow"><div class="abk">Cuts</div><div class="abdiff">Drops on scene changes</div><div>Ignores cuts</div></div>
+                <div class="abrow"><div class="abk">Tier</div><div>Enhanced</div><div>Enhanced</div></div>
+                <div class="abpick"><div></div><div><button class="duse" style="margin:0">Use</button></div>
+                  <div><button class="dghost" style="margin:0">Use</button></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <dl>
+            <dt class="dt-for">For</dt>
+            <dd>Turns "read two paragraphs and hold them in your head" into "scan one column." The most
+              information per pixel of anything here.</dd>
+            <dt class="dt-cost">Cost</dt>
+            <dd>Three columns in 348px is genuinely tight — this is the one option that argues for widening the
+              pane, or for a two-row-per-attribute layout on narrow widths.</dd>
+            <dt class="dt-needs">Needs</dt>
+            <dd><strong>Backend.</strong> "Feel" and "Cuts" don't exist as fields — only the free-text
+              <code>prompt</code> does. Either the proposal model gains a small structured
+              <code>attributes</code> map, or the frontend fakes it by parsing prose, which will be wrong often
+              enough to matter. I'd add the fields.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="opt">
+      <div class="opt__hd">
+        <span class="opt__n">B3</span>
+        <div>
+          <div class="opt__ttl">Energy arc against your own cuts</div>
+          <div class="opt__sub">The version worth building if you're willing to change the model. <span class="needs">Needs backend</span></div>
+        </div>
+      </div>
+      <div class="opt__body">
+        <div class="stagecol">
+          <div class="stagecol__cap">Chat pane · 348px</div>
+          <div class="pane">
+            <div class="glass">
+              <div class="glass__note"><svg class="ico ico-sm" style="flex-shrink:0;margin-top:2px"><use href="#i-info"/></svg>
+                How each direction moves across your four scenes.</div>
+              <div class="dcard rec">
+                <span class="dbadge rec">Recommended</span>
+                <div class="dttl">Arc-driven electronic</div>
+                <div class="arc" data-arc="18,26,30,44,52,60,74,88,96,82,70,58"></div>
+                <div class="arccuts"><i>Opening</i><i>Action</i><i>Product</i><i>Close</i></div>
+                <div class="ddesc clamp" style="margin-top:8px">Builds with the cuts; drops land on the scene changes.</div>
+                <button class="duse">Use this</button>
+              </div>
+              <div class="dcard">
+                <span class="dbadge alt">Alternative</span>
+                <div class="dttl">Cinematic ambient</div>
+                <div class="arc" data-arc="30,34,38,40,44,46,50,54,62,70,78,86"></div>
+                <div class="arccuts"><i>Opening</i><i>Action</i><i>Product</i><i>Close</i></div>
+                <div class="ddesc clamp" style="margin-top:8px">Slow, textural, opens out at the emotional close.</div>
+                <button class="dghost">Use this</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <dl>
+            <dt class="dt-for">For</dt>
+            <dd>The only option where the picture <em>is</em> the difference — you can see one direction spike
+              on the cuts and the other swell late, without reading. It also makes the direction commensurate
+              with the timeline you just built: same clock, same scene boundaries.</dd>
+            <dt class="dt-cost">Cost</dt>
+            <dd>It is a promise. If the generated take doesn't follow the arc that was drawn, the card lied —
+              and this console's whole discipline is not drawing audio it hasn't measured.</dd>
+            <dt class="dt-needs">Needs</dt>
+            <dd><strong>Backend.</strong> <code>MusicProposalCard</code> would need an
+              <code>energy_curve: list[float]</code> (or per-scene intensity) that the planner actually feeds
+              into generation. Worth scoping — but don't ship the drawing before the guarantee.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ INVENTORY ============================ -->
+  <div class="sec">
+    <div class="sec__hd">
+      <h2>C. Every widget in the thread</h2>
+      <p>What each one is, and whether it's carrying its weight.</p>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>Widget</th><th>Source</th><th>Today</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>Observation pills</td><td><code>renderObservation</code></td>
+          <td>0:15 · 4 scenes · en · no dialogue</td><td><span class="verdict v-ok">Keep</span></td></tr>
+        <tr><td>Intent gate</td><td><code>renderClarify</code></td>
+          <td>Three cards, <code>flex:1 1 150px</code>, wraps 2+1 in the pane</td>
+          <td><span class="verdict v-bad">Replace</span></td></tr>
+        <tr><td>Quick-reply chips</td><td><code>renderClarify</code></td>
+          <td>Fallback for non-gate questions</td><td><span class="verdict v-ok">Keep</span></td></tr>
+        <tr><td>Reasoning trail</td><td><code>.cot</code> / <code>renderThinking</code></td>
+          <td>Streaming beats, collapsible</td><td><span class="verdict v-ok">Keep</span></td></tr>
+        <tr><td>Directions (1 of 2)</td><td><code>renderProposals</code></td>
+          <td>Title + full prompt paragraph + tier badge</td><td><span class="verdict v-bad">Section B</span></td></tr>
+        <tr><td>Takes (1 of 2)</td><td><code>renderCandidates</code></td>
+          <td>Waveform, player, Use / New variation / Download</td>
+          <td><span class="verdict v-mid">Trim</span></td></tr>
+        <tr><td>Voice-over script</td><td><code>voScriptCard</code></td>
+          <td>Textarea + voice select + tone field</td><td><span class="verdict v-ok">Keep</span></td></tr>
+        <tr><td>Mix panel</td><td><code>mixPanel</code></td>
+          <td>Up to 4 sliders + keep-original checkbox</td>
+          <td><span class="verdict v-mid">Move one</span></td></tr>
+        <tr><td>Final</td><td><code>renderFinal</code></td>
+          <td>Done card + player</td><td><span class="verdict v-ok">Keep</span></td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--text-secondary);font-size:13px;max-width:70ch">
+      Two notes from the table. <strong>Takes</strong> stacks three full-width buttons under each card —
+      <em>Use this</em>, <em>New variation</em>, <em>Download track</em> — which reads as three equal actions
+      when only the first one advances the flow; the other two belong behind an overflow. And the
+      <strong>mix panel</strong> grows from one slider to four the moment a voice-over exists, which is the
+      largest single jump in visual weight anywhere in the thread.</p>
+  </div>
+
+  <!-- ========================= RECOMMENDATION ========================= -->
+  <div class="sec">
+    <div class="rec-box">
+      <h2>What I'd actually do</h2>
+      <ol>
+        <li><strong>Option 2, with Option 1 behind "Change."</strong> The recommendation is the fast path and
+          the checklist is the escape hatch — you get the one-click case without losing the explicit control,
+          and neither has to serve both jobs badly.</li>
+        <li><strong>Show SFX exactly once, disabled.</strong> Wherever the checklist appears. It's the cheapest
+          possible answer to a question every new user will have, and it stops anyone re-adding it to the plan
+          by mistake.</li>
+        <li><strong>Keep the gate blocking.</strong> The audit is clear that it's routing, not spend, and that
+          the whole point is a modality decision that survives independent of the LLM. Option 6 is tempting and
+          I'd leave it on the shelf.</li>
+        <li><strong>Ship B1 this week.</strong> Two fields you already store, rendered. It's the highest
+          ratio of visible improvement to work in this whole document.</li>
+        <li><strong>Scope B3 separately.</strong> The energy arc is the real answer to "more visual, less
+          text" — but it needs a field in <code>MusicProposalCard</code> that generation honours, and drawing
+          it before that guarantee exists would break the rule the timeline is built on.</li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* O1 — checklist */
+  var o1 = $("o1"), o1go = $("o1go"), o1note = $("o1note");
+  function o1sync(){
+    var on = o1.querySelectorAll(".chkrow.is-on:not(.is-dead)").length;
+    o1go.disabled = on === 0;
+    o1note.textContent = on === 0
+      ? "Pick at least one layer."
+      : "Nothing generates until you pick a direction.";
+  }
+  o1.querySelectorAll(".chkrow:not(.is-dead)").forEach(function(b){
+    b.addEventListener("click", function(){ b.classList.toggle("is-on"); o1sync(); });
+  });
+  o1sync();
+
+  /* O2 — inline tokens */
+  var o2 = $("o2");
+  o2.querySelectorAll(".tok").forEach(function(t){
+    t.addEventListener("click", function(){ t.classList.toggle("is-off"); });
+  });
+
+  /* O3 — lane preview */
+  var o3 = $("o3"), o3ft = $("o3ft");
+  function bars(el){
+    var t = el.querySelector(".lane__bars"); if(!t || t.childElementCount) return;
+    for(var i=0;i<9;i++){ var b=document.createElement("i"); b.style.height=(3+((i*5)%9))+"px"; t.appendChild(b); }
+  }
+  function o3sync(){
+    var on = [].slice.call(o3.querySelectorAll(".lane.is-on")).map(function(l){
+      return l.querySelector(".lane__l").textContent.trim().toLowerCase(); });
+    o3ft.textContent = on.length === 0 ? "No lanes — nothing to build."
+      : on.length + (on.length===1?" lane":" lanes") + " over your own audio.";
+  }
+  o3.querySelectorAll(".lane").forEach(function(l){
+    bars(l);
+    if (l.dataset.dead) return;
+    l.addEventListener("click", function(){ l.classList.toggle("is-on"); o3sync(); });
+  });
+  o3sync();
+
+  /* O4 — segmented */
+  var CAP = { full:"Music and a voice-over, built together.",
+              music:"A scored bed only — fastest path to something you can watch.",
+              voice:"Narration over your video's own audio, no music." };
+  var o4 = $("o4"), o4cap = $("o4cap");
+  o4.querySelectorAll("button").forEach(function(b){
+    b.addEventListener("click", function(){
+      o4.querySelectorAll("button").forEach(function(x){ x.classList.remove("is-on"); });
+      b.classList.add("is-on");
+      o4cap.textContent = CAP[b.dataset.v];
+    });
+  });
+
+  /* O5 — switches + summary */
+  var o5 = $("o5"), o5sum = $("o5sum");
+  function o5sync(){
+    var s = {};
+    o5.querySelectorAll(".swrow").forEach(function(r){ s[r.dataset.k] = r.classList.contains("is-on"); });
+    var t;
+    if (!s.music && !s.voiceover) t = "Nothing selected — pick at least one layer.";
+    else if (s.music && s.voiceover) t = "<strong>Music and narration</strong>, mixed together";
+    else if (s.music) t = "<strong>Music</strong> only";
+    else t = "<strong>Narration</strong> only, no music";
+    if (s.music || s.voiceover) t += s.keep ? ", sitting over your video's own audio." : ", replacing your video's audio.";
+    o5sum.innerHTML = t;
+  }
+  o5.querySelectorAll(".swrow").forEach(function(r){
+    r.addEventListener("click", function(){ r.classList.toggle("is-on"); o5sync(); });
+  });
+  o5sync();
+
+  /* B3 — energy arcs */
+  document.querySelectorAll(".arc[data-arc]").forEach(function(a){
+    a.dataset.arc.split(",").forEach(function(v){
+      var i = document.createElement("i"); i.style.height = v + "%"; a.appendChild(i);
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!-- @dsCard group="B · Product screens (user view)" name="S3 · Campaign thread — brief" subtitle="A campaign is a chat; ambiguity comes back as chips" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>S3 — Campaign brief</title><style>
+/* Product-screen wireframe chrome — the app as the user sees it, gray-boxed. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #e9e9e9; color: #333; font: 12.5px/1.45 Helvetica, Arial, sans-serif; padding: 18px; }
+.cap { max-width: 1280px; margin: 0 auto 8px; color: #777; font-size: 11px; }
+.frame { width: 1280px; margin: 0 auto; background: #fff; border: 1.5px solid #b9b9b9; border-radius: 10px;
+         display: flex; min-height: 760px; overflow: hidden; }
+.side { width: 196px; border-right: 1px solid #ddd; padding: 14px 12px; background: #fafafa;
+        display: flex; flex-direction: column; gap: 4px; flex: none; }
+.side .logo { font-weight: 800; font-size: 14px; margin-bottom: 14px; }
+.side .nav { padding: 7px 10px; border-radius: 8px; color: #666; font-size: 12.5px; }
+.side .nav.on { background: #e8e8e8; color: #222; font-weight: 700; }
+.side .sect { font-size: 9px; text-transform: uppercase; letter-spacing: .07em; color: #aaa; margin: 10px 2px 2px; }
+.side .foot { margin-top: auto; color: #999; font-size: 11px; }
+.maincol { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.top { height: 46px; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 10px; padding: 0 16px; }
+.top b { font-size: 13px; }
+.top .spacer { flex: 1; }
+.stage { color: #999; font-size: 10.5px; }
+.stage b { color: #333; font-size: 10.5px; }
+.badge { border: 1px solid #ccc; border-radius: 999px; padding: 2px 9px; font-size: 10.5px; color: #666; background: #fafafa; }
+.tabs { display: flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden; font-size: 11px; }
+.tabs span { padding: 4px 11px; color: #888; }
+.tabs span.on { background: #333; color: #fff; font-weight: 700; }
+.content { flex: 1; display: flex; min-height: 0; }
+.thread { flex: 1; padding: 18px 22px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.rail { width: 296px; border-left: 1px solid #ddd; padding: 14px; background: #fcfcfc; flex: none; }
+.rail .lbl, .lbl { font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #aaa; margin-bottom: 6px; }
+.u { align-self: flex-end; max-width: 62%; background: #333; color: #fff; border-radius: 13px 13px 4px 13px;
+     padding: 9px 13px; font-size: 12.5px; }
+.a { display: flex; gap: 9px; max-width: 78%; }
+.a .av { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid #bbb; flex: none;
+         display: grid; place-items: center; font-size: 11px; color: #888; }
+.a .who { font-size: 9px; font-weight: 700; letter-spacing: .06em; color: #aaa; margin-bottom: 3px; }
+.a .txt { font-size: 12.5px; color: #333; }
+.card { border: 1.5px solid #c9c9c9; border-radius: 10px; background: #fff; padding: 10px 12px; margin-top: 7px; }
+.card.fill { background: #f4f4f4; }
+.dash { border: 1.5px dashed #c9c9c9; border-radius: 8px; background: #f7f7f7; color: #999;
+        display: grid; place-items: center; text-align: center; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 2px 4px 2px 0; color: #444; }
+.chip.on { background: #333; color: #fff; border-color: #333; }
+.btn { display: inline-block; border: 1.5px solid #777; border-radius: 7px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; background: #fff; color: #333; }
+.btn.primary { background: #333; color: #fff; }
+.row { display: flex; gap: 10px; }
+.grow { flex: 1; }
+.kv { font-size: 11px; color: #777; }
+.kv b { color: #333; }
+table.t { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+table.t th { text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: .06em; color: #aaa;
+             border-bottom: 1px solid #e2e2e2; padding: 5px 7px; }
+table.t td { border-bottom: 1px solid #f0f0f0; padding: 6px 7px; }
+.strip { position: relative; height: 40px; background: #f1f1f1; border: 1px solid #d5d5d5; border-radius: 7px;
+         overflow: hidden; margin: 6px 0; }
+.strip i { position: absolute; top: 5px; bottom: 5px; border: 1px solid #8a8a8a; background: #e2e2e2; border-radius: 4px; }
+.strip i.bite { background: #cfcfcf; border-style: double; }
+.composer { border-top: 1px solid #ddd; padding: 10px 22px; display: flex; gap: 8px; align-items: center; }
+.composer .box { flex: 1; border: 1.5px solid #ccc; border-radius: 999px; padding: 8px 14px; color: #aaa; font-size: 12px; }
+.spark { height: 14px; width: 74px; border-bottom: 1px solid #bbb;
+         background: repeating-linear-gradient(90deg, transparent 0 5px, #ddd 5px 6px); }
+.overlay { position: absolute; inset: 0; background: rgba(40,40,40,.28); display: grid; place-items: center; }
+.modal { width: 380px; background: #fff; border: 1.5px solid #999; border-radius: 12px; padding: 16px 18px; }
+.posrel { position: relative; }
+.notes { max-width: 1280px; margin: 10px auto 0; color: #2b6cb0; font-size: 11px; }
+</style></head>
+<body>
+<div class="cap">S3 · Campaign thread, brief stage — the SAME chat surface as today's sessions (backbone unchanged); campaign facts live in the rail</div>
+
+<div class="frame">
+  <div class="side">
+    <div class="logo" data-go="s1-home.html" data-fx="Back to the workspace home">✳ Edenn</div>
+    <div class="sect">Workspace</div>
+    <div class="nav on" data-go="s1-home.html" data-fx="Opens the campaigns home — this campaign lives there">▦ Campaigns</div>
+    <div class="nav" data-go="s2-library.html" data-fx="Opens the brand library — collections, meaning-search, families">▤ Library</div>
+    <div class="sect">Create</div>
+    <div class="nav" data-fx="Starts a fresh creative session — same chat surface, no campaign attached">＋ New session</div>
+    <div class="nav" data-fx="Lists your past creative sessions">◫ My sessions</div>
+    <div class="foot">Ⓑ spring-beverage-co</div>
+  </div>
+
+  <div class="maincol">
+    <div class="top"><b>Launch week — spring line</b>
+      <span class="stage" id="stageLine">Brief › <b>Roles</b> › Create › Launch › Live</span>
+      <span class="spacer"></span>
+      <div class="tabs"><span class="on" data-fx="You're here — the campaign thread">Thread</span><span data-go="s6-console.html" data-fx="The Console view of this campaign — numbers live here after launch">Console</span></div>
+    </div>
+    <div class="content">
+      <div class="thread" data-cap="built:the stable chat surface (agentic_audio frontend)">
+
+        <!-- Pre-send: context attachment (via ?ctx=) + agent opener. -->
+        <div id="preSend" style="display:flex; flex-direction:column; gap:12px">
+          <div id="ctxRow" style="display:none"><span class="lbl" style="display:inline; margin-right:6px">Attached</span><span class="chip" id="ctxChip" data-fx="The brief is grounded on this attachment — every plan will cite it"></span></div>
+          <div class="a"><div class="av">✳</div><div>
+            <div class="who">EDENN</div>
+            <div class="txt">New campaign. Give me the brief — I'll resolve the roles from your library and only ask what's genuinely ambiguous.</div>
+          </div></div>
+        </div>
+
+        <!-- Post-send: revealed by the composer ↑. Roles table + two question cards. -->
+        <div id="postSend" style="display:none; flex-direction:column; gap:12px">
+          <div class="u">Three 15s TikTok cuts from @Spring shoot — one hook-first, one with the founder's own voice, one rephrased in our voice.</div>
+
+          <div class="a"><div class="av">✳</div><div class="grow">
+            <div class="who">EDENN</div>
+            <div class="txt">Here's what I'm working with — and how the roles resolve:</div>
+            <div><span class="chip" data-fx="Opens @launch_footage — the 3:30 source reel and its detected moments">@ launch_footage · 3:30</span><span class="chip" data-fx="Opens @event_reel — 2:30 of event coverage">@ event_reel · 2:30</span>
+                 <span class="chip" data-fx="Plays @spring_track — 118bpm, the beat grid every cut lands on">@ spring_track · 118bpm</span></div>
+            <div class="card" data-cap="built:six source roles (creation/domain.py SourceRole)">
+              <table class="t">
+                <tr><th>role</th><th>resolution</th></tr>
+                <tr data-fx="Spine — the reel the whole cut is built around"><td>spine</td><td class="kv" id="roleSpineVal">open — Q1 below</td></tr>
+                <tr data-fx="Accent — cutaways pulled from whichever reel doesn't lead"><td>accent</td><td class="kv" id="roleAccentVal">the other reel, as b-roll</td></tr>
+                <tr data-fx="Music — open because the brief also asked for a 'fresh feel'"><td>music</td><td class="kv" id="roleMusicVal">open — Q2 below</td></tr>
+                <tr data-fx="Voice — resolved straight from the brief, no question needed"><td>voice</td><td class="kv"><b>✓ founder (variant B) · house-voice rephrase (variant C)</b></td></tr>
+              </table>
+            </div>
+          </div></div>
+
+          <div class="a"><div class="av">✳</div><div class="grow">
+            <div class="who">EDENN</div>
+            <div class="card" data-cap="built:BundleResolver ask-first — /plan 409s with questions (creation/bundle.py, creation/router.py)">
+              <div class="txt"><b>Q1 ·</b> Which reel is the spine? The other becomes b-roll.</div>
+              <div id="q1Chips" style="margin-top:5px">
+                <span class="chip" id="q1ChipA" data-act="q1" data-fx="Answers Q1 — the spine locks and the roles table updates">launch_footage leads</span>
+                <span class="chip" data-act="q1" data-fx="Answers Q1 — the spine locks and the roles table updates">event_reel leads</span>
+                <span class="chip" style="border-style:dashed; color:#999" data-fx="Ask-first: ambiguity is never silently defaulted">why ask?</span>
+              </div>
+              <div id="q1Done" class="txt" style="display:none; margin-top:5px; color:#555"><b>✓ spine: launch_footage</b> — event_reel becomes b-roll.</div>
+            </div>
+          </div></div>
+
+          <div class="a"><div class="av">✳</div><div class="grow">
+            <div class="who">EDENN</div>
+            <div class="card" data-cap="built:BundleResolver ask-first — /plan 409s with questions (creation/bundle.py, creation/router.py)">
+              <div class="txt"><b>Q2 ·</b> @spring_track — use it as-is, or a variant in its style? The brief asked for a "fresh feel".</div>
+              <div id="q2Chips" style="margin-top:5px">
+                <span class="chip" data-act="q2" data-fx="Answers Q2 — keeps the track exactly as recorded">use as-is</span>
+                <span class="chip" id="q2ChipA" data-act="q2" data-fx="Answers Q2 — same energy, new melody; the roles table updates">variant in its style</span>
+                <span class="chip" style="border-style:dashed; color:#999" data-fx="Ask-first: ambiguity is never silently defaulted">why ask?</span>
+              </div>
+              <div id="q2Done" class="txt" style="display:none; margin-top:5px; color:#555"><b>✓ music: variant in @spring_track's style</b> — same energy, new melody.</div>
+            </div>
+          </div></div>
+
+          <div class="a" id="lockedRow" style="display:none"><div class="av">✳</div><div>
+            <div class="who">EDENN</div>
+            <div class="txt">Roles locked. Planning is free — nothing renders until you approve.</div>
+            <div style="margin-top:7px"><span class="btn primary" id="toPlan" data-go="s4-creation.html" data-fx="Generates three previewed plans — free, nothing rendered yet">Plan 3 variants →</span></div>
+          </div></div>
+        </div>
+
+      </div>
+
+      <div class="rail" data-cap="new:Campaign brief wrapper">
+        <div class="lbl">Campaign</div>
+        <div class="card" data-fx="Campaign facts pulled from the brief — editable until Launch (Gate ②)"><div class="kv">Variants <b>3</b> · Duration <b>15s</b></div></div>
+        <div class="card" data-fx="Channel, flight and budget — editable until Launch (Gate ②)"><div class="kv">Channel <b>TikTok 9:16</b><br>Flight <b>May 1–14</b> · Budget <b>$1,500</b></div></div>
+        <div class="card fill"><div class="kv">Everything here is editable until Launch (Gate ②).</div></div>
+      </div>
+    </div>
+    <div class="composer">
+      <div class="box" id="composerBox" style="color:#333" data-fx="The brief, ready to send — @ mentions any asset, collection, or moment">Three 15s TikTok cuts from @Spring shoot — one hook-first, one with the founder's own voice, one rephrased in our voice.</div>
+      <span class="btn" id="sendBtn" data-act="sendBrief" data-story data-fx="Sends the brief — the agent resolves roles and asks only what's genuinely ambiguous">↑</span>
+    </div>
+  </div>
+</div>
+
+<div class="notes">Notes · identical chat grammar to the shipped audio/cut sessions — chips ARE the ask-first contract · @-mention opens the library picker · rail = the Campaign object, thin and editable · interactive — ⚡ lists every click's effect.</div>
+
+<script>
+  window.WIRE_PAGE = { title: "S3 · Brief" };
+  window.WIRE_ACTS = (function () {
+    var sent = false, q1Answered = false, q2Answered = false;
+
+    function show(id, disp) { var el = document.getElementById(id); if (el) el.style.display = disp; }
+
+    /* Move the story pulse to whatever the user still owes the agent. */
+    function advance() {
+      if (q1Answered && q2Answered) {
+        show("lockedRow", "flex");
+        var stage = document.getElementById("stageLine");
+        if (stage) stage.innerHTML = "Brief ✓ › Roles ✓ › <b>Create</b> › Launch › Live";
+        WIRE.story("#toPlan");
+      } else if (!q1Answered) {
+        WIRE.story("#q1ChipA");
+      } else {
+        WIRE.story("#q2ChipA");
+      }
+    }
+
+    return {
+      sendBrief: function () {
+        if (sent) { WIRE.toast("Brief sent — answer the two questions above."); return; }
+        sent = true;
+        show("postSend", "flex");
+        var box = document.getElementById("composerBox");
+        if (box) {
+          box.textContent = "Reply — or @ any asset or moment…";
+          box.style.color = "#aaa";
+          box.setAttribute("data-fx", "Reply in the same thread — the campaign stays a conversation");
+        }
+        advance();
+      },
+      q1: function () {
+        if (!sent || q1Answered) return;
+        q1Answered = true;
+        show("q1Chips", "none");
+        show("q1Done", "block");
+        var v = document.getElementById("roleSpineVal");
+        if (v) v.innerHTML = "<b>✓ launch_footage</b>";
+        var a = document.getElementById("roleAccentVal");
+        if (a) a.innerHTML = "<b>event_reel</b> — b-roll cutaways";
+        advance();
+      },
+      q2: function () {
+        if (!sent || q2Answered) return;
+        q2Answered = true;
+        show("q2Chips", "none");
+        show("q2Done", "block");
+        var v = document.getElementById("roleMusicVal");
+        if (v) v.innerHTML = "<b>✓ variant in @spring_track's style</b>";
+        advance();
+      }
+    };
+  })();
+
+  /* Cross-page context attachment (?ctx=spring-shoot | founder-speaking). */
+  (function () {
+    var m = /[?&]ctx=([^&]*)/.exec(location.search);
+    var ctx = m ? decodeURIComponent(m[1]) : "";
+    var label = "";
+    if (ctx === "spring-shoot") label = "@Spring shoot · 8 assets attached";
+    if (ctx === "founder-speaking") label = "@'founder speaking' moment attached";
+    if (label) {
+      var chip = document.getElementById("ctxChip");
+      if (chip) chip.textContent = label;
+      var row = document.getElementById("ctxRow");
+      if (row) row.style.display = "block";
+    }
+  })();
+</script>
+<script src="_wire.js"></script>
+</body>
+</html>

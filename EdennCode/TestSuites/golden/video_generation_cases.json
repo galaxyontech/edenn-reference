@@ -1,0 +1,166 @@
+[
+  {
+    "case_id": "golden_upload_basic_instrumental_real_smoke",
+    "description": "Real upload, edenn_basic, instrumental user prompt.",
+    "video_path": "EdennCode/TestSuites/assets/smoke/videos/Videos2026-04-07_195857_387.mp4",
+    "input_source": "upload",
+    "required_remote_provider": "edenn_basic",
+    "patch_providers": {
+      "provider_c": true,
+      "basic": false,
+      "enhanced": true
+    },
+    "form": {
+      "user_prompt": "Create a steady instrumental electronic track for this real short video. No vocals.",
+      "include_vocals": "false",
+      "modelspec": "edenn_basic",
+      "music_volume": "0.8",
+      "preserve_original_audio": "false",
+      "compression_flag": "false",
+      "user_id": "golden-basic-user"
+    },
+    "expected": {
+      "modelspec": "edenn_basic",
+      "include_vocals": false,
+      "min_duration_s": 18.0,
+      "requires_audio_url": true,
+      "requires_video_url": true,
+      "requires_complete_audio_url": false,
+      "requires_primary_full_lyrics": false,
+      "requires_primary_word_level_lyrics": false,
+      "requires_vocal_id_used": false,
+      "matching_used_track": null
+    }
+  },
+  {
+    "case_id": "golden_upload_enhanced_vocals_real_smoke",
+    "description": "Real upload, edenn_enhanced, vocal user prompt.",
+    "video_path": "EdennCode/TestSuites/assets/smoke/videos/Videos2026-04-07_195857_387.mp4",
+    "input_source": "upload",
+    "required_remote_provider": "edenn_enhanced",
+    "patch_providers": {
+      "provider_c": true,
+      "basic": true,
+      "enhanced": false
+    },
+    "form": {
+      "user_prompt": "Create a modern female vocal pop song with clear lyrics for this real short video.",
+      "include_vocals": "true",
+      "modelspec": "edenn_enhanced",
+      "vocal_gender": "female",
+      "music_volume": "0.9",
+      "user_id": "golden-enhanced-user"
+    },
+    "expected": {
+      "modelspec": "edenn_enhanced",
+      "include_vocals": true,
+      "min_duration_s": 18.0,
+      "requires_audio_url": true,
+      "requires_video_url": true,
+      "requires_complete_audio_url": true,
+      "requires_primary_full_lyrics": true,
+      "requires_primary_word_level_lyrics": true,
+      "requires_vocal_id_used": false,
+      "matching_used_track": "primary"
+    }
+  },
+  {
+    "case_id": "golden_upload_studio_verbose_japanese_real_smoke",
+    "description": "Real upload, edenn_studio, verbose split prompt with Japanese lyric guidance.",
+    "video_path": "EdennCode/TestSuites/assets/smoke/videos/Videos2026-04-07_195857_387.mp4",
+    "input_source": "upload",
+    "required_remote_provider": "edenn_studio",
+    "patch_providers": {
+      "provider_c": false,
+      "basic": true,
+      "enhanced": true
+    },
+    "form": {
+      "verbose_instruction": "true",
+      "music_style_prompt": "Japanese female vocal cinematic pop, emotional and uplifting.",
+      "lyrics_prompt": "\u30b5\u30d3\u306b\u300c\u591c\u660e\u3051\u306e\u5149\u300d\u3092\u5fc5\u305a\u5165\u308c\u308b\u3002",
+      "modelspec": "edenn_studio",
+      "vocal_gender": "female",
+      "user_id": "golden-studio-user"
+    },
+    "expected": {
+      "modelspec": "edenn_studio",
+      "include_vocals": true,
+      "min_duration_s": 18.0,
+      "requires_audio_url": true,
+      "requires_video_url": true,
+      "requires_complete_audio_url": true,
+      "requires_primary_full_lyrics": true,
+      "requires_primary_word_level_lyrics": true,
+      "requires_vocal_id_used": false,
+      "matching_used_track": "primary",
+      "music_prompt_lyrics_contains": "\u591c\u660e\u3051\u306e\u5149"
+    }
+  },
+  {
+    "case_id": "golden_video_url_basic_instrumental_real_production",
+    "description": "Real production fixture staged through storage and submitted as video_url.",
+    "video_path": "EdennCode/TestSuites/assets/production/videos/sample_clip.mp4",
+    "input_source": "staged_video_url",
+    "required_remote_provider": "edenn_basic",
+    "patch_providers": {
+      "provider_c": true,
+      "basic": false,
+      "enhanced": true
+    },
+    "form": {
+      "user_prompt": "Create a polished instrumental brand track for this production example. No vocals.",
+      "include_vocals": "false",
+      "modelspec": "edenn_basic",
+      "compression_flag": "true",
+      "preserve_original_audio": "false",
+      "music_volume": "0.7",
+      "user_id": "golden-video-url-user"
+    },
+    "expected": {
+      "modelspec": "edenn_basic",
+      "include_vocals": false,
+      "min_duration_s": 22.0,
+      "requires_audio_url": true,
+      "requires_video_url": true,
+      "requires_complete_audio_url": false,
+      "requires_primary_full_lyrics": false,
+      "requires_primary_word_level_lyrics": false,
+      "requires_vocal_id_used": false,
+      "matching_used_track": null
+    }
+  },
+  {
+    "case_id": "golden_upload_enhanced_vocal_clone_real_sample",
+    "description": "Real upload, edenn_enhanced, vocal clone sample upload.",
+    "video_path": "EdennCode/TestSuites/assets/smoke/videos/Videos2026-04-07_195857_387.mp4",
+    "input_source": "upload",
+    "vocal_sample": "remote_helper",
+    "required_remote_provider": "edenn_enhanced",
+    "patch_providers": {
+      "provider_c": true,
+      "basic": true,
+      "enhanced": false
+    },
+    "form": {
+      "user_prompt": "Create a modern female vocal pop song with clear lyrics using the provided vocal sample.",
+      "include_vocals": "true",
+      "modelspec": "edenn_enhanced",
+      "vocal_gender": "female",
+      "music_volume": "0.85",
+      "user_id": "golden-vocal-clone-user"
+    },
+    "expected": {
+      "modelspec": "edenn_enhanced",
+      "include_vocals": true,
+      "min_duration_s": 18.0,
+      "requires_audio_url": true,
+      "requires_video_url": true,
+      "requires_complete_audio_url": true,
+      "requires_primary_full_lyrics": true,
+      "requires_primary_word_level_lyrics": true,
+      "requires_vocal_id_used": true,
+      "matching_used_track": "primary"
+    }
+  }
+]

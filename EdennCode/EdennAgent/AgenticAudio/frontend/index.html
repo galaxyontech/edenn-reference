@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Edenn — Agentic Audio</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" />
+<link rel="stylesheet" href="./styles.css?v=e36" />
+</head>
+<body>
+
+<!-- ============================ ENTRANCE ============================ -->
+<div class="entrance" id="entrance">
+  <aside class="side">
+    <div class="brand">
+      <span class="brand__mark"><i class="ti ti-sparkles"></i></span>
+      <span class="brand__text"><span class="brand__name">Edenn</span><span class="brand__tag">alpha</span></span>
+      <button class="conn mock" id="entrance-conn" type="button">Mock</button>
+    </div>
+    <nav class="nav">
+      <div class="nav__group-label">Create</div>
+      <button class="nav__item is-active" id="nav-new" data-home="new" aria-label="New session" title="New session"><i class="ti ti-plus"></i><span>New session</span></button>
+      <button class="nav__item" id="nav-sessions" data-home="sessions" aria-label="My sessions" title="My sessions"><i class="ti ti-layout-grid"></i><span>My sessions</span></button>
+      <div class="nav__group-label">Explore</div>
+      <button class="nav__item" id="nav-gallery" data-home="gallery" aria-label="Gallery" title="Gallery"><i class="ti ti-disc"></i><span>Gallery</span></button>
+      <div class="nav__group-label">Manage</div>
+      <button class="nav__item" id="nav-docs" aria-label="Documentation" title="Documentation"><i class="ti ti-book-2"></i><span>Documentation</span></button>
+    </nav>
+    <div class="side__spacer"></div>
+    <div class="side__icons">
+      <button class="icon-btn" id="side-settings" title="Settings"><i class="ti ti-settings"></i></button>
+      <!-- The entrance top bar is gone from the shell; this keeps the second
+           settings entry point bound without re-introducing the bar. -->
+      <button class="icon-btn" id="topbar-settings" title="Settings" hidden><i class="ti ti-settings"></i></button>
+    </div>
+    <button class="account" id="account-btn" title="Edit how you appear to collaborators">
+      <span class="account__avatar">?</span><span class="account__name">…</span></button>
+  </aside>
+
+  <div class="entrance-main">
+    <div class="entrance-canvas" id="new-session-page">
+      <div class="hero">
+        <h1 class="hero__title">
+          Score your video with Edenn
+          <span class="hero__spark" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1.5c.4 4.6 3.9 8.1 8.5 8.5-4.6.4-8.1 3.9-8.5 8.5-.4-4.6-3.9-8.1-8.5-8.5 4.6-.4 8.1-3.9 8.5-8.5z"/>
+            </svg>
+          </span>
+        </h1>
+
+        <form class="composer-frame" id="start-form" onsubmit="return false;">
+          <div class="composer-inner">
+            <div class="attach-chip" id="attach-chip">
+              <span class="attach-chip__thumb"><i class="ti ti-player-play"></i></span>
+              <div>
+                <div class="attach-chip__name" id="attach-name"></div>
+                <div class="attach-chip__meta" id="attach-meta"></div>
+              </div>
+              <button class="attach-chip__x" id="attach-remove" title="Remove" type="button"><i class="ti ti-x"></i></button>
+            </div>
+            <input type="file" id="video-file" accept="video/*" hidden />
+            <textarea class="composer-text" id="start-text"
+              aria-label="Sound direction" placeholder="Describe the sound…"></textarea>
+            <div class="composer-row">
+              <div class="composer-tools">
+                <button class="tool-btn" id="attach-btn" title="Attach your video" aria-label="Attach video" type="button"><i class="ti ti-plus"></i></button>
+                <button class="tool-btn" id="mic-btn" title="Voice direction" type="button"><i class="ti ti-microphone"></i></button>
+              </div>
+              <span class="spacer"></span>
+              <button class="btn-ghost" id="surprise-btn" type="button"><i class="ti ti-wand"></i> Surprise me</button>
+              <button class="btn-primary" id="start-btn" type="submit">Start session <i class="ti ti-arrow-right"></i></button>
+            </div>
+          </div>
+        </form>
+
+        <div class="starters" id="starters">
+          <button class="chip" data-fill="Make it cinematic and premium — big, emotional, builds to the close.">
+            <span class="chip__ic"><i class="ti ti-movie"></i></span> Cinematic trailer</button>
+          <button class="chip" data-fill="Upbeat, uptempo product reel — punchy, with drops on the cuts.">
+            <span class="chip__ic"><i class="ti ti-bolt"></i></span> Upbeat reel</button>
+          <button class="chip" data-fill="Warm lo-fi vibe for a vlog — relaxed, hazy, easy to talk over.">
+            <span class="chip__ic"><i class="ti ti-headphones"></i></span> Lo-fi vlog</button>
+          <button class="chip" data-fill="Add a voiceover — draft a punchy narration and time it to the video.">
+            <span class="chip__ic"><i class="ti ti-microphone"></i></span> Add a voiceover</button>
+          <button class="chip" data-fill="Full audio build — music and voiceover layered together.">
+            <span class="chip__ic"><i class="ti ti-stack-2"></i></span> Full audio build</button>
+          <button class="chip" id="transform-chip"
+                  data-fill="Cut a 16s teaser from my library — open on the strongest product moment, calm close.">
+            <span class="chip__ic"><i class="ti ti-scissors"></i></span> Cut a short</button>
+          <button class="chip chip--more" id="more-starters" aria-label="More starters" aria-expanded="false" title="More starters"><i class="ti ti-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+    <main id="library-page" class="library-page" hidden></main>
+
+    <!-- Sessions / Gallery as the shell rendered them before the library page
+         took the job over. The library (js/library-ui.js) is what the nav now
+         opens; these stay in the page so the list/gallery wiring that fills
+         them still binds, and stay hidden so only one of the two ever shows. -->
+    <div class="entrance-pane" id="pane-sessions" hidden>
+      <div class="pane">
+        <div class="pane__hd">
+          <h2>Your sessions</h2>
+          <span class="spacer"></span>
+          <button class="btn-ghost" id="sessions-refresh" type="button"><i class="ti ti-refresh"></i> Refresh</button>
+        </div>
+        <div class="pane__note" id="sessions-note" hidden></div>
+        <div class="cards-grid" id="sessions-grid"></div>
+      </div>
+    </div>
+
+    <div class="entrance-pane" id="pane-gallery" hidden>
+      <div class="pane">
+        <div class="pane__hd">
+          <h2>Gallery</h2>
+          <span class="pane__sub">Finished mixes from your sessions</span>
+        </div>
+        <div class="pane__note" id="gallery-note" hidden></div>
+        <div class="cards-grid" id="gallery-grid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ SESSION VIEW ============================ -->
+<div class="session" id="session" hidden>
+
+  <!-- One shell: the conversation floats on the left, the work fills the right.
+       The chat pane is how everything here is edited, so it carries its own
+       heading (identity + close) and the right pane carries the toolbar for
+       what sits under it. -->
+  <div class="session__body">
+    <div class="chat-float">
+    <aside class="chatpane" id="chatpane">
+      <div class="chatpane__heading">
+      <button class="icon-btn" id="studio-home" type="button" aria-label="Back to My sessions" title="Back to My sessions"><i class="ti ti-arrow-left"></i></button>
+    <div class="chatpane__identity">
+      <div class="topbar__sub">Audio Studio</div>
+      <div class="topbar__title" id="session-name"></div>
+    </div>
+    <!-- Whether the backend is answering, where the work is happening. The
+         entrance carries the same badge; a user who has already entered a
+         session is exactly the one who needs to know the backend stopped
+         responding, and without this the only symptom is that nothing
+         happens. -->
+    <button class="conn mock" id="session-conn" type="button">Mock</button>
+<button class="icon-btn" id="chat-close" type="button" aria-label="Close chat"><i class="ti ti-x"></i></button></div>
+      <div class="thread-shell" id="thread-shell">
+      <div class="thread" id="thread" role="log" aria-label="Conversation" aria-live="polite">
+        <div class="thread__inner" id="thread-inner"></div>
+      </div>
+      <button class="jump-latest" id="jump-latest" type="button" hidden>Jump to latest <i class="ti ti-arrow-down" aria-hidden="true"></i></button>
+      </div>
+      <div class="session-composer">
+        <div class="session-composer__inner">
+          <input id="session-input" type="text" placeholder="Give direction or ask anything…" autocomplete="off" disabled />
+          <button class="send-btn" id="session-send" title="Send" aria-label="Send direction" disabled><i class="ti ti-arrow-up"></i></button>
+        </div>
+      </div>
+    </aside>
+    </div>
+
+    <div class="rgrip" id="rgrip" role="separator" aria-orientation="vertical"
+         aria-label="Resize the chat pane" tabindex="0"></div>
+
+    <div class="rpane" id="rpane">
+  <div class="topbar">
+    <!-- Legacy home control. The visible way back is the chat pane's back
+         arrow (#studio-home); this keeps the older binding alive. -->
+    <button class="topbar__logo" id="tb-home" title="Back to home" type="button" hidden><i class="ti ti-sparkles"></i></button>
+    <button class="tb-btn" id="chat-toggle" type="button" aria-controls="chatpane" aria-expanded="true" aria-label="Show chat" hidden><i class="ti ti-layout-sidebar-left-collapse"></i><span>Chat</span></button>
+      <!-- The view toggle sits on the pane it controls. Hidden wholesale by
+           transform-mode, which takes the pane over and leaves neither view to
+           switch to. -->
+      <div class="rpane__hd" id="rpane-hd">
+        <div class="vseg" id="view-seg" role="group" aria-label="Right pane">
+          <button class="vseg__btn is-on" data-view="timeline" type="button" aria-pressed="true"><i class="ti ti-timeline"></i> Timeline</button>
+          <button class="vseg__btn" data-view="canvas" type="button" aria-pressed="false"><i class="ti ti-layout-grid"></i> Canvas</button>
+        </div>
+      </div>
+    <span class="spacer"></span>
+    <div class="clb-faces" id="clb-faces" aria-label="Collaborators"></div>
+    <button class="tb-btn clb-share-btn" id="tb-share" type="button"><i class="ti ti-share-2"></i> Share</button>
+    <button class="tb-btn" id="tb-history" type="button"><i class="ti ti-history"></i> History</button>
+    <button class="tb-btn" id="tb-export" type="button"><i class="ti ti-download"></i> Export</button>
+    <div class="history-pop" id="history-pop" hidden></div>
+  </div>
+
+
+      <!-- Timeline view (default): the video, and its audio laid out over the
+           same clock. Built by js/timeline-mode.js. -->
+      <div class="tstage" id="tstage"></div>
+
+      <!-- Canvas view: read-only lineage tree + focused-take dock. Built by
+           js/canvas-mode.js; hidden until the toggle selects it. -->
+      <div class="cstage" id="cstage" hidden></div>
+
+      <!-- Cut-shorts rail (js/transform-mode.js). A transform session is a
+           different session type, not a third toggle position — it takes over
+           the right pane on its own. -->
+      <aside class="xrail" id="xrail" hidden>
+        <div class="xrail__hdr">
+          <span class="xrail__title">Cut preview</span>
+          <span class="xrail__badge" id="xrail-badge"></span>
+        </div>
+        <div class="xrail__body" id="xrail-body"></div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- Spend-approval confirm (generation is cost-gated) -->
+<div class="overlay" id="confirm-overlay" hidden>
+  <div class="confirm-card" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
+    <h3 id="confirm-title">Generate tracks?</h3>
+    <p id="confirm-body"></p>
+    <div class="confirm-card__row">
+      <button class="btn-ghost" id="confirm-cancel" type="button">Cancel</button>
+      <button class="btn-primary" id="confirm-ok" type="button">Yes, generate</button>
+    </div>
+  </div>
+</div>
+
+<!-- Ask for a line of direction (restyling a take, mostly). Small and
+     generic on purpose: the alternative is another bespoke overlay each
+     time a verb needs a sentence from the user. -->
+<div class="overlay" id="ask-overlay" hidden>
+  <div class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="ask-title">
+    <h3 id="ask-title">Restyle this take</h3>
+    <p id="ask-body"></p>
+    <input type="text" id="ask-input" autocomplete="off" />
+    <div class="confirm-card__row">
+      <button class="btn-ghost" id="ask-cancel" type="button">Cancel</button>
+      <button class="btn-primary" id="ask-ok" type="button">Go ahead</button>
+    </div>
+  </div>
+</div>
+
+<!-- Move the window: re-cut a take from a different point in its own full
+     track. Free — it re-presents audio the session already paid for, so it
+     gets a scrub control rather than a spend confirmation. -->
+<div class="overlay" id="sculpt-overlay" hidden>
+  <div class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="sculpt-title">
+    <h3 id="sculpt-title">Move the window</h3>
+    <p id="sculpt-body">Pick where in the full track this take should start.</p>
+    <input type="range" id="sculpt-range" min="0" max="100" step="0.5" value="0"
+           aria-labelledby="sculpt-title" />
+    <p class="sculpt-readout" id="sculpt-readout">Starts at 0:00</p>
+    <div class="confirm-card__row">
+      <button class="btn-ghost" id="sculpt-cancel" type="button">Cancel</button>
+      <button class="btn-primary" id="sculpt-ok" type="button">Move it</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings: persona name, backend selection, API base, access token -->
+<div class="overlay" id="settings-overlay" hidden>
+  <div class="confirm-card settings-card" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <h3 id="settings-title">Settings</h3>
+    <div class="set-row">
+      <label class="set-lb" for="set-name">Your name</label>
+      <input type="text" id="set-name" maxlength="40" autocomplete="off" />
+      <div class="set-hint">Shown to collaborators on comments and shares.</div>
+    </div>
+    <div class="set-row">
+      <label class="set-lb">Backend</label>
+      <div class="set-seg" id="set-backend">
+        <button type="button" data-b="mock">Offline mock</button>
+        <button type="button" data-b="real">Live</button>
+      </div>
+      <div class="set-hint">Switching backends reloads the page.</div>
+    </div>
+    <div class="set-row">
+      <label class="set-lb" for="set-api">API base <span class="set-lb__opt">(advanced)</span></label>
+      <input type="text" id="set-api" placeholder="e.g. http://127.0.0.1:8800" autocomplete="off" />
+    </div>
+    <div class="set-row">
+      <label class="set-lb" for="set-token">Access token</label>
+      <input type="password" id="set-token" placeholder="Only needed when the backend requires auth" autocomplete="off" />
+      <div class="set-hint">Rides this tab's URL only — never stored on this machine.</div>
+    </div>
+    <div class="confirm-card__row">
+      <button class="btn-ghost" id="settings-cancel" type="button">Close</button>
+      <button class="btn-primary" id="settings-save" type="button">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Documentation: the in-app guide (self-contained; works offline) -->
+<div class="overlay" id="docs-overlay" hidden>
+  <div class="confirm-card docs-card" role="dialog" aria-modal="true" aria-labelledby="docs-title">
+    <h3 id="docs-title">How Edenn works</h3>
+    <div class="docs-body">
+      <p><strong>1 · Start.</strong> Upload a video, say what you want ("cinematic and premium"), and start the session. The director watches your footage first, then brings back directions.</p>
+      <p><strong>2 · Direct.</strong> Pick a direction and approve generation. Ask for anything in plain words — new takes, a voiceover, sound effects, a different mood. Sliders fine-tune the mix.</p>
+      <p><strong>3 · Timeline &amp; Canvas.</strong> The right pane shows your video with its audio laid out on the same clock — music, voice-over, and effects against the scene cuts. Switch to Canvas to see every take as a branching tree: play, compare, branch, and comment right on the nodes.</p>
+      <p><strong>4 · Collaborate.</strong> Share mints a link with a role (view / comment / iterate). Collaborators join under their own name; mention <em>@Edenn Director</em> in a thread to hand work to the agent.</p>
+      <p><strong>5 · Finish.</strong> Lock the take you love; Export downloads the final mix on your video.</p>
+    </div>
+    <div class="confirm-card__row">
+      <button class="btn-primary" id="docs-close" type="button">Got it</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sign-in. Shown only when the backend requires auth and the caller has
+     none — a local run never sees it. -->
+<div class="overlay" id="signin-overlay" hidden>
+  <div class="confirm-card signin-card" role="dialog" aria-modal="true" aria-labelledby="signin-title">
+    <h3 id="signin-title">Sign in to Edenn</h3>
+    <div class="signin-body" id="signin-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+<div id="activity-status" class="sr-only" role="status" aria-live="polite"></div>
+
+<script src="./mock-backend.js?v=e36"></script>
+<script src="./js/studio-ui.js?v=e36"></script>
+<script src="./js/studio-state.js?v=e36"></script>
+<script src="./js/ai-elements.js?v=e36"></script>
+<script src="./js/library-ui.js?v=e36"></script>
+<script src="./js/app.js?v=e36"></script>
+<script src="./js/timeline-mode.js?v=e36"></script>
+<script src="./js/canvas-mode.js?v=e36"></script>
+<script src="./js/collab-mode.js?v=e36"></script>
+<script src="./js/transform-mode.js?v=e36"></script>
+</body>
+</html>

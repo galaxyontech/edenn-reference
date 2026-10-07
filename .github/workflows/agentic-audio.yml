@@ -1,0 +1,453 @@
+# AgenticAudio — the component's own gates.
+#
+# The repo-wide job in `ci.yml` (`local-core`) already sweeps these files: its
+# `pytest -m "not remote_integration"` collects everything under `testpaths =
+# EdennCode`. This workflow exists for the two things that job cannot do:
+#
+#   1. It gives the studio a database, a browser and a console. `local-core` has
+#      none of those, so every Postgres-backed suite here SKIPS there and the
+#      browser suite never starts — a green tick over untested code.
+#   2. When it goes red, the failing job names the part of the studio that broke
+#      instead of burying it in one repo-wide log.
+#
+# ---------------------------------------------------------------------------
+# Nothing here spends provider credit, and nothing here touches deployed infra.
+# ---------------------------------------------------------------------------
+#
+#   * `pytest.ini` sets `addopts = -m "not remote_integration"`, so the suites
+#     that reach real infrastructure and spend (provider renders, storage, a
+#     shared database) are deselected by default. This file never passes
+#     `-m remote_integration` — that lane is `ci.yml`'s nightly `api-remote` /
+#     `remote-workflows` jobs, which is where the credentials live.
+#   * No provider or platform secret is referenced anywhere in this file. That
+#     is deliberate, not an oversight: `test_real_llm_eval_safety_gate`
+#     (`Testing/test_eval_harness.py:125`) skips unless `AGENTIC_AUDIO_AZURE_*`
+#     / `AZURE_*` are set, and would otherwise run a real multi-scenario eval
+#     against the model on every push. It is ALSO deselected by name below, so
+#     adding those secrets to the repo or org later cannot quietly turn this
+#     workflow into a paid one.
+#   * The only database is the `postgres:16-alpine` service container below,
+#     reached through `EDENN_TEST_PG_DSN`. `Testing/conftest.py`'s autouse
+#     `_no_real_databases` fixture deletes `PGHOST`/`PGPORT`/`PGUSER`/
+#     `PGPASSWORD`/`PGDATABASE`/`DATABASE_URL`/`POSTGRES_HOST`/`POSTGRES_DSN`
+#     around every non-`remote_integration` test, so a repository built with its
+#     default constructor cannot reach real infrastructure even by accident.
+#     `EDENN_TEST_PG_DSN` is a separate name precisely so it can never be
+#     confused with a production credential.
+#   * The browser suite runs `--backend=mock` only. `--backend=real` (and its
+#     pytest twin `EDENN_E2E_LIVE=1`) uploads real footage and drives the live
+#     director — both are left unset.
+#   * `EDENN_CONSOLE_BASE` always points at a console started inside the job on
+#     127.0.0.1. It is never pointed at `studio-standalone-app`; the deployed
+#     instance is authenticated and every turn it serves costs money.
+#
+# There is no `paths:` filter on purpose. The studio imports the platform around
+# it — `EdennCode/Deployment/postgres_wrapper.py` for every Postgres suite,
+# `EdennCode/Util/MediaUtils/ffmpeg_utils.py` for the mix correctness tests,
+# `async_pipeline_v2` for job enqueue/hydrate — so a filter listing only
+# `AgenticAudio/**` would go quiet for exactly the changes most likely to break it.
+
+name: AgenticAudio
+
+# In this snapshot the media fixtures and deployment surface were removed
+# (REDACTIONS.md, rules R2 and R6), so these jobs cannot pass here. They are
+# kept as a record of how the project is actually gated, and set to run only
+# on request so the snapshot does not advertise failures it was built to have.
+on:
+  workflow_dispatch:
+
+
+# A second push to the same branch makes the first run's answer irrelevant.
+concurrency:
+  group: audio-studio-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Everything that needs nothing but a Python interpreter and ffmpeg.
+  # ---------------------------------------------------------------------------
+  hermetic:
+    name: Python suites (no database, no network, no spend)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # NOTE for this snapshot: rule R2 removed every media file and the
+      # large-file store with them, so this step cannot succeed here. It is kept
+      # to show what the suite needs; the workflow is manual-only for that reason.
+      - name: Fetch the smoke video from LFS
+        # `test_agentic_audio_e2e_video_upload_to_worker_completion_to_final_artifact`
+        # ASSERTS the file exists rather than skipping, because the upload →
+        # worker → final-artifact path is meaningless without a real container to
+        # probe. It is the only LFS asset this suite touches, so pull that one
+        # file instead of the repo's ~153 MB of media.
+        run: |
+          git lfs pull --include="EdennCode/TestSuites/assets/smoke/videos/Videos2026-04-08_104426_347.mp4"
+
+      - name: Set up Python
+        # 3.11 is what the deployed image runs (`Dockerfile:85`,
+        # python:3.11-slim-bookworm). Testing on a newer interpreter than we ship
+        # means CI green tells you nothing about the container.
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install ffmpeg
+        # `test_media_compose.py` does not mock ffmpeg — it renders audio and
+        # MEASURES the result by FFT band (VO offset, ducking gain). It skips
+        # without a binary, and a silently skipped media suite is how a truncated
+        # deliverable ships. Uploads are validated with ffprobe from the same
+        # package.
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run the AgenticAudio suites
+        shell: bash
+        # The whole directory, not a file list, so a suite added tomorrow runs
+        # without anyone remembering to edit this workflow. The Postgres-backed
+        # files are in here too and report as skipped (no `EDENN_TEST_PG_DSN`) —
+        # the `postgres` job below is where they actually run.
+        #
+        # `-rs` prints every skip reason, so a suite that quietly stops running
+        # is visible in the log rather than hidden behind a passing tick. The one
+        # `-k` exclusion is the paid eval described at the top of this file.
+        run: |
+          mkdir -p test-results
+          set -o pipefail
+          pytest -q -rs EdennCode/EdennAgent/AgenticAudio/Testing \
+            -k "not real_llm_eval_safety_gate" \
+            2>&1 | tee test-results/agentic-audio-hermetic.log
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agentic-audio-hermetic
+          path: test-results/
+          if-no-files-found: warn
+
+  # ---------------------------------------------------------------------------
+  # The suites whose entire subject is what Postgres does.
+  # ---------------------------------------------------------------------------
+  postgres:
+    name: Postgres suites (throwaway service container)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        # The same image the suites' own docs tell a developer to run
+        # (`Testing/README.md`, "Tests that need a real database").
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: edenn_studio_test
+        ports:
+          - 5432:5432
+        # Without a health gate the first test connects before initdb finishes
+        # and the job fails on something that has nothing to do with the code.
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+
+    env:
+      # 127.0.0.1, not `localhost`: the service is port-mapped onto the runner
+      # VM, and `localhost` can resolve to ::1 where nothing is listening.
+      # `sslmode=disable` is set by the tests themselves when they build the
+      # connection config, so it is not in the DSN.
+      EDENN_TEST_PG_DSN: postgresql://postgres:postgres@127.0.0.1:5432/edenn_studio_test
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Prove the database is actually reachable
+        # The suites below are gated on `EDENN_TEST_PG_DSN` being non-empty, not
+        # on the database answering. If the service container never came up, or
+        # the DSN were wrong, pytest would skip its way to exit 0 — a green job
+        # that tested nothing, which is worse than a red one. Fail here instead,
+        # where the reason is unambiguous.
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os
+          import psycopg2
+
+          dsn = os.environ["EDENN_TEST_PG_DSN"]
+          with psycopg2.connect(dsn) as conn:
+              with conn.cursor() as cur:
+                  cur.execute("select version()")
+                  print(cur.fetchone()[0])
+          PY
+
+      - name: Run the Postgres-backed suites
+        shell: bash
+        # Named individually rather than by marker — there is no marker for
+        # "needs a database"; these four files are the ones carrying a DSN gate,
+        # and each is about a property no fake can answer:
+        #   test_state_concurrency  lost updates on the single `state_json`
+        #                           column, and the version/locked-mutate fix
+        #   test_migrator           the ledger + advisory lock: applied once,
+        #                           ordered, one replica at a time
+        #   test_connection_pool    whether a connection is REUSED, answered by
+        #                           asking the server which backend replied
+        #   test_turn_lock          one turn per session ACROSS replicas, and
+        #                           release-on-disconnect (its in-process half
+        #                           needs no database and runs in `hermetic` too)
+        # The database is a throwaway container: these write rows, take locks and
+        # run DDL, which is exactly why they must never see a shared instance.
+        run: |
+          mkdir -p test-results
+          set -o pipefail
+          pytest -q -rs \
+            EdennCode/EdennAgent/AgenticAudio/Testing/test_state_concurrency.py \
+            EdennCode/EdennAgent/AgenticAudio/Testing/test_migrator.py \
+            EdennCode/EdennAgent/AgenticAudio/Testing/test_connection_pool.py \
+            EdennCode/EdennAgent/AgenticAudio/Testing/test_turn_lock.py \
+            2>&1 | tee test-results/agentic-audio-postgres.log
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agentic-audio-postgres
+          path: test-results/
+          if-no-files-found: warn
+
+  # ---------------------------------------------------------------------------
+  # The cheap console gate: no browser, no server, never flakes.
+  # ---------------------------------------------------------------------------
+  frontend-contract:
+    name: Frontend static contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run the static contract suite
+        shell: bash
+        # Reads the console's own files and asserts the invisible-in-review
+        # things: an asset `index.html` loads that `FRONTEND_ASSETS`
+        # (`api/router.py`) will 404 in production, a style token nobody defines,
+        # a handler bound to a dead element id, an upstream provider name leaking
+        # into text a user can read. It also runs inside the `hermetic` job as
+        # part of the directory; it is its own job because it is seconds long and
+        # gates the browser job below — no point launching Chrome against a
+        # console whose assets the real mount would refuse to serve.
+        run: |
+          mkdir -p test-results
+          set -o pipefail
+          pytest -q -rs \
+            EdennCode/EdennAgent/AgenticAudio/Testing/test_frontend_contract.py \
+            2>&1 | tee test-results/agentic-audio-frontend-contract.log
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agentic-audio-frontend-contract
+          path: test-results/
+          if-no-files-found: warn
+
+  # ---------------------------------------------------------------------------
+  # A real Chrome driving the real console.
+  # ---------------------------------------------------------------------------
+  console-e2e:
+    name: Console browser suite (offline mock backend)
+    needs: frontend-contract
+    runs-on: ubuntu-latest
+    # The long job here: a browser walks every control in every spec, one spec at
+    # a time. A green run is minutes; a red one is slower, because each failing
+    # check spends its wait before giving up. The ceiling is set for the red case
+    # so a genuine failure reports as a failure and not as a timeout.
+    timeout-minutes: 40
+
+    env:
+      EDENN_CONSOLE_BASE: http://127.0.0.1:5599
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        # Node 22 is what the console build stage of the image uses
+        # (`Dockerfile:76`). puppeteer-core needs >= 18 for global `fetch`,
+        # which `run.js` uses to probe the console before launching a browser.
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install the suite's dependencies
+        # `npm install`, not `npm ci`: `Testing/frontend/.gitignore` excludes
+        # `package-lock.json`, so there is no lockfile to install from. One
+        # direct dependency (`puppeteer-core`), so the drift risk is small — but
+        # if this suite ever starts failing for reasons that smell like a
+        # dependency, committing the lockfile is the fix.
+        working-directory: EdennCode/EdennAgent/AgenticAudio/Testing/frontend
+        run: npm install --no-audit --no-fund
+
+      - name: Locate Chrome
+        # puppeteer-core deliberately bundles no browser, and the harness reads
+        # `EDENN_CHROME` (defaulting to a macOS path). ubuntu-latest ships Google
+        # Chrome; the fallback downloads a stable build rather than losing the
+        # whole console gate if the runner image ever drops it.
+        shell: bash
+        run: |
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || true)"
+          if [ -z "$CHROME" ]; then
+            npx --yes @puppeteer/browsers install chrome@stable | tee /tmp/chrome-install.txt
+            # It prints "chrome@<version> <path>" last; take that path.
+            CHROME="$(awk 'NF {last = $NF} END {print last}' /tmp/chrome-install.txt)"
+          fi
+          test -x "$CHROME" || { echo "no usable Chrome"; exit 1; }
+          echo "EDENN_CHROME=$CHROME" >> "$GITHUB_ENV"
+          "$CHROME" --version
+
+      - name: Serve the console
+        # A plain static file server over `frontend/` IS a complete console for
+        # `--backend=mock`: the offline backend (`frontend/mock-backend.js`) runs
+        # inside the page, so there is nothing behind it to call. This is Tier A
+        # in `Testing/README.md`, and it is enough — of the mock-backend specs,
+        # only `08_transform_flow` ever calls a server route (see the next step).
+        #
+        # The devserver is deliberately NOT used. It is the live pipeline: it
+        # imports the whole app, wants the model and provider credentials, and
+        # every turn it serves can spend. Running it here would buy nothing the
+        # mock specs need and would put a process that CAN spend one wrong
+        # environment variable away from doing it. A file server cannot.
+        shell: bash
+        run: |
+          python3 -m http.server 5599 --bind 127.0.0.1 \
+            --directory EdennCode/EdennAgent/AgenticAudio/frontend \
+            > /tmp/console-server.log 2>&1 &
+          echo "$!" > /tmp/console-server.pid
+          for _ in $(seq 1 30); do
+            curl -sf -o /dev/null "$EDENN_CONSOLE_BASE/" && break
+            sleep 1
+          done
+          curl -sf -o /dev/null "$EDENN_CONSOLE_BASE/"
+
+      - name: Drive the console
+        # `node run.js` rather than the pytest wrapper
+        # (`Testing/test_console_e2e.py`) on purpose. That wrapper SKIPS when
+        # node, Chrome or a console is missing — correct on a laptop, wrong here:
+        # this job provisions all three, so their absence is a failure of this
+        # workflow, not a reason to pass.
+        #
+        # Spec by spec rather than one `node run.js --backend=mock`, for one
+        # reason: `08_transform_flow` CANNOT pass on a hosted runner, and a gate
+        # that is permanently red by eight checks is a gate everyone learns to
+        # ignore. That spec asserts `GET /api/v2/library/assets` returns assets,
+        # and the creation/library routes are mounted only when the dev host is
+        # started with `EDENN_CREATION_MEDIA_DIR` pointing at a folder of clips
+        # with cached observations (`design/devserver.py:609`,
+        # `LOCAL_TESTING.md` §6). That fixture is not in the repository, and it
+        # cannot be synthesized here — ingesting a clip without a cached
+        # observation would run real analysis. Running the devserver instead of
+        # a file server would not change this. So it is skipped BY NAME below;
+        # deleting that skip is the right move the day the fixture exists, and
+        # until then the cut-shorts flow is a local gate, not a CI one.
+        #
+        # No other spec list is hardcoded: the loop walks `specs/`, so a spec
+        # added tomorrow runs without touching this file. A spec that declares
+        # `backend: "real"` matches nothing under `--backend=mock` and the runner
+        # exits 254 ("no specs matched"), which the loop reports as a skip.
+        #
+        # What that leaves uncovered, stated plainly: the `real` specs need a
+        # live console. The live journey (`10_live_journey`) uploads real footage
+        # and drives the real director, so real scene analysis, the real
+        # production plan, the spotting sheet and the provider-name leak check
+        # are NOT gated by CI, and neither is the sign-in journey. They stay a
+        # human gate: `node run.js --backend=real` against a dev server.
+        #
+        # The mock is only worth driving while it tells the same story as the
+        # server, and nothing in CI can check that. The two halves that do check
+        # the server side are `frontend-contract` (assets and copy) and the
+        # Python API suite in `hermetic`.
+        #
+        # The harness already launches Chrome with `--no-sandbox`, which is what
+        # makes headless Chrome work on a runner.
+        working-directory: EdennCode/EdennAgent/AgenticAudio/Testing/frontend
+        shell: bash
+        run: |
+          reports="${{ github.workspace }}/test-results"
+          mkdir -p "$reports"
+          failed=""
+          for spec in specs/*.spec.js; do
+            name="$(basename "$spec" .spec.js)"
+            if [ "$name" = "08_transform_flow" ]; then
+              echo "SKIP  $name — needs EDENN_CREATION_MEDIA_DIR, see the note above"
+              continue
+            fi
+            code=0
+            EDENN_REPORT_JSON="$reports/$name.json" \
+              node run.js --backend=mock --only="$name" || code=$?
+            case "$code" in
+              0)   ;;
+              254) echo "SKIP  $name — not a mock-backend spec" ;;
+              255) echo "the console stopped answering — aborting"; exit 1 ;;
+              *)   echo "FAIL  $name — $code failed check(s)"; failed="$failed $name" ;;
+            esac
+          done
+          if [ -n "$failed" ]; then
+            echo "failing specs:$failed"
+            exit 1
+          fi
+
+      - name: Stop the console
+        if: always()
+        run: |
+          kill "$(cat /tmp/console-server.pid)" 2>/dev/null || true
+
+      - name: Upload the console report
+        # The report names every failed check with what was actually observed,
+        # which is the thing you need to tell "the spec is wrong" from "the
+        # console is wrong" without re-running it locally first.
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agentic-audio-console-e2e
+          path: test-results/
+          if-no-files-found: warn

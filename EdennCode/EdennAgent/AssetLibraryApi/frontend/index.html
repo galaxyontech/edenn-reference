@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Edenn — Library</title>
+<style>
+  :root { --bg:#f6f4ee; --panel:#fff; --ink:#191919; --muted:#8c8779; --line:#e7e3d9;
+          --accent:#4a3ab8; --accent-soft:#edeafc; --gen:#1d8a6b; --gen-soft:#e6f2ec;
+          --up:#1d8a6b; --down:#b8543a; --stone:#ddd8ca; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font:14px/1.45 -apple-system,"Segoe UI",sans-serif; }
+  .app { display:grid; grid-template-columns:64px 1fr; min-height:100vh; }
+  a { color:inherit; }
+
+  /* left rail — AI-studio minimal */
+  .rail { border-right:1px solid var(--line); display:flex; flex-direction:column; align-items:center;
+          padding:16px 0; gap:6px; background:var(--panel); position:sticky; top:0; height:100vh; }
+  .rail .logo { width:30px; height:30px; border-radius:9px; background:var(--ink); color:#fff;
+                display:grid; place-items:center; font-weight:800; font-size:15px; margin-bottom:14px; }
+  .rail button { width:40px; height:40px; border:none; background:none; border-radius:11px;
+                 font-size:17px; color:var(--muted); cursor:pointer; }
+  .rail button.on { background:var(--accent-soft); color:var(--accent); }
+  .rail .sp { flex:1; }
+
+  .main { padding:24px 34px; max-width:1200px; }
+
+  /* search-first header */
+  .ask { display:flex; align-items:center; gap:12px; background:var(--panel);
+         border:1px solid var(--line); border-radius:16px; padding:13px 18px;
+         box-shadow:0 1px 2px rgba(20,18,10,.04); margin-bottom:14px; position:relative; }
+  .ask input { border:none; outline:none; background:none; flex:1; font-size:15px; color:var(--ink); }
+  .ask input::placeholder { color:var(--muted); }
+  .ask kbd { background:var(--accent-soft); color:var(--accent); border-radius:6px; padding:2px 9px;
+             font-weight:700; font-family:inherit; }
+  .results { position:absolute; top:calc(100% + 6px); left:0; right:0; background:var(--panel);
+             border:1px solid var(--line); border-radius:14px; box-shadow:0 10px 30px rgba(20,18,10,.12);
+             padding:6px; z-index:20; display:none; }
+  .results.on { display:block; }
+  .hit { display:flex; gap:10px; align-items:baseline; padding:9px 11px; border-radius:9px; cursor:pointer; }
+  .hit:hover { background:var(--bg); }
+  .hit .at { color:var(--accent); font-weight:700; font-size:12px; min-width:38px; }
+  .hit .tx { font-size:12.5px; color:#4c4738; }
+  .hit .nm { color:var(--muted); font-size:11px; margin-left:auto; white-space:nowrap; }
+
+  .chips { display:flex; gap:8px; margin-bottom:26px; flex-wrap:wrap; }
+  .chip { border:1px solid var(--line); background:var(--panel); border-radius:999px;
+          padding:6px 14px; font-size:13px; color:#55503f; cursor:pointer; }
+  .chip.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .chip .n { color:var(--muted); margin-left:5px; font-size:12px; }
+  .chip.on .n { color:#cfc9bb; }
+
+  .group { margin-bottom:30px; }
+  .group h2 { font-size:13px; font-weight:650; color:var(--muted); text-transform:uppercase;
+              letter-spacing:.06em; margin-bottom:12px; display:flex; align-items:baseline; gap:10px; }
+  .group h2 span { font-weight:500; text-transform:none; letter-spacing:0; font-size:12.5px; }
+
+  .grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+          cursor:pointer; transition:box-shadow .15s; }
+  .card:hover { box-shadow:0 6px 20px rgba(20,18,10,.10); }
+  .card.hide { display:none; }
+  .cover { position:relative; aspect-ratio:16/10; background:var(--stone) center/cover no-repeat; }
+  .cover.audio { background:repeating-linear-gradient(90deg,#4a3ab8 0 3px,#e6e2f8 3px 8px); }
+  .cover.voice { background:repeating-linear-gradient(90deg,#b8543a 0 3px,#f5e4df 3px 8px); }
+  .cover .badge { position:absolute; top:8px; left:8px; font-size:10.5px; font-weight:700;
+                  background:rgba(255,255,255,.92); border-radius:6px; padding:2px 7px; color:#55503f; }
+  .cover .badge.gen { background:var(--gen-soft); color:var(--gen); }
+  .cover .dur { position:absolute; bottom:8px; right:8px; font-size:10.5px; color:#fff;
+                background:rgba(10,10,10,.55); border-radius:5px; padding:1px 6px; }
+  .meta { padding:10px 12px; }
+  .meta b { display:block; font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden;
+            text-overflow:ellipsis; }
+  .meta .sub { display:flex; align-items:center; gap:6px; color:var(--muted); font-size:11.5px; margin-top:3px; }
+  .meta .sub .rel { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .links { display:inline-flex; margin-left:auto; }
+  .links i { width:7px; height:7px; border-radius:50%; border:1.5px solid #fff; margin-left:-3px;
+             background:var(--accent); }
+
+  /* ---- Connections */
+  .crumbs { color:var(--muted); font-size:12.5px; margin-bottom:16px; cursor:default; }
+  .crumbs b { color:var(--ink); } .crumbs a { color:var(--accent); cursor:pointer; text-decoration:none; }
+  .layout { display:grid; grid-template-columns:390px 1fr; gap:20px; }
+  .hero { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; height:fit-content; }
+  .hero .cover { aspect-ratio:16/10; }
+  .hero .body { padding:16px 18px; }
+  .hero h1 { font-size:16px; font-weight:650; }
+  .hero .facts { color:var(--muted); font-size:12.5px; margin:4px 0 10px; }
+  .hero p { font-size:13px; color:#4c4738; }
+  .tags { margin-top:10px; }
+  .tag { display:inline-block; background:#f2f0e8; border-radius:7px; padding:3px 9px; font-size:11.5px;
+         color:#5a5648; margin:0 5px 5px 0; }
+  .actions { display:flex; gap:8px; padding:0 18px 16px; }
+  .btn { border:1px solid var(--line); background:#faf9f5; border-radius:10px; padding:8px 14px;
+         font-size:12.5px; font-weight:600; cursor:pointer; }
+  .btn.primary { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .connections { display:flex; flex-direction:column; gap:16px; }
+  .section { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .section > h2 { font-size:13.5px; font-weight:650; margin-bottom:2px; }
+  .section > .why { color:var(--muted); font-size:12px; margin-bottom:12px; }
+  .family { display:flex; align-items:flex-start; gap:0; flex-wrap:wrap; }
+  .fam { text-align:center; cursor:pointer; }
+  .fam .th { width:96px; aspect-ratio:9/13; border-radius:10px; margin:0 auto; position:relative;
+             background:var(--stone) center/cover no-repeat; }
+  .fam.src .th { width:120px; aspect-ratio:16/10; outline:2.5px solid var(--accent); outline-offset:2px; }
+  .fam b { display:block; font-size:11.5px; font-weight:600; margin-top:7px; max-width:110px; }
+  .fam span { font-size:10.5px; color:var(--muted); }
+  .fam .mark { position:absolute; top:5px; left:5px; font-size:9px; font-weight:800; padding:1px 5px;
+               border-radius:4px; background:var(--gen-soft); color:var(--gen); }
+  .arrow { flex:0 0 52px; text-align:center; color:#c2bcac; font-size:16px; margin-top:22px; }
+  .arrow em { display:block; font-style:normal; font-size:9px; color:var(--muted); margin-top:2px; }
+  .row { display:flex; gap:12px; flex-wrap:wrap; }
+  .mini-card { flex:1; min-width:200px; display:flex; gap:10px; align-items:center; border:1px solid var(--line);
+               border-radius:12px; padding:9px 11px; cursor:pointer; }
+  .mini-card:hover { border-color:var(--accent); }
+  .mini-card .th { width:56px; height:36px; border-radius:7px; flex:none;
+                   background:repeating-linear-gradient(90deg,#4a3ab8 0 3px,#e6e2f8 3px 8px); }
+  .mini-card b { font-size:12.5px; display:block; } .mini-card span { font-size:11px; color:var(--muted); }
+  .moments { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; }
+  .moment { border-radius:10px; aspect-ratio:16/9; position:relative; cursor:pointer;
+            background:var(--stone) center/cover no-repeat; overflow:hidden; }
+  .moment:hover { outline:2px solid var(--accent); outline-offset:2px; }
+  .moment small { position:absolute; left:7px; right:7px; bottom:6px; color:#fff; font-size:10px;
+                  text-shadow:0 1px 3px rgba(0,0,0,.7); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  /* ---- Performance */
+  .phead { display:flex; align-items:baseline; gap:12px; margin-bottom:16px; }
+  .phead h1 { font-size:16px; font-weight:650; } .phead span { color:var(--muted); font-size:12.5px; }
+  .phead .live { margin-left:auto; font-size:11.5px; color:var(--gen); font-weight:700; }
+  .live i { display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--gen); margin-right:5px; }
+  .vgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:16px; }
+  .variant { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  .variant.win { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent-soft); }
+  .v-cover { aspect-ratio:16/7; position:relative; background:var(--stone) center/cover no-repeat; }
+  .v-cover .name { position:absolute; left:12px; bottom:9px; color:#fff; font-weight:650; font-size:13px;
+                   text-shadow:0 1px 4px rgba(0,0,0,.6); }
+  .v-cover .crown { position:absolute; top:9px; right:10px; background:#fff; border-radius:7px;
+                    font-size:10.5px; font-weight:800; color:var(--accent); padding:2px 8px; }
+  .v-body { padding:12px 14px; }
+  .chans { display:flex; gap:6px; margin-bottom:10px; }
+  .chan { font-size:10px; font-weight:700; border:1px solid var(--line); border-radius:6px; padding:2px 7px;
+          color:#55503f; text-transform:capitalize; }
+  .nums { display:flex; } .num { flex:1; }
+  .num b { display:block; font-size:17px; font-weight:700; }
+  .num small { font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+  .num .d { font-size:11px; font-weight:700; } .d.up { color:var(--up); } .d.down { color:var(--down); }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .panel h2 { font-size:13.5px; font-weight:650; } .panel .sub { font-size:11.5px; color:var(--muted); margin-bottom:13px; }
+  .comp { display:flex; align-items:center; gap:10px; padding:7px 0; }
+  .comp .th { width:44px; height:28px; border-radius:7px; flex:none; background:var(--stone) center/cover no-repeat; }
+  .comp .th.track { background:repeating-linear-gradient(90deg,#4a3ab8 0 3px,#e6e2f8 3px 8px); }
+  .comp .lbl { width:150px; } .comp b { font-size:12.5px; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .comp span { font-size:10.5px; color:var(--muted); }
+  .bar { flex:1; height:8px; border-radius:4px; background:#f0ede3; overflow:hidden; margin:0 4px; }
+  .bar i { display:block; height:100%; border-radius:4px; background:var(--accent); }
+  .lift { width:52px; text-align:right; font-size:12px; font-weight:700; }
+  .note { font-size:10.5px; color:var(--muted); margin-top:10px; } .note b { color:#8a6d3b; }
+  .iterate { display:flex; align-items:center; gap:14px; background:var(--panel); border:1px solid var(--line);
+             border-left:4px solid var(--accent); border-radius:14px; padding:14px 18px; }
+  .iterate .spark { font-size:18px; } .iterate p { font-size:13.5px; } .iterate p b { font-weight:650; }
+  .iterate .btns { margin-left:auto; display:flex; gap:8px; }
+  .empty { color:var(--muted); font-size:13px; padding:40px 0; text-align:center; }
+
+  /* ---- Map */
+  .maphead { display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+  .maphead h1 { font-size:16px; font-weight:650; }
+  .mapwrap { position:relative; background:var(--panel); border:1px solid var(--line);
+             border-radius:18px; height:600px; overflow:hidden; }
+  .mapwrap svg { position:absolute; inset:0; width:100%; height:100%; }
+  .edge { stroke:#ddd8ca; stroke-width:1.5; fill:none; }
+  .edge.hot { stroke:var(--accent); stroke-width:2; }
+  .mnode { position:absolute; transform:translate(-50%,-50%); text-align:center; cursor:pointer; width:120px; }
+  .mnode .th { border-radius:12px; box-shadow:0 2px 10px rgba(20,18,10,.12); border:2px solid #fff;
+               margin:0 auto; background:var(--stone) center/cover no-repeat; position:relative; }
+  .mnode b { display:block; font-size:11px; font-weight:600; margin-top:5px; color:#33302a;
+             white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .mnode span { font-size:9.5px; color:var(--muted); }
+  .mnode.src .th { width:104px; height:64px; } .mnode.out .th { width:56px; height:82px; }
+  .mnode.aud .th { width:66px; height:34px; border-radius:9px;
+                   background:repeating-linear-gradient(90deg,#4a3ab8 0 3px,#e6e2f8 3px 8px); }
+  .mnode.sel .th { outline:2.5px solid var(--accent); outline-offset:2px; }
+  .mnode .mk { position:absolute; top:4px; left:4px; font-size:8.5px; font-weight:800; padding:1px 4px;
+               border-radius:4px; background:var(--gen-soft); color:var(--gen); }
+  .cluster-label { position:absolute; font-size:11px; font-weight:700; letter-spacing:.06em;
+                   color:#b5ae9c; text-transform:uppercase; }
+  .peek { position:absolute; right:16px; top:16px; width:240px; background:var(--panel);
+          border:1px solid var(--line); border-radius:14px; padding:13px 15px;
+          box-shadow:0 8px 26px rgba(20,18,10,.12); }
+  .peek b { font-size:13px; } .peek p { font-size:11.5px; color:var(--muted); margin-top:4px; }
+  .peek .cnt { display:flex; gap:14px; margin-top:9px; font-size:11px; color:#55503f; flex-wrap:wrap; }
+  .peek .cnt i { font-style:normal; font-weight:700; color:var(--ink); }
+  .hint { position:absolute; left:16px; bottom:14px; color:var(--muted); font-size:12px; }
+
+  /* ---- Grounded plan (chat) */
+  .thread { max-width:720px; margin:0 auto; }
+  .user-bubble { background:var(--ink); color:#fff; border-radius:16px 16px 4px 16px; padding:12px 16px;
+                 font-size:14px; width:fit-content; max-width:88%; margin:0 0 18px auto; }
+  .who { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase;
+         letter-spacing:.06em; margin-bottom:6px; }
+  .agent > p { font-size:14px; color:#33302a; margin-bottom:12px; }
+  .plan { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  .plan-head { display:flex; align-items:center; gap:10px; padding:13px 16px; border-bottom:1px solid var(--line); }
+  .plan-head b { font-size:14px; }
+  .ratio { margin-left:auto; font-size:12px; font-weight:700; color:var(--gen); background:var(--gen-soft);
+           border-radius:7px; padding:3px 10px; }
+  .sect { padding:14px 16px; border-bottom:1px solid #f2efe7; }
+  .sect h3 { font-size:11.5px; font-weight:700; color:var(--muted); text-transform:uppercase;
+             letter-spacing:.05em; margin-bottom:10px; }
+  .mchip { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); border-radius:10px;
+           padding:5px 10px 5px 5px; font-size:12px; background:#fbfaf6; margin:0 8px 8px 0; cursor:pointer; }
+  .mchip .th { width:44px; height:28px; border-radius:6px; flex:none; background:var(--stone) center/cover no-repeat; }
+  .mchip .th.track { background:repeating-linear-gradient(90deg,#4a3ab8 0 3px,#e6e2f8 3px 8px); }
+  .mchip b { font-weight:600; display:block; font-size:12px; } .mchip small { color:var(--muted); font-size:10.5px; }
+  .mchip .tag { font-size:9px; font-weight:800; color:var(--gen); background:var(--gen-soft); padding:1px 5px;
+                border-radius:4px; }
+  .grounded { background:var(--gen-soft); border:1px solid #cfe6da; border-radius:12px; padding:11px 14px;
+              font-size:12.5px; color:#1d6b52; }
+  .grounded b { color:var(--gen); }
+  .axes { display:flex; gap:10px; flex-wrap:wrap; }
+  .axis { flex:1; min-width:180px; border:1px solid var(--line); border-radius:10px; padding:9px 12px; font-size:12px; }
+  .axis b { display:block; font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:3px; }
+  .axis span { color:#4c4738; }
+  .plan-foot { display:flex; align-items:center; gap:10px; padding:13px 16px; }
+  .plan-foot .note { font-size:11.5px; color:var(--muted); }
+  .cta { margin-left:auto; background:var(--ink); color:#fff; border:none; border-radius:11px; padding:10px 18px;
+         font-size:13px; font-weight:650; cursor:pointer; }
+  .composer { display:flex; align-items:center; gap:10px; background:var(--panel); border:1px solid var(--line);
+              border-radius:14px; padding:12px 16px; margin-top:14px; color:var(--muted); font-size:14px; max-width:720px; margin-left:auto; margin-right:auto; }
+  .composer kbd { background:var(--accent-soft); color:var(--accent); border-radius:6px; padding:1px 8px;
+                  font-weight:700; font-family:inherit; margin-left:auto; }
+
+  /* ---- Create (plan → show → lock) */
+  .cwrap { max-width:980px; margin:0 auto; }
+  .cwrap h1 { font-size:16px; font-weight:650; margin-bottom:4px; }
+  .cwrap .lede { color:var(--muted); font-size:12.5px; margin-bottom:16px; }
+  .crow { display:flex; gap:14px; align-items:flex-start; }
+  .cpick { flex:0 0 240px; }
+  .cpick h3, .cmain h3 { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase;
+                          letter-spacing:.05em; margin:0 0 8px; }
+  .cpick .pick { display:flex; gap:8px; align-items:center; border:1px solid var(--line); background:var(--panel);
+                 border-radius:10px; padding:7px 9px; margin-bottom:7px; cursor:pointer; font-size:12px; }
+  .cpick .pick:hover { border-color:var(--accent); }
+  .cpick .pick.on { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent-soft); }
+  .cpick .pick .th { width:44px; height:28px; border-radius:6px; flex:none;
+                     background:var(--stone) center/cover no-repeat; }
+  .cpick .pick .th.audio { background:repeating-linear-gradient(90deg,#4a3ab8 0 3px,#e6e2f8 3px 8px); }
+  .cpick .pick b { font-size:12px; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .cpick .pick span { font-size:10px; color:var(--muted); }
+  .cmain { flex:1; }
+  .refchips { display:flex; flex-wrap:wrap; gap:8px; min-height:34px; margin-bottom:10px; }
+  .refchip { display:inline-flex; align-items:center; gap:7px; border:1px solid var(--line); background:var(--panel);
+             border-radius:999px; padding:5px 11px; font-size:12px; }
+  .refchip .role { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.04em;
+                   background:var(--accent-soft); color:var(--accent); border-radius:5px; padding:1px 6px; }
+  .refchip .role.music { background:#e6f2ec; color:var(--gen); }
+  .refchip .x { cursor:pointer; color:var(--muted); font-weight:700; }
+  .cbox { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:12px 14px;
+          margin-bottom:12px; }
+  .cbox textarea { width:100%; border:none; outline:none; resize:vertical; min-height:44px;
+                   font:13.5px/1.5 inherit; color:var(--ink); background:none; }
+  .cbox .opts { display:flex; gap:10px; align-items:center; margin-top:8px; flex-wrap:wrap; }
+  .cbox select, .cbox input[type=number] { border:1px solid var(--line); border-radius:8px; padding:6px 9px;
+                   font:12.5px inherit; background:#faf9f5; color:var(--ink); }
+  .cbox label { font-size:11.5px; color:var(--muted); }
+  .qcard { background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent);
+           border-radius:12px; padding:13px 15px; margin-bottom:12px; }
+  .qcard p { font-size:13px; font-weight:600; margin-bottom:9px; }
+  .qcard .qopt { display:inline-flex; flex-direction:column; gap:2px; border:1px solid var(--line);
+                 border-radius:10px; padding:8px 12px; margin:0 8px 8px 0; cursor:pointer; background:#faf9f5; }
+  .qcard .qopt:hover { border-color:var(--accent); }
+  .qcard .qopt b { font-size:12.5px; } .qcard .qopt span { font-size:11px; color:var(--muted); }
+  .strip { position:relative; height:64px; background:#f4f1e9; border:1px solid var(--line);
+           border-radius:10px; overflow:hidden; margin:10px 0 8px; cursor:pointer; }
+  .strip .beat { position:absolute; bottom:0; width:1px; height:10px; background:#d5cfbf; }
+  .strip .slotb { position:absolute; top:6px; height:40px; border-radius:6px; background:var(--accent-soft);
+                  border:1px solid var(--accent); overflow:hidden; }
+  .strip .slotb.bite { background:var(--gen-soft); border-color:var(--gen); }
+  .strip .slotb small { position:absolute; left:4px; top:2px; font-size:8.5px; color:var(--accent);
+                        white-space:nowrap; }
+  .strip .slotb.bite small { color:var(--gen); }
+  .strip .ph { position:absolute; top:0; bottom:0; width:2px; background:var(--ink); }
+  .pwrap video { width:100%; max-height:340px; background:#111; border-radius:12px; display:block; }
+  .pctl { display:flex; gap:10px; align-items:center; margin-top:8px; }
+  .pctl .why { font-size:11px; color:var(--muted); flex:1; white-space:nowrap; overflow:hidden;
+               text-overflow:ellipsis; }
+  .lockrow { display:flex; gap:10px; align-items:center; margin-top:10px; }
+  .lockrow .note { font-size:11px; color:var(--muted); flex:1; }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="rail">
+    <div class="logo">E</div>
+    <button data-view="create" title="Create — plan, watch, lock">✚</button>
+    <button data-view="plan" title="Chat — grounded plan">✦</button>
+    <button class="on" data-view="board" title="Library">▦</button>
+    <button data-view="map" title="Map">🗺</button>
+    <button data-view="perf" title="Performance">📈</button>
+    <div class="sp"></div>
+    <button title="Exports">↗</button>
+  </nav>
+  <main class="main" id="main"><div class="empty">loading…</div></main>
+</div>
+
+<script>
+const API = "/api/v2/library";
+const $ = (h) => { const d=document.createElement("div"); d.innerHTML=h.trim(); return d.firstChild; };
+const esc = (s) => (s==null?"":String(s)).replace(/[&<>"']/g, c => (
+  {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtDur = (s) => !s ? "" : `${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,"0")}`;
+const pct = (x) => (x*100).toFixed(2) + "%";
+const money = (x) => x>=1000 ? "$"+(x/1000).toFixed(1)+"k" : "$"+Math.round(x);
+const main = () => document.getElementById("main");
+let BOARD = null;
+
+function coverStyle(c, t) {
+  if (c.kind === "audio") return "";                       // striped via .audio class
+  const tt = t != null ? t : (c.generated ? 2 : 8);
+  return `background-image:url('${API}/thumb/${c.asset_id}?t=${tt}')`;
+}
+function coverClass(c){ return c.kind === "audio" ? (c.badge==="VOICE"?"cover voice":"cover audio") : "cover"; }
+
+function setView(v){ document.querySelectorAll(".rail button[data-view]").forEach(b =>
+  b.classList.toggle("on", b.dataset.view===v)); }
+
+/* ---------------------------------------------------------------- Board */
+async function showBoard() {
+  setView("board");
+  BOARD = await (await fetch(`${API}/board`)).json();
+  const f = BOARD.filters;
+  const chips = [["all","All",f.All],["video","Video",f.Video],["image","Photos",f.Photos],
+                 ["audio","Music",f.Music],["made","✦ Made with Edenn",f.Made]]
+    .filter(c => c[0]==="all" || c[0]==="made" || c[2]>0)
+    .map(([k,label,n]) => `<span class="chip ${k==='all'?'on':''}" data-f="${k}">${label} <span class="n">${n}</span></span>`).join("");
+  const groups = BOARD.groups.map(g => `
+    <section class="group">
+      <h2>${esc(g.title)} <span>· ${esc(g.subtitle)} · updated today</span></h2>
+      <div class="grid">${g.assets.map(cardHTML).join("")}</div>
+    </section>`).join("");
+  main().innerHTML = `
+    <div class="ask">🔎 <input id="q" placeholder="Find anything — “gray card stillness”, “announcer”, “washing”…" autocomplete="off"> <kbd>@</kbd>
+      <div class="results" id="res"></div></div>
+    <div class="chips">${chips}</div>
+    ${groups || '<div class="empty">no assets yet</div>'}`;
+  document.querySelectorAll(".chip").forEach(ch => ch.onclick = () => filterCards(ch));
+  document.querySelectorAll(".card").forEach(c => c.onclick = () => showDetail(c.dataset.id));
+  wireSearch();
+}
+function cardHTML(c) {
+  const gen = c.generated ? "gen" : "";
+  const dots = c.made_count ? `<span class="links">${Array(Math.min(c.made_count,4)).fill('<i></i>').join("")}</span>` : "";
+  return `<div class="card" data-id="${c.asset_id}" data-kind="${c.kind}" data-made="${c.generated?1:0}">
+    <div class="${coverClass(c)}" style="${coverStyle(c)}">
+      <span class="badge ${gen}">${c.generated?"✦ ":""}${esc(c.badge)}</span>
+      ${c.duration_s?`<span class="dur">${fmtDur(c.duration_s)}</span>`:""}
+    </div>
+    <div class="meta"><b>${esc(c.name)}</b>
+      <div class="sub"><span class="rel">${esc(c.relation)}</span>${dots}</div></div></div>`;
+}
+function filterCards(chip) {
+  document.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c===chip));
+  const f = chip.dataset.f;
+  document.querySelectorAll(".card").forEach(card => {
+    const show = f==="all" || (f==="made" ? card.dataset.made==="1" : card.dataset.kind===f);
+    card.classList.toggle("hide", !show);
+  });
+  document.querySelectorAll(".group").forEach(g =>
+    g.style.display = [...g.querySelectorAll(".card")].some(c=>!c.classList.contains("hide")) ? "" : "none");
+}
+function wireSearch() {
+  const q = document.getElementById("q"), res = document.getElementById("res");
+  let timer;
+  q.oninput = () => { clearTimeout(timer); timer = setTimeout(async () => {
+    const term = q.value.trim();
+    if (term.length < 3) { res.classList.remove("on"); return; }
+    const d = await (await fetch(`${API}/search?q=${encodeURIComponent(term)}`)).json();
+    res.innerHTML = d.hits.length ? d.hits.map(h => {
+      const nm = (BOARD.groups.flatMap(g=>g.assets).find(a=>a.asset_id===h.asset_id)||{}).name || "";
+      return `<div class="hit" data-id="${h.asset_id}"><span class="at">${esc(h.at)}</span>
+        <span class="tx">${esc(h.summary)}</span><span class="nm">${esc(nm)}</span></div>`;
+    }).join("") : `<div class="hit"><span class="tx" style="color:var(--muted)">no matches</span></div>`;
+    res.classList.add("on");
+    res.querySelectorAll(".hit[data-id]").forEach(el => el.onclick = () => showDetail(el.dataset.id));
+  }, 220); };
+  q.onblur = () => setTimeout(()=>res.classList.remove("on"), 180);
+}
+
+/* ---------------------------------------------------- Connections (detail) */
+async function showDetail(id) {
+  setView("board");
+  const d = await (await fetch(`${API}/assets/${id}`)).json();
+  const a = d.asset;
+  const heroCoverCls = a.kind==="audio" ? (a.badge==="VOICE"?"cover voice":"cover audio") : "cover";
+  const family = d.made_from_this.length ? `
+    <div class="section"><h2>Made from this</h2>
+      <div class="why">${d.made_from_this.length} piece${d.made_from_this.length>1?"s":""} cut from this footage — none reuse the same moment.</div>
+      <div class="family">
+        <div class="fam src"><div class="th" style="${coverStyle(a,8)}"></div><b>${esc(a.name)}</b><span>source · ${fmtDur(a.duration_s)}</span></div>
+        ${d.made_from_this.map(m => `
+          <div class="arrow">→<em>${esc(m.arrow).replace(/ /g,"&nbsp;")}</em></div>
+          <div class="fam" onclick="showDetail('${m.asset_id}')">
+            <div class="th" style="${coverStyle({asset_id:m.asset_id,kind:'video',generated:true},2)}"><span class="mark">✦</span></div>
+            <b>${esc(m.name)}</b><span>${fmtDur(m.duration_s)}</span></div>`).join("")}
+      </div></div>` : "";
+  const appears = d.appears_together.length ? `
+    <div class="section"><h2>Appears together</h2>
+      <div class="why">Assets that show up in the same pieces as this one.</div>
+      <div class="row">${dedupeAppears(d.appears_together).map(x => `
+        <div class="mini-card" onclick="showDetail('${x.asset_id}')"><div class="th"></div>
+          <div><b>${esc(x.name)}</b><span>${esc(x.relation)}</span></div></div>`).join("")}</div></div>` : "";
+  const moments = d.moments.length ? `
+    <div class="section"><h2>Moments this footage gives up</h2>
+      <div class="why">The stretches cut into pieces — tap to open the piece that used it.</div>
+      <div class="moments">${d.moments.map(m => `
+        <div class="moment" style="${coverStyle(a, m.rawAt||undefined)}background-image:url('${API}/thumb/${a.asset_id}?t=${tSec(m.at)}')">
+          <small>${esc(m.label)} · ${esc(m.at)}</small></div>`).join("")}</div></div>` : "";
+  main().innerHTML = `
+    <div class="crumbs"><a onclick="showBoard()">Library</a> / <b>${esc(a.name)}</b></div>
+    <div class="layout">
+      <div><div class="hero">
+        <div class="${heroCoverCls}" style="${coverStyle(a,8)}"></div>
+        <div class="body"><h1>${esc(a.name)}</h1>
+          <div class="facts">${cap(a.kind)} · ${fmtDur(a.duration_s)} · used in ${a.used_in} piece${a.used_in!==1?"s":""}${a.orientation?" · "+a.orientation:""}</div>
+          <p>${esc(d.description||"—")}</p>
+          <div class="tags">${(d.tags||[]).filter(Boolean).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div></div>
+        <div class="actions"><button class="btn primary">Make something from this</button><button class="btn">@ Mention in chat</button></div>
+      </div></div>
+      <div class="connections">${family}${appears}${moments || '<div class="section"><div class="why">Not cut into any piece yet.</div></div>'}</div>
+    </div>`;
+}
+const tSec = (mmss) => { const [m,s] = (mmss||"0:0").split(":").map(Number); return (m*60+s)||1; };
+const cap = (s) => s ? s[0].toUpperCase()+s.slice(1) : s;
+function dedupeAppears(list){ const seen=new Set(), out=[]; for(const x of list){ if(seen.has(x.asset_id))continue; seen.add(x.asset_id); out.push(x);} return out; }
+
+/* ---------------------------------------------------------- Performance */
+async function showPerf() {
+  setView("perf");
+  const d = await (await fetch(`${API}/performance`)).json();
+  if (!d.variants.length) { main().innerHTML = `<div class="empty">nothing published yet</div>`; return; }
+  const chan = (c) => c ? `<span class="chan">${esc(c)}</span>` : "";
+  const dchip = (v) => v>0?`<span class="d up">+${v}%</span>`:(v<0?`<span class="d down">${v}%</span>`:"");
+  const variants = d.variants.map(v => `
+    <div class="variant ${v.leading?"win":""}">
+      <div class="v-cover" style="${coverStyle({asset_id:v.asset_id,kind:'video',generated:true},2)}">
+        <span class="name">${esc(v.name)}</span>${v.leading?'<span class="crown">LEADING</span>':""}</div>
+      <div class="v-body"><div class="chans">${chan(v.channel)}</div>
+        <div class="nums">
+          <div class="num"><b>${pct(v.ctr)}</b><small>CTR</small> ${dchip(v.ctr_lift)}</div>
+          <div class="num"><b>${pct(v.cvr)}</b><small>CVR</small></div>
+          <div class="num"><b>${money(v.spend)}</b><small>spend</small></div>
+        </div></div></div>`).join("");
+  const compRow = (c, track) => `
+    <div class="comp"><div class="th ${track?"track":""}" style="${track?"":`background-image:url('${API}/thumb/${c.ref.split('#')[0]}?t=${tSec(c.at)}')`}"></div>
+      <div class="lbl"><b>${esc(c.label)}</b><span>${c.at?esc(c.at)+" · ":""}${c.variant_names.length?"in "+c.variant_names.map(v=>esc(shortName(v))).join(", "):"—"}</span></div>
+      <div class="bar"><i style="width:${c.bar}%"></i></div>
+      <div class="lift" style="color:${c.lift>=0?'var(--up)':'var(--down)'}">${c.lift>=0?"+":""}${c.lift}%</div></div>`;
+  const openings = d.openings.length ? d.openings.map(c=>compRow(c,false)).join("") : '<div class="why">no opening data</div>';
+  const music = d.music.length ? d.music.map(c=>compRow(c,true)).join("") : '<div class="why">no track data</div>';
+  const lead = d.variants.find(v=>v.leading), topOpen = d.openings[0];
+  const insight = topOpen ? `The “${esc(topOpen.label)}” open (${esc(topOpen.at)}) is carrying CTR (${topOpen.lift>=0?"+":""}${topOpen.lift}%)${lead?`, and “${esc(lead.name)}” leads overall`:""}.` :
+    "Outcomes are still collecting.";
+  main().innerHTML = `
+    <div class="phead"><h1>${d.variants.length} variants · live on ${esc(d.variants[0].channel||"channel")}</h1>
+      <span>${d.variants[0].days} days · observed</span><span class="live"><i></i>collecting</span></div>
+    <div class="vgrid">${variants}</div>
+    <div class="cols">
+      <div class="panel"><h2>Which opening carries the click?</h2>
+        <div class="sub">Same moment, wherever it appears — performance follows the component, not the video.</div>
+        ${openings}
+        <div class="note">Observed across the run · <b>not yet a controlled test</b> — “Iterate” runs one.</div></div>
+      <div class="panel"><h2>Sound that converts</h2>
+        <div class="sub">Tracks and voices, ranked by the CVR of every piece they score.</div>
+        ${music}</div>
+    </div>
+    <div class="iterate"><span class="spark">✦</span>
+      <p><b>${insight}</b><br>Cut new takes that keep the winning open and vary only the close — a clean test of what ends best.</p>
+      <div class="btns"><button class="btn">Promote leader</button><button class="btn primary">Iterate — 3 takes</button></div></div>`;
+}
+function shortName(n){ return (n||"").replace(/^cut · /,""); }
+
+/* ---------------------------------------------------------------- Map */
+async function showMap() {
+  setView("map");
+  const d = await (await fetch(`${API}/graph`)).json();
+  const W = 1120, H = 600;
+  const srcs = d.nodes.filter(n=>n.role==="src"), outs = d.nodes.filter(n=>n.role==="out");
+  const auds = d.nodes.filter(n=>n.role==="aud"), imgs = d.nodes.filter(n=>n.role==="img");
+  const pos = {};
+  srcs.forEach((n,i)=> pos[n.asset_id]=[210, H/2 + (i-(srcs.length-1)/2)*150]);
+  outs.forEach((n,i)=> pos[n.asset_id]=[W/2, 120 + i*(Math.min(360,H-240)/Math.max(1,outs.length-1)||0)]);
+  auds.forEach((n,i)=> pos[n.asset_id]=[W-230, H/2 + (i-(auds.length-1)/2)*130]);
+  imgs.forEach((n,i)=> pos[n.asset_id]=[210, H-90 - i*90]);
+  const P = id => pos[id] || [W/2, H/2];
+  const edges = d.edges.filter(e=>pos[e.src]&&pos[e.dst]).map(e => {
+    const [x1,y1]=P(e.src), [x2,y2]=P(e.dst); const mx=(x1+x2)/2;
+    return `<path class="edge ${e.kind==='slot_cut'?'hot':''}" d="M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}"/>`;
+  }).join("");
+  const nodeHTML = (n) => {
+    const [x,y]=P(n.asset_id);
+    const cover = n.kind==="audio" ? "" : `background-image:url('${API}/thumb/${n.asset_id}?t=${n.generated?2:8}')`;
+    const sub = n.role==="src" ? `${n.kind} · ${fmtDur(n.duration_s)}` :
+                n.role==="aud" ? "✦ music" : fmtDur(n.duration_s);
+    return `<div class="mnode ${n.role} ${n.role==='src'?'sel':''}" style="left:${x/W*100}%; top:${y/H*100}%"
+      onclick="showDetail('${n.asset_id}')" onmouseenter="mpeek('${n.asset_id}')">
+      <div class="th" style="${cover}">${n.generated?'<span class="mk">✦</span>':""}</div>
+      <b>${esc(n.name)}</b><span>${esc(sub)}</span></div>`;
+  };
+  window._graph = d;
+  const first = srcs[0];
+  main().innerHTML = `
+    <div class="maphead"><h1>Your library, connected</h1></div>
+    <div class="mapwrap">
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${edges}</svg>
+      <div class="cluster-label" style="left:6%; top:6%">${esc(d.cluster)}</div>
+      ${d.nodes.map(nodeHTML).join("")}
+      <div class="peek" id="peek"></div>
+      <div class="hint">Click any item to see its connections · <b>@</b> to mention it anywhere</div>
+    </div>`;
+  if (first) mpeek(first.asset_id);
+}
+function mpeek(id){
+  const d = window._graph; const n = d.nodes.find(x=>x.asset_id===id); if(!n) return;
+  const s = d.stats[id];
+  const body = s ? `<p>${s.pieces} piece${s.pieces!==1?"s":""} made from it · scored by ${s.scored_by} track${s.scored_by!==1?"s":""}</p>
+      <div class="cnt"><span><i>${Math.round((n.used_fraction||0)*100)}%</i> footage used</span><span><i>${s.moments}</i> moments cut</span></div>`
+    : `<p>${n.generated?"Made with Edenn":"Source material"} · ${n.kind}${n.duration_s?" · "+fmtDur(n.duration_s):""}</p>`;
+  const el = document.getElementById("peek"); if(el) el.innerHTML = `<b>${esc(n.name)}</b>${body}`;
+}
+
+/* --------------------------------------------------------- Grounded plan */
+async function showPlan() {
+  setView("plan");
+  const d = await (await fetch(`${API}/plan`)).json();
+  const chips = d.moments.map(m => `
+    <div class="mchip" onclick="showDetail('${m.asset_id}')">
+      <div class="th" style="background-image:url('${API}/thumb/${m.asset_id}?t=${tSec(m.at)}')"></div>
+      <div><b>${esc(m.label)}</b><small>${esc(m.at)} · ${m.dur}s</small></div></div>`).join("")
+    + (d.track ? `<div class="mchip" onclick="showDetail('${d.track.asset_id}')">
+        <div class="th track"></div><div><b>${esc(d.track.name)}</b><small>from this campaign</small></div>
+        <span class="tag">✦</span></div>` : "");
+  const axes = d.takes.map(t => `
+    <div class="axis"><b>${esc(shortName(t.name))}</b><span>${esc(t.hypothesis)}</span></div>`).join("");
+  const gap = d.gap ? "" : `
+    <div class="grounded">✓ <b>No generation needed</b> — every one of the ${d.total_slots} slots came from your library. Generation stays off until a real gap needs it.</div>`;
+  main().innerHTML = `
+    <div class="thread">
+      <div class="user-bubble">${esc(d.request)}</div>
+      <div class="agent"><div class="who">Edenn</div>
+        <p>Your library covers this end to end — I grounded every take on moments you already have, plus the track from this campaign. Here's the plan before I cut.</p>
+        <div class="plan">
+          <div class="plan-head"><b>Plan — grounded on your library</b><span class="ratio">${d.reused_slots} of ${d.total_slots} slots reused</span></div>
+          <div class="sect"><h3>From your library</h3><div>${chips}</div></div>
+          <div class="sect"><h3>Gaps to fill</h3>${gap}</div>
+          <div class="sect"><h3>${d.takes.length} takes, one hypothesis each</h3><div class="axes">${axes}</div></div>
+          <div class="plan-foot"><span class="note">Everything traceable — each take ships with its source ledger.</span>
+            <button class="cta">Cut ${d.takes.length} takes</button></div>
+        </div>
+      </div>
+      <div class="composer">Reply — or <b>&nbsp;@&nbsp;</b> any asset or moment to steer the plan <kbd>@</kbd></div>
+    </div>`;
+}
+
+/* ------------------------------------------------------------- Create */
+const CR = { items: [], intent: "", duration: 16, treatment: "music_only",
+             musicMode: null, previews: [], players: [] };
+
+async function showCreate() {
+  setView("create");
+  CR.players.forEach(p => p.stop()); CR.players = [];
+  if (!BOARD) BOARD = await (await fetch(`${API}/board`)).json();
+  const assets = BOARD.groups.flatMap(g => g.assets).filter(a => !a.generated || a.kind === "audio");
+  const picks = assets.map(a => {
+    const on = CR.items.some(i => i.ref === a.asset_id);
+    const thcls = a.kind === "audio" ? "th audio" : "th";
+    const style = a.kind === "audio" ? "" : `background-image:url('${API}/thumb/${a.asset_id}?t=8')`;
+    return `<div class="pick ${on ? "on" : ""}" data-ref="${a.asset_id}">
+      <div class="${thcls}" style="${style}"></div>
+      <div style="min-width:0"><b>${esc(a.name)}</b><span>${esc(a.kind)}${a.duration_s ? " · " + fmtDur(a.duration_s) : ""}</span></div>
+    </div>`;
+  }).join("");
+  main().innerHTML = `
+    <div class="cwrap">
+      <h1>Create</h1>
+      <div class="lede">Reference sources with <b>@</b>, say what you want, watch the plan before anything renders.</div>
+      <div class="crow">
+        <div class="cpick"><h3>@ Your library</h3>${picks || '<div class="lede">no sources yet</div>'}</div>
+        <div class="cmain">
+          <h3>Request</h3>
+          <div class="refchips" id="cr-chips"></div>
+          <div class="cbox">
+            <textarea id="cr-intent" placeholder="e.g. a tight 16s teaser — open on the strongest product moment, calm close">${esc(CR.intent)}</textarea>
+            <div class="opts">
+              <label>duration <input id="cr-dur" type="number" min="8" max="60" step="1" value="${CR.duration}"> s</label>
+              <label>audio
+                <select id="cr-treat">
+                  <option value="music_only">music only</option>
+                  <option value="keep_original">keep original voice (bites)</option>
+                  <option value="rephrase_original">rephrase original (house voice)</option>
+                </select></label>
+              <span style="flex:1"></span>
+              <button class="btn primary" id="cr-go">Resolve &amp; plan</button>
+            </div>
+          </div>
+          <div id="cr-questions"></div>
+          <div id="cr-results"></div>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById("cr-treat").value = CR.treatment;
+  document.querySelectorAll(".cpick .pick").forEach(el => el.onclick = () => {
+    const ref = el.dataset.ref;
+    const i = CR.items.findIndex(x => x.ref === ref);
+    if (i >= 0) CR.items.splice(i, 1); else CR.items.push({ ref, role: null });
+    showCreate();
+  });
+  document.getElementById("cr-go").onclick = runCreate;
+  drawChips(null);
+}
+
+function assetName(id) {
+  const a = BOARD.groups.flatMap(g => g.assets).find(x => x.asset_id === id.split("#")[0]);
+  return a ? a.name : id;
+}
+
+function drawChips(resolved) {
+  const el = document.getElementById("cr-chips"); if (!el) return;
+  el.innerHTML = CR.items.map(i => {
+    const src = resolved && resolved.sources.find(s => s.ref === i.ref);
+    const role = (src && src.role) || i.role;
+    const reason = src ? esc(src.reason) : "";
+    return `<span class="refchip" title="${reason}">@ ${esc(assetName(i.ref))}
+      ${role ? `<span class="role ${esc(role)}">${esc(role)}</span>` : ""}
+      <span class="x" data-ref="${i.ref}">×</span></span>`;
+  }).join("") || '<span style="color:var(--muted);font-size:12px">pick sources from the library →</span>';
+  el.querySelectorAll(".x").forEach(x => x.onclick = () => {
+    CR.items = CR.items.filter(i => i.ref !== x.dataset.ref); showCreate();
+  });
+}
+
+async function runCreate() {
+  CR.intent = document.getElementById("cr-intent").value.trim();
+  CR.duration = parseFloat(document.getElementById("cr-dur").value) || 16;
+  CR.treatment = document.getElementById("cr-treat").value;
+  const qbox = document.getElementById("cr-questions"), rbox = document.getElementById("cr-results");
+  qbox.innerHTML = ""; rbox.innerHTML = '<div class="lede">resolving…</div>';
+  const bundle = { items: CR.items.map(i => ({ ref: i.ref, role: i.role })), intent: CR.intent };
+  const res = await (await fetch(`${API.replace("/library", "/creation")}/resolve`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(bundle) })).json();
+  if (res.status === "needs_input") {
+    rbox.innerHTML = "";
+    qbox.innerHTML = res.questions.map((q, qi) => `
+      <div class="qcard"><p>${esc(q.question)}</p>
+        ${q.options.map(o => `<span class="qopt" data-q="${qi}" data-key="${esc(o.key)}">
+          <b>${esc(o.key.startsWith("asset_") ? assetName(o.key) : o.label)}</b>
+          <span>${esc(o.description)}</span></span>`).join("")}
+      </div>`).join("");
+    qbox.querySelectorAll(".qopt").forEach(el => el.onclick = () => {
+      answerQuestion(res.questions[+el.dataset.q], el.dataset.key); runCreate();
+    });
+    return;
+  }
+  drawChips(res.bundle);
+  rbox.innerHTML = '<div class="lede">planning — the model is choosing cuts…</div>';
+  const musicItems = res.bundle.sources.filter(s => s.role === "music");
+  const treatment = { kind: CR.treatment,
+                      music: CR.musicMode || (musicItems.length ? "provided" : "generate"),
+                      music_ref: musicItems.length ? musicItems[0].ref : null,
+                      knobs: { coherence_mode: "single_story" } };
+  const req = { bundle, shorts: [{ hypothesis: CR.intent || "a coherent musical cut",
+                                   duration_s: CR.duration, treatment }] };
+  const r = await fetch(`${API.replace("/library", "/creation")}/plan`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(req) });
+  if (!r.ok) { const err = await r.json().catch(() => ({}));
+    rbox.innerHTML = `<div class="qcard"><p>Planning failed</p><span style="font-size:12px">${esc(JSON.stringify(err.detail || err).slice(0, 300))}</span></div>`;
+    return; }
+  const d = await r.json();
+  CR.previews = d.previews;
+  rbox.innerHTML = d.previews.map((p, i) => previewHTML(p, i)).join("");
+  d.previews.forEach((p, i) => mountPlayer(p, i));
+}
+
+function answerQuestion(q, key) {
+  if (q.kind === "contradiction") { CR.musicMode = key; return; }
+  if (key === "music" || key === "voice") {
+    q.refs.forEach(ref => { const it = CR.items.find(i => i.ref === ref); if (it) it.role = key; });
+  } else {
+    const it = CR.items.find(i => i.ref === key); if (it) it.role = "spine";
+  }
+}
+
+function previewHTML(p, i) {
+  const W = 100 / p.duration_s;
+  const beats = p.beats_out.map(b => `<i class="beat" style="left:${(b * W).toFixed(2)}%"></i>`).join("");
+  const slots = p.slots.map(s => `
+    <div class="slotb ${s.is_bite ? "bite" : ""}" title="${esc(s.why)}"
+         style="left:${(s.t_out * W).toFixed(2)}%; width:${(s.dur_s * W).toFixed(2)}%">
+      <small>${s.index}${s.is_bite ? " · voice" : ""}</small></div>`).join("");
+  return `
+    <div class="cbox pwrap" id="pv-${i}">
+      <h3>${esc(p.name)} · ${p.duration_s.toFixed(1)}s · ${Math.round(p.tempo_bpm)}bpm · ${esc(p.treatment_kind)}</h3>
+      <video muted playsinline preload="auto"></video>
+      <div class="strip" id="strip-${i}">${beats}${slots}<div class="ph" style="left:0%"></div></div>
+      <div class="pctl">
+        <button class="btn" data-play="${i}">▶ Watch</button>
+        <span class="why" id="why-${i}">${esc((p.slots[0] || {}).why || "")}</span>
+      </div>
+      <div class="lockrow">
+        <span class="note">Nothing rendered yet — lock to render this exact cut (the paid step).</span>
+        <button class="btn primary" data-lock="${p.plan_id}">Lock &amp; render</button>
+      </div>
+    </div>`;
+}
+
+function mountPlayer(p, i) {
+  const box = document.getElementById(`pv-${i}`);
+  const video = box.querySelector("video");
+  const strip = document.getElementById(`strip-${i}`);
+  const ph = strip.querySelector(".ph");
+  const whyEl = document.getElementById(`why-${i}`);
+  const srcUrl = (p.sources.find(s => s.asset_id === (p.slots[0] || {}).asset_id) || {}).media_url;
+  video.src = srcUrl || "";
+  const audio = p.music_url ? new Audio(p.music_url) : null;
+  let raf = null, startWall = 0, t = 0, playing = false, curSlot = -1;
+
+  const slotAt = (tt) => p.slots.find(s => tt >= s.t_out && tt < s.t_out + s.dur_s);
+  function tick() {
+    t = (performance.now() - startWall) / 1000;
+    if (t >= p.duration_s) { stop(); return; }
+    ph.style.left = (t / p.duration_s * 100).toFixed(2) + "%";
+    const s = slotAt(t);
+    if (s) {
+      if (s.index !== curSlot) {                       // hard cut: seek the source
+        curSlot = s.index;
+        const src = p.sources.find(x => x.asset_id === s.asset_id);
+        if (src && video.dataset.aid !== s.asset_id) { video.src = src.media_url; video.dataset.aid = s.asset_id; }
+        video.currentTime = s.seg_in_s + (t - s.t_out);
+        if (whyEl) whyEl.textContent = s.why || "";
+      } else {
+        const want = s.seg_in_s + (t - s.t_out);       // clock master: correct drift
+        if (Math.abs(video.currentTime - want) > 0.12) video.currentTime = want;
+      }
+    }
+    if (audio) { const want = p.music_start_s + t;
+      if (Math.abs(audio.currentTime - want) > 0.15) audio.currentTime = want; }
+    raf = requestAnimationFrame(tick);
+  }
+  function play() {
+    playing = true; startWall = performance.now() - t * 1000; curSlot = -1;
+    video.play().catch(() => {});
+    if (audio) { audio.currentTime = p.music_start_s + t; audio.play().catch(() => {}); }
+    box.querySelector("[data-play]").textContent = "❚❚ Pause";
+    raf = requestAnimationFrame(tick);
+  }
+  function stop() {
+    playing = false; cancelAnimationFrame(raf); video.pause(); if (audio) audio.pause();
+    if (t >= p.duration_s) t = 0;
+    box.querySelector("[data-play]").textContent = "▶ Watch";
+  }
+  box.querySelector("[data-play]").onclick = () => playing ? stop() : play();
+  strip.onclick = (e) => {
+    const rect = strip.getBoundingClientRect();
+    t = Math.max(0, Math.min(p.duration_s - 0.05,
+        (e.clientX - rect.left) / rect.width * p.duration_s));
+    ph.style.left = (t / p.duration_s * 100).toFixed(2) + "%";
+    if (playing) { startWall = performance.now() - t * 1000; curSlot = -1; }
+  };
+  box.querySelector("[data-lock]").onclick = async (e) => {
+    e.target.disabled = true; e.target.textContent = "Rendering…";
+    const r = await fetch(`${API.replace("/library", "/creation")}/render`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan_id: p.plan_id }) });
+    const d = await r.json().catch(() => ({}));
+    e.target.textContent = r.ok ? "Rendered ✓" : "Failed";
+    if (r.ok) { BOARD = null;
+      box.querySelector(".note").innerHTML =
+        `Rendered — now in the library as <b>${esc(d.asset_id)}</b>. See the Board.`; }
+  };
+  CR.players.push({ stop });
+}
+
+/* ---------------------------------------------------------------- boot */
+const VIEWS = { board: showBoard, perf: showPerf, map: showMap, plan: showPlan,
+                create: showCreate };
+document.querySelectorAll(".rail button[data-view]").forEach(b =>
+  b.onclick = () => (VIEWS[b.dataset.view] || showBoard)());
+showBoard();
+</script>
+</body>
+</html>

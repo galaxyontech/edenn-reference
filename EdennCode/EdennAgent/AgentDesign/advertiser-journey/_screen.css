@@ -1,0 +1,64 @@
+/* Product-screen wireframe chrome — the app as the user sees it, gray-boxed. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #e9e9e9; color: #333; font: 12.5px/1.45 Helvetica, Arial, sans-serif; padding: 18px; }
+.cap { max-width: 1280px; margin: 0 auto 8px; color: #777; font-size: 11px; }
+.frame { width: 1280px; margin: 0 auto; background: #fff; border: 1.5px solid #b9b9b9; border-radius: 10px;
+         display: flex; min-height: 760px; overflow: hidden; }
+.side { width: 196px; border-right: 1px solid #ddd; padding: 14px 12px; background: #fafafa;
+        display: flex; flex-direction: column; gap: 4px; flex: none; }
+.side .logo { font-weight: 800; font-size: 14px; margin-bottom: 14px; }
+.side .nav { padding: 7px 10px; border-radius: 8px; color: #666; font-size: 12.5px; }
+.side .nav.on { background: #e8e8e8; color: #222; font-weight: 700; }
+.side .sect { font-size: 9px; text-transform: uppercase; letter-spacing: .07em; color: #aaa; margin: 10px 2px 2px; }
+.side .foot { margin-top: auto; color: #999; font-size: 11px; }
+.maincol { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.top { height: 46px; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 10px; padding: 0 16px; }
+.top b { font-size: 13px; }
+.top .spacer { flex: 1; }
+.stage { color: #999; font-size: 10.5px; }
+.stage b { color: #333; font-size: 10.5px; }
+.badge { border: 1px solid #ccc; border-radius: 999px; padding: 2px 9px; font-size: 10.5px; color: #666; background: #fafafa; }
+.tabs { display: flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden; font-size: 11px; }
+.tabs span { padding: 4px 11px; color: #888; }
+.tabs span.on { background: #333; color: #fff; font-weight: 700; }
+.content { flex: 1; display: flex; min-height: 0; }
+.thread { flex: 1; padding: 18px 22px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.rail { width: 296px; border-left: 1px solid #ddd; padding: 14px; background: #fcfcfc; flex: none; }
+.rail .lbl, .lbl { font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #aaa; margin-bottom: 6px; }
+.u { align-self: flex-end; max-width: 62%; background: #333; color: #fff; border-radius: 13px 13px 4px 13px;
+     padding: 9px 13px; font-size: 12.5px; }
+.a { display: flex; gap: 9px; max-width: 78%; }
+.a .av { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid #bbb; flex: none;
+         display: grid; place-items: center; font-size: 11px; color: #888; }
+.a .who { font-size: 9px; font-weight: 700; letter-spacing: .06em; color: #aaa; margin-bottom: 3px; }
+.a .txt { font-size: 12.5px; color: #333; }
+.card { border: 1.5px solid #c9c9c9; border-radius: 10px; background: #fff; padding: 10px 12px; margin-top: 7px; }
+.card.fill { background: #f4f4f4; }
+.dash { border: 1.5px dashed #c9c9c9; border-radius: 8px; background: #f7f7f7; color: #999;
+        display: grid; place-items: center; text-align: center; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 2px 4px 2px 0; color: #444; }
+.chip.on { background: #333; color: #fff; border-color: #333; }
+.btn { display: inline-block; border: 1.5px solid #777; border-radius: 7px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; background: #fff; color: #333; }
+.btn.primary { background: #333; color: #fff; }
+.row { display: flex; gap: 10px; }
+.grow { flex: 1; }
+.kv { font-size: 11px; color: #777; }
+.kv b { color: #333; }
+table.t { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+table.t th { text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: .06em; color: #aaa;
+             border-bottom: 1px solid #e2e2e2; padding: 5px 7px; }
+table.t td { border-bottom: 1px solid #f0f0f0; padding: 6px 7px; }
+.strip { position: relative; height: 40px; background: #f1f1f1; border: 1px solid #d5d5d5; border-radius: 7px;
+         overflow: hidden; margin: 6px 0; }
+.strip i { position: absolute; top: 5px; bottom: 5px; border: 1px solid #8a8a8a; background: #e2e2e2; border-radius: 4px; }
+.strip i.bite { background: #cfcfcf; border-style: double; }
+.composer { border-top: 1px solid #ddd; padding: 10px 22px; display: flex; gap: 8px; align-items: center; }
+.composer .box { flex: 1; border: 1.5px solid #ccc; border-radius: 999px; padding: 8px 14px; color: #aaa; font-size: 12px; }
+.spark { height: 14px; width: 74px; border-bottom: 1px solid #bbb;
+         background: repeating-linear-gradient(90deg, transparent 0 5px, #ddd 5px 6px); }
+.overlay { position: absolute; inset: 0; background: rgba(40,40,40,.28); display: grid; place-items: center; }
+.modal { width: 380px; background: #fff; border: 1.5px solid #999; border-radius: 12px; padding: 16px 18px; }
+.posrel { position: relative; }
+.notes { max-width: 1280px; margin: 10px auto 0; color: #2b6cb0; font-size: 11px; }

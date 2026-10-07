@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Edenn — setup &amp; comparison widgets, round 2</title>
+<style>
+:root{
+  --primary:#1a1a1a; --bg-canvas:#f0ede8; --bg-surface:#fff; --bg-surface-2:#f7f5f2; --bg-surface-3:#f0ede8;
+  --text-primary:#1a1a1a; --text-secondary:#5f6368; --text-tertiary:#9aa0a6; --text-inverse:#fff;
+  --border-subtle:#e8eaed; --border-default:#d0ccc8; --border-strong:#1a1a1a;
+  --teal:#1D9E75; --teal-light:#E1F5EE; --teal-dark:#0F6E56; --teal-text:#085041;
+  --blue:#378ADD; --blue-light:#E6F1FB; --blue-dark:#185FA5; --blue-text:#0C447C;
+  --indigo:#3C3489; --indigo-light:#EEEDFE;
+  --red:#E24B4A; --red-light:#FFF0F0; --amber:#EF9F27; --amber-light:#FEF9E7;
+  --glass-backdrop:#e4dfd5;
+  --r-xs:4px; --r-sm:6px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-pill:99px; --r-full:9999px;
+  --s-xs:4px; --s-sm:8px; --s-md:12px; --s-lg:16px; --s-xl:24px; --s-2xl:32px;
+  --e-card:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --e-raised:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.06);
+  --font-sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-canvas);color:var(--text-primary);font-family:var(--font-sans);
+  font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit;text-align:left}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 28px 96px}
+
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary)}
+h1{font-size:26px;font-weight:600;margin:6px 0 8px;letter-spacing:-.01em}
+.lede{color:var(--text-secondary);max-width:68ch;margin:0}
+.foot-note{margin-top:14px;font-size:12.5px;color:var(--text-tertiary);border-left:2px solid var(--border-default);
+  padding-left:12px;max-width:70ch}
+.secband{margin:44px 0 20px;border-top:1px solid var(--border-default);padding-top:18px}
+.secband h2{font-size:17px;font-weight:600;margin:0 0 4px;letter-spacing:-.01em}
+.secband p{margin:0;color:var(--text-secondary);max-width:70ch}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:var(--bg-surface-3);
+  padding:1px 5px;border-radius:var(--r-xs)}
+
+/* ---------- pair shell ---------- */
+.pair{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);
+  box-shadow:var(--e-card);margin-bottom:20px;overflow:hidden}
+.pair__hd{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--border-subtle);
+  flex-wrap:wrap}
+.pair__n{width:26px;height:26px;border-radius:var(--r-full);background:var(--primary);color:var(--text-inverse);
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.pair__ttl{font-size:15px;font-weight:600;line-height:1.3}
+.pair__sub{font-size:12.5px;color:var(--text-secondary);line-height:1.4}
+.ab{display:inline-flex;background:var(--bg-surface-2);border:1px solid var(--border-subtle);
+  border-radius:var(--r-pill);padding:2px;margin-left:auto;flex-shrink:0}
+.ab button{font-size:12px;font-weight:600;padding:5px 14px;border-radius:var(--r-pill);color:var(--text-secondary);
+  display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ab button:hover{color:var(--text-primary)}
+.ab button.is-on{background:var(--bg-surface);color:var(--text-primary);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.ab .k{font-size:10px;font-weight:700;opacity:.5}
+
+.variant{display:none;grid-template-columns:396px 1fr}
+.variant.is-on{display:grid}
+@media(max-width:900px){.variant.is-on{grid-template-columns:1fr}}
+.stagecol{background:var(--bg-canvas);padding:22px 24px;border-right:1px solid var(--border-subtle)}
+@media(max-width:900px){.stagecol{border-right:none;border-bottom:1px solid var(--border-subtle)}}
+.cap{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-tertiary);
+  margin-bottom:10px}
+.pane{width:348px;max-width:100%}
+.notes{padding:18px 22px}
+.notes h3{font-size:13.5px;font-weight:600;margin:0 0 8px}
+.notes dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:baseline}
+.notes dt{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;padding-top:2px}
+.dt-for{color:var(--teal-dark)} .dt-cost{color:var(--red)}
+.notes dd{margin:0;font-size:13px;color:var(--text-secondary)}
+
+/* ---------- chat primitives ---------- */
+.agent-row{display:flex;gap:10px;align-items:flex-start}
+.av{width:28px;height:28px;border-radius:var(--r-full);background:var(--indigo-light);color:var(--indigo);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.abody{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.aname{font-size:11px;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em}
+.atext{font-size:14px;color:var(--text-primary);line-height:1.6}
+.ico{width:16px;height:16px;display:block}
+.ico-sm{width:13px;height:13px} .ico-lg{width:20px;height:20px} .ico-xl{width:24px;height:24px}
+.l-music{--lane:var(--indigo);--lane-bg:var(--indigo-light);--lane-tx:var(--indigo)}
+.l-voice{--lane:var(--teal);--lane-bg:var(--teal-light);--lane-tx:var(--teal-text)}
+.l-sfx{--lane:var(--amber);--lane-bg:var(--amber-light);--lane-tx:#854F0B}
+.btn-primary{background:var(--primary);color:var(--text-inverse);font-size:13px;font-weight:600;
+  padding:8px 15px;border-radius:var(--r-sm);display:inline-flex;align-items:center;gap:6px}
+.btn-primary:disabled{opacity:.3;cursor:not-allowed}
+.gorow{display:flex;align-items:center;gap:10px}
+.gonote{font-size:11px;color:var(--text-tertiary);line-height:1.35}
+
+/* ================= 1A · chip row ================= */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 13px 7px 10px;border-radius:var(--r-pill);
+  background:var(--bg-surface);border:1px solid var(--border-subtle);font-size:13px;font-weight:600;
+  color:var(--text-secondary);transition:.12s}
+.chip:hover{border-color:var(--border-default)}
+.chip .ico{opacity:.55}
+.chip.is-on{background:var(--lane);border-color:var(--lane);color:#fff}
+.chip.is-on .ico{opacity:1}
+.chipcap{font-size:12px;color:var(--text-tertiary);line-height:1.45;min-height:34px}
+
+/* ================= 1B · icon tiles ================= */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.tile{position:relative;background:var(--bg-surface);border:1px solid var(--border-subtle);
+  border-radius:var(--r-lg);padding:14px 8px 11px;display:flex;flex-direction:column;align-items:center;gap:7px;
+  transition:.14s}
+.tile:hover{border-color:var(--border-default)}
+.tile__ic{width:38px;height:38px;border-radius:var(--r-full);background:var(--bg-surface-2);
+  color:var(--text-tertiary);display:flex;align-items:center;justify-content:center;transition:.14s}
+.tile__nm{font-size:12px;font-weight:600;color:var(--text-secondary);text-align:center;line-height:1.25}
+.tile.is-on{border-color:var(--lane);background:var(--lane-bg)}
+.tile.is-on .tile__ic{background:var(--lane);color:#fff}
+.tile.is-on .tile__nm{color:var(--lane-tx)}
+.tile__tick{position:absolute;top:6px;right:6px;width:15px;height:15px;border-radius:var(--r-full);
+  background:var(--lane);color:#fff;display:none;align-items:center;justify-content:center}
+.tile.is-on .tile__tick{display:flex}
+
+/* ================= 2A · selection rows ================= */
+.rows{display:flex;flex-direction:column;gap:5px}
+.row{display:flex;align-items:center;gap:11px;padding:11px 13px;background:var(--bg-surface);
+  border:1px solid var(--border-subtle);border-radius:var(--r-md);width:100%;transition:.12s}
+.row:hover{border-color:var(--border-default)}
+.row.is-on{border-color:var(--lane);background:var(--lane-bg)}
+.row__ic{width:30px;height:30px;border-radius:var(--r-sm);background:var(--bg-surface-2);color:var(--text-tertiary);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.12s}
+.row.is-on .row__ic{background:var(--lane);color:#fff}
+.row__nm{display:block;font-size:13px;font-weight:600;line-height:1.3}
+.row.is-on .row__nm{color:var(--lane-tx)}
+.row__hint{display:block;font-size:11.5px;color:var(--text-tertiary);line-height:1.3;margin-top:1px}
+.row__tick{margin-left:auto;width:18px;height:18px;border-radius:var(--r-full);border:1.5px solid var(--border-default);
+  color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.row.is-on .row__tick{background:var(--lane);border-color:var(--lane)}
+.row:not(.is-on) .row__tick .ico{display:none}
+
+/* ================= 2B · mixer strips ================= */
+.desk{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;background:var(--bg-surface);
+  border:1px solid var(--border-subtle);border-radius:var(--r-lg);padding:11px;box-shadow:var(--e-card)}
+.strip{display:flex;flex-direction:column;align-items:center;gap:8px;padding:9px 4px;border-radius:var(--r-md);
+  background:var(--bg-surface-2);transition:.14s}
+.strip.is-on{background:var(--lane-bg)}
+.strip__nm{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--text-tertiary)}
+.strip.is-on .strip__nm{color:var(--lane-tx)}
+.meter{height:56px;display:flex;align-items:flex-end;justify-content:center;gap:2.5px;width:100%}
+.meter i{width:4px;border-radius:2px;background:var(--border-default);transition:.2s}
+.strip.is-on .meter i{background:var(--lane)}
+.strip__btn{width:26px;height:26px;border-radius:var(--r-full);border:1.5px solid var(--border-default);
+  color:var(--text-tertiary);display:flex;align-items:center;justify-content:center;transition:.14s}
+.strip.is-on .strip__btn{background:var(--lane);border-color:var(--lane);color:#fff}
+.deskft{font-size:11.5px;color:var(--text-tertiary);text-align:center;margin-top:9px;padding-top:9px;
+  border-top:1px solid var(--bg-surface-3)}
+
+/* ================= 3A · lane preview ================= */
+.lanes{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);
+  padding:12px;box-shadow:var(--e-card)}
+.lanes__hd{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-tertiary);margin-bottom:9px;display:flex}
+.lanes__hd span{margin-left:auto;text-transform:none;letter-spacing:0;font-weight:500;color:var(--text-tertiary)}
+.scn{display:flex;gap:2px;margin-bottom:7px;padding-left:62px}
+.scn i{flex:1;height:14px;border-radius:2px;background:var(--bg-surface-3);font-style:normal;font-size:8.5px;
+  color:var(--text-tertiary);display:flex;align-items:center;padding-left:4px;overflow:hidden}
+.lane{display:grid;grid-template-columns:58px 1fr;gap:4px;align-items:center;margin-bottom:5px;width:100%}
+.lane__l{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--text-tertiary)}
+.lane__sw{width:9px;height:9px;border-radius:var(--r-full);background:var(--border-default);flex-shrink:0}
+.lane.is-on .lane__sw{background:var(--lane)}
+.lane.is-on .lane__l{color:var(--text-primary)}
+.lane__t{height:26px;border-radius:var(--r-xs);background:repeating-linear-gradient(-45deg,
+  var(--bg-surface-2) 0 6px,var(--bg-surface-3) 6px 12px);display:flex;align-items:center;padding:0 8px;
+  font-size:10.5px;color:var(--text-tertiary);transition:.16s;gap:7px}
+.lane.is-on .lane__t{background:var(--lane-bg);color:var(--lane-tx);font-weight:600;
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--lane) 32%,transparent)}
+.lane__bars{display:none;align-items:center;gap:1.5px;height:12px}
+.lane__bars i{width:2px;border-radius:1px;background:var(--lane);opacity:.6}
+.lane.is-on .lane__bars{display:flex}
+.lanes__ft{font-size:11.5px;color:var(--text-tertiary);margin-top:8px;padding-top:8px;
+  border-top:1px solid var(--bg-surface-3)}
+
+/* ================= 3B · layer stack ================= */
+.stack{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);
+  padding:12px;box-shadow:var(--e-card)}
+.stack__vid{height:74px;border-radius:var(--r-md);background:#14161a;display:flex;align-items:center;
+  justify-content:center;color:rgba(255,255,255,.5);font-size:11px;gap:6px;margin-bottom:9px;position:relative;
+  overflow:hidden}
+.stack__vid::after{content:"reel_v3 · 0:15";position:absolute;bottom:6px;left:9px;font-size:9.5px;
+  color:rgba(255,255,255,.4)}
+/* width is short by the shift distance so an armed sheet slides right without
+   overhanging the card */
+.sheet{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:var(--r-md);width:calc(100% - 14px);
+  background:var(--bg-surface-2);border:1px solid var(--border-subtle);margin-bottom:5px;
+  transition:transform .18s cubic-bezier(.2,.9,.3,1.2),background .16s,border-color .16s;transform:translateX(0)}
+.sheet.is-on{background:var(--lane-bg);border-color:color-mix(in srgb,var(--lane) 45%,transparent);
+  transform:translateX(14px)}
+.sheet__ic{width:24px;height:24px;border-radius:var(--r-sm);background:var(--bg-surface);
+  color:var(--text-tertiary);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sheet.is-on .sheet__ic{background:var(--lane);color:#fff}
+.sheet__nm{font-size:12.5px;font-weight:600;color:var(--text-tertiary)}
+.sheet.is-on .sheet__nm{color:var(--lane-tx)}
+.sheet__st{margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--text-tertiary)}
+.sheet.is-on .sheet__st{color:var(--lane-tx)}
+.stack__ft{font-size:11.5px;color:var(--text-tertiary);margin-top:7px}
+
+/* ================= 4A · sentence tokens ================= */
+.sent{font-size:15px;line-height:2.05}
+.tok{display:inline-flex;align-items:center;gap:5px;padding:3px 10px 3px 8px;border-radius:var(--r-pill);
+  font-size:13.5px;font-weight:600;background:var(--lane-bg);color:var(--lane-tx);border:1px solid transparent}
+.tok.is-off{background:var(--bg-surface-2);color:var(--text-tertiary);border-color:var(--border-subtle)}
+.tok.is-off .ico{opacity:.5}
+.sentft{font-size:11.5px;color:var(--text-tertiary);margin-top:2px}
+
+/* ================= 4B · chips + running summary ================= */
+.mini{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);
+  overflow:hidden;box-shadow:var(--e-card)}
+.mini__body{padding:12px}
+.mini__q{font-size:12.5px;color:var(--text-secondary);margin-bottom:9px}
+.mini__sum{background:var(--bg-surface-2);border-top:1px solid var(--border-subtle);padding:9px 12px;
+  font-size:12.5px;color:var(--text-secondary);display:flex;align-items:center;gap:8px;min-height:38px}
+.mini__dots{display:flex;gap:3px;flex-shrink:0}
+.mini__dots i{width:7px;height:7px;border-radius:var(--r-full);background:var(--border-default)}
+.mini__sum strong{color:var(--text-primary);font-weight:600}
+
+/* ================= comparison ================= */
+.glass{background:var(--glass-backdrop);border-radius:var(--r-lg);padding:11px}
+.glass__note{font-size:11.5px;color:var(--text-secondary);display:flex;gap:6px;align-items:flex-start;
+  margin-bottom:9px;line-height:1.4}
+.ctab{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-md);overflow:hidden}
+.chd{display:grid;grid-template-columns:52px 1fr 1fr;border-bottom:1px solid var(--border-subtle);
+  background:var(--bg-surface-2)}
+.chd>div{padding:8px 7px}
+.chdn{font-size:11.5px;font-weight:700;line-height:1.25}
+.chdtag{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:3px;display:block}
+.tag-rec{color:var(--teal-dark)} .tag-alt{color:var(--text-tertiary)}
+.crow{display:grid;grid-template-columns:52px 1fr 1fr;border-bottom:1px solid var(--bg-surface-3);
+  align-items:center}
+.crow>div{padding:7px}
+.ck{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-tertiary);
+  line-height:1.2}
+.cv{font-size:11.5px;line-height:1.3}
+/* meters */
+.mtr{display:block;height:6px;border-radius:3px;background:var(--bg-surface-3);overflow:hidden;margin-top:4px}
+.cv{display:block}
+.mtr i{display:block;height:100%;border-radius:3px;background:var(--indigo)}
+.mtr.b i{background:var(--teal)}
+/* swatch header */
+.sw{display:block;height:26px;border-radius:var(--r-sm);margin-bottom:6px}
+.sw-a{background:linear-gradient(100deg,#3C3489,#6E63D6 55%,#B8B2F2)}
+.sw-b{background:linear-gradient(100deg,#0F6E56,#1D9E75 50%,#E1B15F)}
+/* arcs */
+.arc{display:flex;height:30px;align-items:flex-end;gap:1.5px}
+.arc i{flex:1;border-radius:1.5px 1.5px 0 0;background:var(--indigo);opacity:.7}
+.arc.b i{background:var(--teal)}
+.arcx{display:flex;font-size:8px;color:var(--text-tertiary);margin-top:3px}
+.arcx i{flex:1;font-style:normal;border-top:1px solid var(--border-subtle);padding-top:2px;overflow:hidden;
+  white-space:nowrap}
+/* winner marker */
+.win{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--teal-dark);background:var(--teal-light);border-radius:var(--r-pill);
+  padding:1px 6px;margin-top:3px}
+.cpick{display:grid;grid-template-columns:52px 1fr 1fr}
+.cpick>div{padding:8px 7px}
+.cuse{width:100%;background:var(--primary);color:#fff;font-size:12px;font-weight:600;padding:7px;
+  border-radius:var(--r-sm);text-align:center}
+.cghost{width:100%;background:var(--bg-surface-2);color:var(--text-secondary);font-size:12px;font-weight:600;
+  padding:7px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);text-align:center}
+/* card-table hybrid */
+.hyb{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.hcard{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-md);
+  padding:9px;display:flex;flex-direction:column}
+.hcard.rec{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal)}
+/* two-line floor so the attribute rows below stay aligned across both cards */
+.hnm{font-size:12.5px;font-weight:600;line-height:1.25;margin:6px 0 2px;min-height:2.5em}
+.hattr{border-top:1px solid var(--bg-surface-3);padding:5px 0 4px}
+.hk{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-tertiary)}
+.hv{font-size:11.5px;line-height:1.3}
+.hspacer{flex:1}
+</style>
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M9 18V5l12-2v13"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 12h2l2-6 3 12 3-15 3 18 2-9h3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 12l5 5L20 6"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2c.35 4 3.6 7.2 7.6 7.6-4 .35-7.25 3.6-7.6 7.6-.35-4-3.6-7.25-7.6-7.6C8.4 9.2 11.65 6 12 2z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="5" width="14" height="14" rx="2"/><path d="M16 10l6-3v10l-6-3"/></symbol>
+  <symbol id="i-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+    <path d="M12 4v8"/><path d="M6.5 7.5a8 8 0 1 0 11 0"/></symbol>
+</svg>
+
+<div class="wrap">
+
+  <div class="eyebrow">Edenn · agentic audio console · round 2</div>
+  <h1>Eight setup widgets, four comparison tables</h1>
+  <p class="lede">Grouped in pairs. Use the <strong>A / B</strong> toggle on each pair header to flip between the
+    two proposals in place. Everything is clickable, and every widget is drawn at <strong>348px</strong> — the
+    real width of the chat pane.</p>
+  <p class="foot-note">All three layers are live everywhere, sound effects included, as front-end mock only.
+    Worth a note for whoever wires this up: the planner currently drops <code>sfx</code> in two places
+    (<code>agent.py</code>, <code>tools/impls.py</code>), so the backend side is a real change, not a passthrough.</p>
+
+  <!-- ======================= SETUP ======================= -->
+  <div class="secband">
+    <h2>Setup — picking the layers</h2>
+    <p>Four pairs, from most compact to most conversational.</p>
+  </div>
+
+  <!-- ---------------- PAIR 1 ---------------- -->
+  <div class="pair" data-pair="p1">
+    <div class="pair__hd">
+      <span class="pair__n">1</span>
+      <div>
+        <div class="pair__ttl">Compact</div>
+        <div class="pair__sub">For when the setup question shouldn't own the screen.</div>
+      </div>
+      <div class="ab">
+        <button data-v="a" class="is-on"><span class="k">A</span> Chip row</button>
+        <button data-v="b"><span class="k">B</span> Icon tiles</button>
+      </div>
+    </div>
+
+    <div class="variant is-on" data-v="a">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="agent-row">
+            <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+            <div class="abody">
+              <div class="aname">Edenn</div>
+              <div class="atext">What are we building?</div>
+              <div>
+                <div class="chips" data-grp="g1">
+                  <button class="chip l-music is-on" data-k="music"><svg class="ico ico-sm"><use href="#i-music"/></svg>Music</button>
+                  <button class="chip l-voice" data-k="voiceover"><svg class="ico ico-sm"><use href="#i-mic"/></svg>Voice-over</button>
+                  <button class="chip l-sfx" data-k="sfx"><svg class="ico ico-sm"><use href="#i-wave"/></svg>Sound FX</button>
+                </div>
+                <div class="chipcap" data-sum="g1"></div>
+              </div>
+              <div class="gorow"><button class="btn-primary" data-go="g1">Start</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Chip row</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>Two lines total. The chips are the same pill vocabulary as the observation pills right above them,
+            so it reads as part of the conversation rather than a form dropped into it. Filled-vs-outline is
+            the entire state model — nothing to decode.</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>No room for a description, so the labels carry all the meaning. "Sound FX" has to be
+            self-explanatory, and the caption underneath is doing quiet work.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="variant" data-v="b">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="agent-row">
+            <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+            <div class="abody">
+              <div class="aname">Edenn</div>
+              <div class="atext">What are we building?</div>
+              <div class="tiles" data-grp="g2">
+                <button class="tile l-music is-on" data-k="music">
+                  <span class="tile__tick"><svg class="ico ico-sm"><use href="#i-check"/></svg></span>
+                  <span class="tile__ic"><svg class="ico ico-lg"><use href="#i-music"/></svg></span>
+                  <span class="tile__nm">Music</span></button>
+                <button class="tile l-voice" data-k="voiceover">
+                  <span class="tile__tick"><svg class="ico ico-sm"><use href="#i-check"/></svg></span>
+                  <span class="tile__ic"><svg class="ico ico-lg"><use href="#i-mic"/></svg></span>
+                  <span class="tile__nm">Voice-over</span></button>
+                <button class="tile l-sfx" data-k="sfx">
+                  <span class="tile__tick"><svg class="ico ico-sm"><use href="#i-check"/></svg></span>
+                  <span class="tile__ic"><svg class="ico ico-lg"><use href="#i-wave"/></svg></span>
+                  <span class="tile__nm">Sound FX</span></button>
+              </div>
+              <div class="chipcap" data-sum="g2"></div>
+              <div class="gorow"><button class="btn-primary" data-go="g2">Start</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Icon tiles</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>Three equal squares say "these are peers, pick any combination" faster than a vertical list does —
+            a stacked list quietly implies an order. Biggest tap targets of the eight, and the one that survives
+            best on a phone.</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>Three columns in 348px means ~104px each, so labels stay to one or two words. Reads slightly more
+            like an app toolbar than a chat message.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------- PAIR 2 ---------------- -->
+  <div class="pair" data-pair="p2">
+    <div class="pair__hd">
+      <span class="pair__n">2</span>
+      <div>
+        <div class="pair__ttl">Explicit</div>
+        <div class="pair__sub">Room to explain what each layer actually does.</div>
+      </div>
+      <div class="ab">
+        <button data-v="a" class="is-on"><span class="k">A</span> Selection rows</button>
+        <button data-v="b"><span class="k">B</span> Mixer strips</button>
+      </div>
+    </div>
+
+    <div class="variant is-on" data-v="a">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="agent-row">
+            <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+            <div class="abody">
+              <div class="aname">Edenn</div>
+              <div class="atext">Pick the layers — you can add more later.</div>
+              <div class="rows" data-grp="g3">
+                <button class="row l-music is-on" data-k="music">
+                  <span class="row__ic"><svg class="ico"><use href="#i-music"/></svg></span>
+                  <span><span class="row__nm">Music</span><span class="row__hint">Scored to your 4 scenes</span></span>
+                  <span class="row__tick"><svg class="ico ico-sm"><use href="#i-check"/></svg></span></button>
+                <button class="row l-voice" data-k="voiceover">
+                  <span class="row__ic"><svg class="ico"><use href="#i-mic"/></svg></span>
+                  <span><span class="row__nm">Voice-over</span><span class="row__hint">I draft it, you approve</span></span>
+                  <span class="row__tick"><svg class="ico ico-sm"><use href="#i-check"/></svg></span></button>
+                <button class="row l-sfx" data-k="sfx">
+                  <span class="row__ic"><svg class="ico"><use href="#i-wave"/></svg></span>
+                  <span><span class="row__nm">Sound effects</span><span class="row__hint">Hits on the cuts</span></span>
+                  <span class="row__tick"><svg class="ico ico-sm"><use href="#i-check"/></svg></span></button>
+              </div>
+              <div class="gorow"><button class="btn-primary" data-go="g3">Start</button>
+                <span class="gonote" data-sum="g3"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Selection rows</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>The cleaned-up version of the checklist you didn't like. What changed: the checkbox is gone — the
+            row's own border and tint carry the state, and the tick moved to the far right as confirmation
+            rather than as the control. That's one less thing per row and it stops the eye landing on an empty
+            square first.</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>Tallest of the eight. Three hint lines is a lot of small text for a question with three answers.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="variant" data-v="b">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="agent-row">
+            <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+            <div class="abody">
+              <div class="aname">Edenn</div>
+              <div class="atext">Arm the channels you want.</div>
+              <div class="desk">
+                <div style="display:contents" data-grp="g4">
+                  <button class="strip l-music is-on" data-k="music">
+                    <span class="strip__nm">Music</span>
+                    <span class="meter" data-seed="4"></span>
+                    <span class="strip__btn"><svg class="ico ico-sm"><use href="#i-power"/></svg></span></button>
+                  <button class="strip l-voice" data-k="voiceover">
+                    <span class="strip__nm">Voice</span>
+                    <span class="meter" data-seed="9"></span>
+                    <span class="strip__btn"><svg class="ico ico-sm"><use href="#i-power"/></svg></span></button>
+                  <button class="strip l-sfx" data-k="sfx">
+                    <span class="strip__nm">FX</span>
+                    <span class="meter" data-seed="2"></span>
+                    <span class="strip__btn"><svg class="ico ico-sm"><use href="#i-power"/></svg></span></button>
+                </div>
+                <div class="deskft" style="grid-column:1/-1" data-sum="g4"></div>
+              </div>
+              <div class="gorow"><button class="btn-primary" data-go="g4">Start</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Mixer strips</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>Borrows a metaphor your users already own — arming a channel on a desk. The meters give the widget
+            a reason to have height, and it is the only one of the eight that looks like an audio tool rather
+            than a settings screen.</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>The meters are decorative here; nothing has been generated yet, so they show levels that don't
+            exist. If that bothers you (it slightly bothers me), flatten them to a static bar-pattern and the
+            option still stands.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------- PAIR 3 ---------------- -->
+  <div class="pair" data-pair="p3">
+    <div class="pair__hd">
+      <span class="pair__n">3</span>
+      <div>
+        <div class="pair__ttl">In context</div>
+        <div class="pair__sub">The widget shows the thing it's about to build.</div>
+      </div>
+      <div class="ab">
+        <button data-v="a" class="is-on"><span class="k">A</span> Lane preview</button>
+        <button data-v="b"><span class="k">B</span> Layer stack</button>
+      </div>
+    </div>
+
+    <div class="variant is-on" data-v="a">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="agent-row">
+            <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+            <div class="abody">
+              <div class="aname">Edenn</div>
+              <div class="atext">Which lanes should I fill?</div>
+              <div class="lanes">
+                <div class="lanes__hd">Your timeline <span>0:15 · 4 scenes</span></div>
+                <div class="scn"><i>Opening</i><i>Action</i><i>Product</i><i>Close</i></div>
+                <div data-grp="g5">
+                  <button class="lane l-music is-on" data-k="music">
+                    <span class="lane__l"><span class="lane__sw"></span>Music</span>
+                    <span class="lane__t"><span class="lane__bars" data-seed="3"></span>Scored bed</span></button>
+                  <button class="lane l-voice" data-k="voiceover">
+                    <span class="lane__l"><span class="lane__sw"></span>Voice</span>
+                    <span class="lane__t"><span class="lane__bars" data-seed="7"></span>Narration</span></button>
+                  <button class="lane l-sfx" data-k="sfx">
+                    <span class="lane__l"><span class="lane__sw"></span>FX</span>
+                    <span class="lane__t"><span class="lane__bars" data-seed="5"></span>Hits on the cuts</span></button>
+                </div>
+                <div class="lanes__ft" data-sum="g5"></div>
+              </div>
+              <div class="gorow"><button class="btn-primary" data-go="g5">Start</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Lane preview</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>Setup and the editor share one mental model — the rows you tick here are literally the rows you'll
+            be looking at for the rest of the session, in the same colours. The scene strip also makes the video
+            the subject of the question instead of an abstraction.</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>Most new CSS of the eight, and the hatched empty lanes can read as "broken" before anyone has
+            explained what a lane is.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="variant" data-v="b">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="agent-row">
+            <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+            <div class="abody">
+              <div class="aname">Edenn</div>
+              <div class="atext">Stack what you want on top of your video.</div>
+              <div class="stack">
+                <div class="stack__vid"><svg class="ico"><use href="#i-video"/></svg> your footage</div>
+                <div data-grp="g6">
+                  <button class="sheet l-music is-on" data-k="music">
+                    <span class="sheet__ic"><svg class="ico ico-sm"><use href="#i-music"/></svg></span>
+                    <span class="sheet__nm">Music</span><span class="sheet__st">On</span></button>
+                  <button class="sheet l-voice" data-k="voiceover">
+                    <span class="sheet__ic"><svg class="ico ico-sm"><use href="#i-mic"/></svg></span>
+                    <span class="sheet__nm">Voice-over</span><span class="sheet__st">Off</span></button>
+                  <button class="sheet l-sfx" data-k="sfx">
+                    <span class="sheet__ic"><svg class="ico ico-sm"><use href="#i-wave"/></svg></span>
+                    <span class="sheet__nm">Sound effects</span><span class="sheet__st">Off</span></button>
+                </div>
+                <div class="stack__ft" data-sum="g6"></div>
+              </div>
+              <div class="gorow"><button class="btn-primary" data-go="g6">Start</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Layer stack</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>Says the one thing none of the others say: these go <em>on top of your video</em>, not instead of
+            it. The sheets slide out when armed, so the selected set has a physical shape you can read
+            peripherally — and the video sitting above them anchors the whole question.</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>The stacking metaphor implies an order (which layer is on top?) that the pipeline doesn't
+            actually have. Motion is charming twice and then it's just latency.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------- PAIR 4 ---------------- -->
+  <div class="pair" data-pair="p4">
+    <div class="pair__hd">
+      <span class="pair__n">4</span>
+      <div>
+        <div class="pair__ttl">Conversational</div>
+        <div class="pair__sub">Barely a widget — the choice lives inside the sentence.</div>
+      </div>
+      <div class="ab">
+        <button data-v="a" class="is-on"><span class="k">A</span> Sentence tokens</button>
+        <button data-v="b"><span class="k">B</span> Running summary</button>
+      </div>
+    </div>
+
+    <div class="variant is-on" data-v="a">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="agent-row">
+            <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+            <div class="abody">
+              <div class="aname">Edenn</div>
+              <div class="sent" data-grp="g7">I'll build
+                <button class="tok l-music" data-k="music"><svg class="ico ico-sm"><use href="#i-music"/></svg>music</button>
+                <button class="tok l-voice is-off" data-k="voiceover"><svg class="ico ico-sm"><use href="#i-mic"/></svg>voice-over</button>
+                <button class="tok l-sfx is-off" data-k="sfx"><svg class="ico ico-sm"><use href="#i-wave"/></svg>sound FX</button>
+                for this cut.</div>
+              <div class="sentft" data-sum="g7"></div>
+              <div class="gorow"><button class="btn-primary" data-go="g7">Looks right</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Sentence tokens</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>Least chrome of the eight and the only one where the agent states a plan rather than administering
+            a questionnaire. Tapping a greyed token switches it on, so accepting the suggestion is one click and
+            changing it is also one click.</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>Tap targets inside running text are the weakest affordance here — some people will read it as a
+            sentence and never realise it's editable. Needs the dotted-underline treatment to survive.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="variant" data-v="b">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="agent-row">
+            <div class="av"><svg class="ico"><use href="#i-spark"/></svg></div>
+            <div class="abody">
+              <div class="aname">Edenn</div>
+              <div class="mini">
+                <div class="mini__body">
+                  <div class="mini__q">Tap what you want in the mix.</div>
+                  <div class="chips" data-grp="g8">
+                    <button class="chip l-music is-on" data-k="music"><svg class="ico ico-sm"><use href="#i-music"/></svg>Music</button>
+                    <button class="chip l-voice" data-k="voiceover"><svg class="ico ico-sm"><use href="#i-mic"/></svg>Voice-over</button>
+                    <button class="chip l-sfx" data-k="sfx"><svg class="ico ico-sm"><use href="#i-wave"/></svg>Sound FX</button>
+                  </div>
+                </div>
+                <div class="mini__sum">
+                  <span class="mini__dots" data-dots="g8"><i></i><i></i><i></i></span>
+                  <span data-sum="g8"></span>
+                </div>
+              </div>
+              <div class="gorow"><button class="btn-primary" data-go="g8">Start</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Running summary</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>Chips for input, a sentence for confirmation — you never have to simulate the combination in your
+            head, and the three dots give a glanceable count without reading. The summary bar is also the
+            natural place to later say "≈2 min to generate".</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>A container around chips that were fine on their own. Pair 1A is the same control with less
+            packaging, so this only wins if the summary earns its line.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= COMPARISON ======================= -->
+  <div class="secband">
+    <h2>Comparison — picking one of two directions</h2>
+    <p>All four are tables. They differ in what carries the visual weight: bars, arcs, verdicts, or the cards
+      themselves.</p>
+  </div>
+
+  <!-- ---------------- PAIR 5 ---------------- -->
+  <div class="pair" data-pair="p5">
+    <div class="pair__hd">
+      <span class="pair__n">5</span>
+      <div>
+        <div class="pair__ttl">Table with a visual column</div>
+        <div class="pair__sub">Same grid, different graphic doing the comparing.</div>
+      </div>
+      <div class="ab">
+        <button data-v="a" class="is-on"><span class="k">A</span> Bar meters</button>
+        <button data-v="b"><span class="k">B</span> Energy arcs</button>
+      </div>
+    </div>
+
+    <div class="variant is-on" data-v="a">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="glass">
+            <div class="glass__note"><svg class="ico ico-sm" style="flex-shrink:0;margin-top:2px"><use href="#i-info"/></svg>
+              Two directions. Pick one, or tell me what you'd rather hear.</div>
+            <div class="ctab">
+              <div class="chd">
+                <div></div>
+                <div><span class="chdtag tag-rec">Recommended</span><span class="chdn">Arc-driven electronic</span></div>
+                <div><span class="chdtag tag-alt">Alternative</span><span class="chdn">Cinematic ambient</span></div>
+              </div>
+              <div class="crow">
+                <div class="ck">Energy</div>
+                <div><span class="cv">High</span><span class="mtr"><i style="width:82%"></i></span></div>
+                <div><span class="cv">Low</span><span class="mtr b"><i style="width:34%"></i></span></div>
+              </div>
+              <div class="crow">
+                <div class="ck">Tempo</div>
+                <div><span class="cv">Uptempo</span><span class="mtr"><i style="width:76%"></i></span></div>
+                <div><span class="cv">Slow</span><span class="mtr b"><i style="width:28%"></i></span></div>
+              </div>
+              <div class="crow">
+                <div class="ck">Cut sync</div>
+                <div><span class="cv">Drops on scenes</span><span class="mtr"><i style="width:90%"></i></span></div>
+                <div><span class="cv">Flows through</span><span class="mtr b"><i style="width:20%"></i></span></div>
+              </div>
+              <div class="crow">
+                <div class="ck">Voice</div>
+                <div class="cv">Instrumental</div>
+                <div class="cv">Female vocal</div>
+              </div>
+              <div class="cpick">
+                <div></div>
+                <div><button class="cuse">Use this</button></div>
+                <div><button class="cghost">Use this</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Bar meters</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>Bar length is the fastest comparison a person can make — you see "one of these is much busier than
+            the other" before you've read a word. Keeping the word above the bar means the row still works if
+            the value is categorical rather than scalar.</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>Four rows of bars starts to look like a spec sheet, and it invites "so is 82 better than 34?"
+            when neither is better. Two or three rows is probably the real limit.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="variant" data-v="b">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="glass">
+            <div class="glass__note"><svg class="ico ico-sm" style="flex-shrink:0;margin-top:2px"><use href="#i-info"/></svg>
+              How each one moves across your four scenes.</div>
+            <div class="ctab">
+              <div class="chd">
+                <div></div>
+                <div><span class="chdtag tag-rec">Recommended</span><span class="chdn">Arc-driven</span></div>
+                <div><span class="chdtag tag-alt">Alternative</span><span class="chdn">Cinematic</span></div>
+              </div>
+              <div class="crow">
+                <div class="ck">Shape</div>
+                <div><span class="arc" data-arc="16,26,34,50,62,78,92,74,58"></span>
+                  <span class="arcx"><i>Op</i><i>Act</i><i>Prod</i><i>Close</i></span></div>
+                <div><span class="arc b" data-arc="30,32,36,40,44,52,64,78,90"></span>
+                  <span class="arcx"><i>Op</i><i>Act</i><i>Prod</i><i>Close</i></span></div>
+              </div>
+              <div class="crow">
+                <div class="ck">Peak</div>
+                <div class="cv">On the product cut</div>
+                <div class="cv">At the close</div>
+              </div>
+              <div class="crow">
+                <div class="ck">Voice</div>
+                <div class="cv">Instrumental</div>
+                <div class="cv">Female vocal</div>
+              </div>
+              <div class="cpick">
+                <div></div>
+                <div><button class="cuse">Use this</button></div>
+                <div><button class="cghost">Use this</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Energy arcs</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>The only version where the picture <em>is</em> the difference — one spikes mid-clip, the other
+            swells at the end, and you know which you want before reading. It also shares a clock with the
+            timeline underneath, so the two halves of the screen agree.</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>It's a promise. If the generated take doesn't follow the drawn arc, the card lied — so this one
+            needs the shape to be a real input to generation, not a decoration.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------- PAIR 6 ---------------- -->
+  <div class="pair" data-pair="p6">
+    <div class="pair__hd">
+      <span class="pair__n">6</span>
+      <div>
+        <div class="pair__ttl">Table that takes a position</div>
+        <div class="pair__sub">Two ways to stop the reader doing the diff themselves.</div>
+      </div>
+      <div class="ab">
+        <button data-v="a" class="is-on"><span class="k">A</span> Verdict rows</button>
+        <button data-v="b"><span class="k">B</span> Card / table hybrid</button>
+      </div>
+    </div>
+
+    <div class="variant is-on" data-v="a">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="glass">
+            <div class="glass__note"><svg class="ico ico-sm" style="flex-shrink:0;margin-top:2px"><use href="#i-info"/></svg>
+              Where each one wins, against your footage.</div>
+            <div class="ctab">
+              <div class="chd">
+                <div></div>
+                <div><span class="sw sw-a"></span><span class="chdn">Arc-driven</span></div>
+                <div><span class="sw sw-b"></span><span class="chdn">Cinematic</span></div>
+              </div>
+              <div class="crow">
+                <div class="ck">Pace</div>
+                <div><span class="cv">Uptempo, builds</span><span class="win"><svg class="ico ico-sm"><use href="#i-check"/></svg>fits the cuts</span></div>
+                <div class="cv">Slow, textural</div>
+              </div>
+              <div class="crow">
+                <div class="ck">Close</div>
+                <div class="cv">Ends on the drop</div>
+                <div><span class="cv">Opens out</span><span class="win"><svg class="ico ico-sm"><use href="#i-check"/></svg>softer landing</span></div>
+              </div>
+              <div class="crow">
+                <div class="ck">Voice</div>
+                <div class="cv">Instrumental</div>
+                <div class="cv">Female vocal</div>
+              </div>
+              <div class="crow">
+                <div class="ck">Room for VO</div>
+                <div class="cv">Tight</div>
+                <div><span class="cv">Plenty</span><span class="win"><svg class="ico ico-sm"><use href="#i-check"/></svg>room for VO</span></div>
+              </div>
+              <div class="cpick">
+                <div></div>
+                <div><button class="cuse">Use this</button></div>
+                <div><button class="cghost">Use this</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Verdict rows</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>The agent does the reasoning instead of dumping two descriptions and leaving you to referee — and
+            each verdict is tied to something about <em>your</em> video ("fits the cuts"), which is the thing
+            a generic music description can never do. The gradient swatch gives each direction an identity that
+            carries into the takes.</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>An opinion you disagree with is more annoying than no opinion. And if one column wins every row,
+            you've built a widget that argues with itself about why there are two.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="variant" data-v="b">
+      <div class="stagecol">
+        <div class="cap">Chat pane · 348px</div>
+        <div class="pane">
+          <div class="glass">
+            <div class="glass__note"><svg class="ico ico-sm" style="flex-shrink:0;margin-top:2px"><use href="#i-info"/></svg>
+              Two directions. Same rows, so they line up.</div>
+            <div class="hyb">
+              <div class="hcard rec">
+                <span class="sw sw-a"></span>
+                <span class="chdtag tag-rec">Recommended</span>
+                <span class="hnm">Arc-driven electronic</span>
+                <span class="arc" data-arc="16,30,44,62,80,94,72,56"></span>
+                <div class="hattr"><span class="hk">Pace</span><div class="hv">Uptempo, builds</div></div>
+                <div class="hattr"><span class="hk">Voice</span><div class="hv">Instrumental</div></div>
+                <div class="hattr"><span class="hk">Peak</span><div class="hv">Product cut</div></div>
+                <span class="hspacer"></span>
+                <button class="cuse" style="margin-top:8px">Use this</button>
+              </div>
+              <div class="hcard">
+                <span class="sw sw-b"></span>
+                <span class="chdtag tag-alt">Alternative</span>
+                <span class="hnm">Cinematic ambient</span>
+                <span class="arc b" data-arc="30,34,40,46,54,66,80,92"></span>
+                <div class="hattr"><span class="hk">Pace</span><div class="hv">Slow, textural</div></div>
+                <div class="hattr"><span class="hk">Voice</span><div class="hv">Female vocal</div></div>
+                <div class="hattr"><span class="hk">Peak</span><div class="hv">The close</div></div>
+                <span class="hspacer"></span>
+                <button class="cghost" style="margin-top:8px">Use this</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h3>Card / table hybrid</h3>
+        <dl>
+          <dt class="dt-for">For</dt>
+          <dd>Keeps the card shape you already have — each direction stays one object you can point at and pick
+            — but forces the attributes onto shared rows so the eye can still scan across. Best of the four if
+            you ever need a third proposal, since it just adds a column.</dd>
+          <dt class="dt-cost">Cost</dt>
+          <dd>~168px per card at this width. Labels repeat in both columns, which a real table avoids, and the
+            alignment quietly breaks the moment one value wraps to two lines.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  /* ---- pair A/B toggles ---- */
+  document.querySelectorAll(".pair").forEach(function(pair){
+    pair.querySelectorAll(".ab button").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        pair.querySelectorAll(".ab button").forEach(function(b){ b.classList.remove("is-on"); });
+        btn.classList.add("is-on");
+        pair.querySelectorAll(".variant").forEach(function(v){
+          v.classList.toggle("is-on", v.dataset.v === btn.dataset.v);
+        });
+      });
+    });
+  });
+
+  /* ---- decorative bar fills ---- */
+  function fill(node, n, min, span){
+    if (node.childElementCount) return;
+    var seed = Number(node.dataset.seed || 1) * 977;
+    for (var i=0;i<n;i++){
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      var b = document.createElement("i");
+      b.style.height = (min + (seed % span)) + "%";
+      node.appendChild(b);
+    }
+  }
+  document.querySelectorAll(".meter").forEach(function(m){ fill(m, 5, 30, 60); });
+  document.querySelectorAll(".lane__bars").forEach(function(m){ fill(m, 8, 25, 70); });
+  document.querySelectorAll(".arc[data-arc]").forEach(function(a){
+    if (a.childElementCount) return;
+    a.dataset.arc.split(",").forEach(function(v){
+      var i = document.createElement("i"); i.style.height = v + "%"; a.appendChild(i);
+    });
+  });
+
+  /* ---- selection groups ---- */
+  var NAME = { music:"Music", voiceover:"Voice-over", sfx:"Sound effects" };
+  var SHORT = { music:"music", voiceover:"narration", sfx:"sound effects" };
+
+  function phrase(keys){
+    var w = keys.map(function(k){ return SHORT[k]; });
+    if (!w.length) return "";
+    if (w.length === 1) return w[0];
+    return w.slice(0,-1).join(", ") + " and " + w[w.length-1];
+  }
+  function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  function isOn(item){
+    return item.classList.contains("tok")
+      ? !item.classList.contains("is-off")
+      : item.classList.contains("is-on");
+  }
+
+  function sync(grp){
+    var scope = document.querySelector('[data-grp="'+grp+'"]');
+    if (!scope) return;
+    var items = [].slice.call(scope.querySelectorAll("[data-k]"));
+    var keys = items.filter(isOn).map(function(i){ return i.dataset.k; });
+
+    // sheet On/Off labels
+    items.forEach(function(i){
+      var st = i.querySelector(".sheet__st");
+      if (st) st.textContent = i.classList.contains("is-on") ? "On" : "Off";
+    });
+
+    var sumEl = document.querySelector('[data-sum="'+grp+'"]');
+    var go = document.querySelector('[data-go="'+grp+'"]');
+    var dots = document.querySelector('[data-dots="'+grp+'"]');
+    if (dots) [].slice.call(dots.children).forEach(function(d,i){
+      d.style.background = i < keys.length ? "var(--indigo)" : "var(--border-default)";
+    });
+    if (go) go.disabled = keys.length === 0;
+
+    if (!sumEl) return;
+    if (!keys.length){ sumEl.innerHTML = "Pick at least one."; return; }
+    if (grp === "g3"){ sumEl.textContent = keys.length + (keys.length===1?" layer":" layers") + " · nothing generates yet"; return; }
+    if (grp === "g4"){ sumEl.textContent = keys.map(function(k){ return NAME[k]; }).join(" · ") + " armed"; return; }
+    if (grp === "g5"){ sumEl.textContent = keys.length + (keys.length===1?" lane":" lanes") + " over your own audio"; return; }
+    if (grp === "g6"){ sumEl.textContent = keys.length + (keys.length===1?" layer":" layers") + " on top of your footage"; return; }
+    if (grp === "g7"){ sumEl.textContent = "Tap a greyed word to add it back."; return; }
+    if (grp === "g8"){ sumEl.innerHTML = "<strong>" + cap(phrase(keys)) + "</strong> over your video."; return; }
+    sumEl.textContent = cap(phrase(keys)) + " over your video.";
+  }
+
+  document.querySelectorAll("[data-grp]").forEach(function(scope){
+    scope.querySelectorAll("[data-k]").forEach(function(item){
+      item.addEventListener("click", function(){
+        item.classList.toggle(item.classList.contains("tok") ? "is-off" : "is-on");
+        sync(scope.dataset.grp);
+      });
+    });
+  });
+
+  ["g1","g2","g3","g4","g5","g6","g7","g8"].forEach(sync);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!-- @dsCard group="A · Flow map (high-level)" name="W0 · The loop" subtitle="One campaign object, five stations, outcomes feed creation" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>W0 — The loop</title><style>
+/* Shared wireframe language — deliberately low-fi. Structure, not visuals. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #fff; color: #3a3a3a; font: 13px/1.45 Helvetica, Arial, sans-serif; padding: 24px 28px; }
+h1 { font-size: 15px; font-weight: 700; letter-spacing: .02em; }
+.sub { color: #8a8a8a; font-size: 11.5px; margin: 3px 0 16px; }
+.wire { border: 1.5px solid #c9c9c9; border-radius: 8px; background: #fff; padding: 12px 14px; }
+.fill { background: #f2f2f2; }
+.dash { border-style: dashed; color: #9a9a9a; display: grid; place-items: center; text-align: center; }
+.lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 6px; }
+.row { display: flex; gap: 12px; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.grow { flex: 1; }
+.btn { display: inline-block; border: 1.5px solid #7a7a7a; border-radius: 6px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; color: #3a3a3a; background: #fff; }
+.btn.primary { background: #3a3a3a; color: #fff; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 0 4px 4px 0; }
+.note { position: relative; display: inline-flex; align-items: center; gap: 6px; color: #2b6cb0; font-size: 10.5px; }
+.note b { display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%;
+          border: 1.5px solid #2b6cb0; font-size: 9.5px; flex: none; }
+.legend { margin-top: 14px; border-top: 1px dashed #d5d5d5; padding-top: 10px; color: #2b6cb0; font-size: 10.5px; }
+.legend div { margin-bottom: 3px; }
+.arrow { color: #9a9a9a; font-size: 15px; align-self: center; }
+.kv { font-size: 11px; color: #6a6a6a; }
+.kv b { color: #3a3a3a; }
+table.wt { width: 100%; border-collapse: collapse; font-size: 11px; }
+table.wt th { text-align: left; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em;
+              color: #9a9a9a; border-bottom: 1px solid #d9d9d9; padding: 4px 6px; }
+table.wt td { border-bottom: 1px solid #efefef; padding: 5px 6px; }
+.spark { height: 16px; border-bottom: 1px solid #c9c9c9; background:
+         repeating-linear-gradient(90deg, transparent 0 6px, #e3e3e3 6px 7px); }
+.gate { border: 1.5px solid #7a7a7a; border-radius: 8px; background: #fafafa; padding: 10px 12px; }
+.gate .lbl { color: #3a3a3a; }
+</style></head>
+<body>
+<h1>W0 · The product is a loop</h1>
+<div class="sub">An advertiser's CAMPAIGN is the spine object. Five stations; every arrow is data, not hope.</div>
+
+<div class="row" style="align-items:stretch">
+  <div class="wire grow col" style="gap:8px" data-go="s2b-ingest-organize.html" data-fx="Jump to the ingest conversation — drop files, the agent organizes them by asking" data-cap="built:ingest + understanding producers (aul/ingest.py)">
+    <div class="lbl">1 · Intake</div>
+    <div>Brand assets in, channel connected, goals set.</div>
+    <div class="kv">emits: <b>Assets + refs</b></div>
+  </div>
+  <div class="arrow">→</div>
+  <div class="wire grow col" style="gap:8px" data-go="s2-library.html" data-fx="See the library at scale — scenes, moments, families, meaning-search" data-cap="partial:understanding annotations exist (aul/ingest.py producers) — meaning-search UI is new">
+    <div class="lbl">2 · Understand</div>
+    <div>Scenes, speech, beats, moments — shown back for correction.</div>
+    <div class="kv">emits: <b>Annotations · trees</b></div>
+  </div>
+  <div class="arrow">→</div>
+  <div class="wire grow col" style="gap:8px" data-go="s3-brief.html" data-fx="Open a campaign brief — ask-first roles, plans previewed free" data-cap="built:plan → preview slots + beats (creation/service.py, creation/preview.py)">
+    <div class="lbl">3 · Create</div>
+    <div>Brief → ask-first → plans previewed → lock → render.</div>
+    <div class="kv">emits: <b>Variants + lineage</b></div>
+  </div>
+  <div class="arrow">→</div>
+  <div class="wire grow col" style="gap:8px" data-go="s5-launch.html" data-fx="The market agent's launch plan — Gate ② (real budget) lives here" data-cap="partial:publisher exists (ads/campaign.py) — create⇄publish adjacency is new">
+    <div class="lbl">4 · Publish</div>
+    <div>Market agent's launch plan; budget consent; goes live.</div>
+    <div class="kv">emits: <b>Publications</b></div>
+  </div>
+  <div class="arrow">→</div>
+  <div class="wire grow col" style="gap:8px" data-go="s6-console.html" data-fx="The campaign console — outcomes, component attribution, proposals" data-cap="built:outcome series + dedup (ads/campaign.py CampaignPublisher, AttributionEngine)">
+    <div class="lbl">5 · Learn</div>
+    <div>Daily outcomes → component attribution → agent proposals.</div>
+    <div class="kv">emits: <b>Outcomes · Proposals</b></div>
+  </div>
+</div>
+
+<div class="row" style="margin-top:12px; justify-content:center">
+  <div class="wire fill" style="width:74%; text-align:center; border-style:dashed" data-go="s6-console.html" data-fx="Where the loop closes — the proposal drawer">
+    ⟲ <b>The feedback arrow (5 → 3)</b> — a Proposal seeds the next creation round:
+    winning components become <span class="chip" data-go="s6-console.html" data-fx="A win becomes a lock in the next round's brief — born in the proposal drawer">locks</span> and <span class="chip" data-go="s6-console.html" data-fx="A champion's plan becomes the style reference for round 2">style refs</span>,
+    losers become <span class="chip" data-go="s6-console.html" data-fx="Losing components are excluded — the agent won't rebuild them">excludes</span>. Approval required; nothing loops silently.
+  </div>
+</div>
+
+<div class="row" style="margin-top:14px">
+  <div class="wire grow" data-fx="One campaign thread, two voices — the creative director hands off to the market agent at launch">
+    <div class="lbl">Two agent hats, one thread</div>
+    <div class="kv"><b>Creative director</b> speaks in stations 2–3 (the existing chat ⇄ canvas).<br>
+    <b>Ads market agent</b> speaks in 4–5 (launch, monitoring, proposals). Same campaign thread.</div>
+  </div>
+  <div class="wire grow" data-fx="Three gates: render (station 3), launch (station 4), iterate (5 → 3) — nothing spends silently">
+    <div class="lbl">Spend gates (all of them)</div>
+    <div class="kv">① render-lock (small, per variant) · ② launch (real budget) · ③ iterate (both).
+    Everything before a gate is free and shown.</div>
+  </div>
+</div>
+
+<div class="legend">
+  <div><b>Objects flowing:</b> Asset → Annotation → Bundle → Plan → Variant → Publication → OutcomeSeries → Proposal → (Plan…)</div>
+  <div><b>Already built:</b> stations 2, 3 end-to-end; 4–5 machinery (sandbox channel + attribution). This design adds the advertiser-facing shell.</div>
+  <div><b>Interactive:</b> click any station to jump to its product screen · ⚡ lists every click's effect.</div>
+</div>
+
+<script>
+  window.WIRE_PAGE = { title: "W0 · Flow map" };
+  window.WIRE_ACTS = {};
+</script>
+<script src="_wire.js"></script>
+</body>
+</html>

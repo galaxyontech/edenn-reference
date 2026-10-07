@@ -1,0 +1,5 @@
+# No large-file-store filters. This repository contains no media, and a filter
+# clause here would cause the first push to upload any that appeared.
+* text=auto eol=lf
+*.png binary
+*.jpg binary

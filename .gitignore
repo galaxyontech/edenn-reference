@@ -1,0 +1,62 @@
+# Local environment and secrets — never commit
+#
+# tools/provider-denylist.txt is the one file that would write the upstream
+# provider names down, which is the thing this repository must not do. Supply it
+# locally, or from a CI secret, so check_provider_names.py has a vocabulary.
+tools/provider-denylist.txt
+.env
+.env.*
+!.env.example
+.secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+
+# Node
+node_modules/
+.next/
+dist/
+
+# Runtime output and scratch space
+api_workdir/
+outputs/
+temp_video_workdir/
+edenn_previews/
+test-results/
+
+# Generated media. This repository ships no media, and it should stay that way:
+# see REDACTIONS.md rule R2.
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.mp3
+*.wav
+*.m4a
+*.aac
+*.audio
+
+# Editor and assistant state — per developer, never shared.
+#
+# These five are spelled out rather than generalised, and that is a deliberate
+# exception to the naming rule below: in the source repository an assistant
+# state directory was committed and it carried a storage account key. A pattern
+# that does not name the directory does not ignore it.
+.idea/
+.vscode/
+.cursor/
+.claude/
+.agent/
+
+# OS
+.DS_Store

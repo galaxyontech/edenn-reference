@@ -1,0 +1,114 @@
+<!-- @dsCard group="Screens" name="Library — the map" subtitle="Every asset and its relationships, one glance" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Edenn — Library map</title>
+<style>
+  :root { --bg:#f6f4ee; --panel:#fff; --ink:#191919; --muted:#8c8779; --line:#e7e3d9;
+          --accent:#4a3ab8; --accent-soft:#edeafc; --gen:#1d8a6b; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font:14px/1.45 -apple-system,"Segoe UI",sans-serif;
+         padding:26px 34px; }
+  .head { display:flex; align-items:center; gap:14px; margin-bottom:18px; max-width:1120px; }
+  .head h1 { font-size:16px; font-weight:650; }
+  .toggle { margin-left:auto; display:flex; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .toggle span { padding:6px 14px; font-size:12.5px; color:var(--muted); background:var(--panel); }
+  .toggle span.on { background:var(--ink); color:#fff; }
+
+  .mapwrap { position:relative; background:var(--panel); border:1px solid var(--line);
+             border-radius:18px; max-width:1120px; height:560px; overflow:hidden; }
+  .hint { position:absolute; left:16px; bottom:14px; color:var(--muted); font-size:12px; }
+
+  svg { position:absolute; inset:0; width:100%; height:100%; }
+  .edge { stroke:#ddd8ca; stroke-width:1.5; fill:none; }
+  .edge.hot { stroke:var(--accent); stroke-width:2; }
+
+  .node { position:absolute; transform:translate(-50%,-50%); text-align:center; cursor:pointer; }
+  .node .th { border-radius:12px; box-shadow:0 2px 10px rgba(20,18,10,.12); border:2px solid #fff; }
+  .node b { display:block; font-size:11px; font-weight:600; margin-top:5px; color:#33302a;
+            text-shadow:0 1px 0 #fff; }
+  .node span { font-size:9.5px; color:var(--muted); }
+  .node.src .th { width:104px; height:64px; }
+  .node.out .th { width:56px; height:82px; position:relative; }
+  .node.aud .th { width:66px; height:34px; border-radius:9px; }
+  .node.img .th { width:56px; height:56px; }
+  .node.sel .th { outline:2.5px solid var(--accent); outline-offset:2px; }
+  .mk { position:absolute; top:4px; left:4px; font-size:8.5px; font-weight:800; padding:1px 4px;
+        border-radius:4px; background:#e6f2ec; color:#1d8a6b; }
+
+  .cluster-label { position:absolute; font-size:11px; font-weight:700; letter-spacing:.06em;
+                   color:#b5ae9c; text-transform:uppercase; }
+
+  /* palettes */
+  .p-launch { background:linear-gradient(160deg,#31405e 40%,#c96a35 75%,#e8d9c4); }
+  .p-s1 { background:linear-gradient(160deg,#c96a35,#31405e); }
+  .p-s2 { background:linear-gradient(160deg,#8fa0bd,#31405e 70%); }
+  .p-s3 { background:radial-gradient(circle at 60% 30%,#6f8fc9 25%,#22304a); }
+  .p-tr { background:repeating-linear-gradient(90deg,#4a3ab8 0 3px,#e6e2f8 3px 8px); }
+  .p-vo { background:repeating-linear-gradient(90deg,#b8543a 0 3px,#f5e4df 3px 8px); }
+  .p-cp { background:linear-gradient(160deg,#e3d5bd,#b09a72); }
+  .p-hm { background:linear-gradient(160deg,#274232,#7fae8d 80%); }
+  .p-fs { background:repeating-linear-gradient(90deg,#1d8a6b 0 3px,#e0efe9 3px 8px); }
+  .p-tn { background:linear-gradient(160deg,#1c2233,#4a3f63); }
+  .p-hl { background:linear-gradient(160deg,#3c4a68,#8fa0bd); }
+
+  .peek { position:absolute; right:16px; top:16px; width:230px; background:var(--panel);
+          border:1px solid var(--line); border-radius:14px; padding:13px 15px;
+          box-shadow:0 8px 26px rgba(20,18,10,.12); }
+  .peek b { font-size:13px; }
+  .peek p { font-size:11.5px; color:var(--muted); margin-top:4px; }
+  .peek .cnt { display:flex; gap:12px; margin-top:9px; font-size:11px; color:#55503f; }
+  .peek .cnt i { font-style:normal; font-weight:700; color:var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>Your library, connected</h1>
+  <div class="toggle"><span>Board</span><span class="on">Map</span></div>
+</div>
+
+<div class="mapwrap">
+  <svg>
+    <!-- Artemis cluster edges -->
+    <path class="edge hot" d="M 300 205 C 380 160, 430 150, 470 140"/>
+    <path class="edge hot" d="M 300 215 C 390 220, 440 225, 480 235"/>
+    <path class="edge hot" d="M 300 230 C 380 290, 430 310, 465 330"/>
+    <path class="edge" d="M 470 118 C 520 100, 560 100, 600 108"/>
+    <path class="edge" d="M 483 255 C 540 268, 570 280, 604 292"/>
+    <path class="edge" d="M 230 320 C 250 280, 265 260, 282 240"/>
+    <!-- family cluster edges -->
+    <path class="edge hot" d="M 815 380 C 870 355, 900 345, 935 338"/>
+    <path class="edge" d="M 950 315 C 975 285, 985 265, 990 240"/>
+  </svg>
+
+  <div class="cluster-label" style="left:190px; top:64px;">Artemis launch</div>
+  <div class="cluster-label" style="left:770px; top:300px;">Family trip</div>
+
+  <!-- Artemis cluster -->
+  <div class="node src sel" style="left:240px; top:215px;"><div class="th p-launch"></div><b>Launch day master</b><span>video · 14:00</span></div>
+  <div class="node out" style="left:495px; top:120px;"><div class="th p-s1"><span class="mk">✦</span></div><b>Launch reel</b><span>0:32</span></div>
+  <div class="node out" style="left:505px; top:250px;"><div class="th p-s2"><span class="mk">✦</span></div><b>Mission recap</b><span>0:34</span></div>
+  <div class="node out" style="left:490px; top:355px;"><div class="th p-s3"><span class="mk">✦</span></div><b>Earth, quiet</b><span>0:26</span></div>
+  <div class="node aud" style="left:640px; top:105px;"><div class="th p-tr"></div><b>Trailer track</b><span>✦ music</span></div>
+  <div class="node aud" style="left:645px; top:298px;"><div class="th p-vo"></div><b>Recap narration</b><span>✦ voice</span></div>
+  <div class="node img" style="left:215px; top:355px;"><div class="th p-cp"></div><b>Crew portrait</b><span>photo</span></div>
+  <div class="node src" style="left:150px; top:470px;"><div class="th p-hl" style="width:84px;height:50px;"></div><b>Highlights (agency)</b><span>video · 2:03</span></div>
+
+  <!-- Family trip cluster -->
+  <div class="node src" style="left:760px; top:395px;"><div class="th p-hm"></div><b>Disneyland home movie</b><span>video · 17:33 · restored</span></div>
+  <div class="node out" style="left:965px; top:330px;"><div class="th p-tn"><span class="mk">✦</span></div><b>Trip recap</b><span>0:32</span></div>
+  <div class="node aud" style="left:1000px; top:215px;"><div class="th p-fs"></div><b>Fairground swing</b><span>✦ music</span></div>
+
+  <div class="peek">
+    <b>Launch day master</b>
+    <p>3 pieces made from it · scored by 1 generated track · voiced by 1 narration</p>
+    <div class="cnt"><span><i>34%</i> footage used</span><span><i>5</i> favorite moments</span></div>
+  </div>
+
+  <div class="hint">Drag to explore · click any item to see its connections · <b>@</b> to mention it anywhere</div>
+</div>
+
+</body>
+</html>

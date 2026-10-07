@@ -1,0 +1,387 @@
+<!-- @dsCard group="B · Product screens (user view)" name="S2 · Library — organized at scale" subtitle="Collections × meaning-search × families with performance halos" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>S2 — Library</title><style>
+/* Product-screen wireframe chrome — the app as the user sees it, gray-boxed. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #e9e9e9; color: #333; font: 12.5px/1.45 Helvetica, Arial, sans-serif; padding: 18px; }
+.cap { max-width: 1280px; margin: 0 auto 8px; color: #777; font-size: 11px; }
+.frame { width: 1280px; margin: 0 auto; background: #fff; border: 1.5px solid #b9b9b9; border-radius: 10px;
+         display: flex; min-height: 760px; overflow: hidden; }
+.side { width: 196px; border-right: 1px solid #ddd; padding: 14px 12px; background: #fafafa;
+        display: flex; flex-direction: column; gap: 4px; flex: none; }
+.side .logo { font-weight: 800; font-size: 14px; margin-bottom: 14px; }
+.side .nav { padding: 7px 10px; border-radius: 8px; color: #666; font-size: 12.5px; }
+.side .nav.on { background: #e8e8e8; color: #222; font-weight: 700; }
+.side .sect { font-size: 9px; text-transform: uppercase; letter-spacing: .07em; color: #aaa; margin: 10px 2px 2px; }
+.side .foot { margin-top: auto; color: #999; font-size: 11px; }
+.maincol { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.top { height: 46px; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 10px; padding: 0 16px; }
+.top b { font-size: 13px; }
+.top .spacer { flex: 1; }
+.stage { color: #999; font-size: 10.5px; }
+.stage b { color: #333; font-size: 10.5px; }
+.badge { border: 1px solid #ccc; border-radius: 999px; padding: 2px 9px; font-size: 10.5px; color: #666; background: #fafafa; }
+.tabs { display: flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden; font-size: 11px; }
+.tabs span { padding: 4px 11px; color: #888; }
+.tabs span.on { background: #333; color: #fff; font-weight: 700; }
+.content { flex: 1; display: flex; min-height: 0; }
+.thread { flex: 1; padding: 18px 22px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.rail { width: 296px; border-left: 1px solid #ddd; padding: 14px; background: #fcfcfc; flex: none; }
+.rail .lbl, .lbl { font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #aaa; margin-bottom: 6px; }
+.u { align-self: flex-end; max-width: 62%; background: #333; color: #fff; border-radius: 13px 13px 4px 13px;
+     padding: 9px 13px; font-size: 12.5px; }
+.a { display: flex; gap: 9px; max-width: 78%; }
+.a .av { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid #bbb; flex: none;
+         display: grid; place-items: center; font-size: 11px; color: #888; }
+.a .who { font-size: 9px; font-weight: 700; letter-spacing: .06em; color: #aaa; margin-bottom: 3px; }
+.a .txt { font-size: 12.5px; color: #333; }
+.card { border: 1.5px solid #c9c9c9; border-radius: 10px; background: #fff; padding: 10px 12px; margin-top: 7px; }
+.card.fill { background: #f4f4f4; }
+.dash { border: 1.5px dashed #c9c9c9; border-radius: 8px; background: #f7f7f7; color: #999;
+        display: grid; place-items: center; text-align: center; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 2px 4px 2px 0; color: #444; }
+.chip.on { background: #333; color: #fff; border-color: #333; }
+.btn { display: inline-block; border: 1.5px solid #777; border-radius: 7px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; background: #fff; color: #333; }
+.btn.primary { background: #333; color: #fff; }
+.row { display: flex; gap: 10px; }
+.grow { flex: 1; }
+.kv { font-size: 11px; color: #777; }
+.kv b { color: #333; }
+table.t { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+table.t th { text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: .06em; color: #aaa;
+             border-bottom: 1px solid #e2e2e2; padding: 5px 7px; }
+table.t td { border-bottom: 1px solid #f0f0f0; padding: 6px 7px; }
+.strip { position: relative; height: 40px; background: #f1f1f1; border: 1px solid #d5d5d5; border-radius: 7px;
+         overflow: hidden; margin: 6px 0; }
+.strip i { position: absolute; top: 5px; bottom: 5px; border: 1px solid #8a8a8a; background: #e2e2e2; border-radius: 4px; }
+.strip i.bite { background: #cfcfcf; border-style: double; }
+.composer { border-top: 1px solid #ddd; padding: 10px 22px; display: flex; gap: 8px; align-items: center; }
+.composer .box { flex: 1; border: 1.5px solid #ccc; border-radius: 999px; padding: 8px 14px; color: #aaa; font-size: 12px; }
+.spark { height: 14px; width: 74px; border-bottom: 1px solid #bbb;
+         background: repeating-linear-gradient(90deg, transparent 0 5px, #ddd 5px 6px); }
+.overlay { position: absolute; inset: 0; background: rgba(40,40,40,.28); display: grid; place-items: center; }
+.modal { width: 380px; background: #fff; border: 1.5px solid #999; border-radius: 12px; padding: 16px 18px; }
+.posrel { position: relative; }
+.notes { max-width: 1280px; margin: 10px auto 0; color: #2b6cb0; font-size: 11px; }
+</style></head>
+<body>
+<div class="cap">S2 · Library at scale — three organizing axes on one page: COLLECTIONS (left, agent-made), MEANING (search, top), FAMILIES + PERFORMANCE (the board itself)</div>
+
+<div class="frame posrel">
+  <div class="side">
+    <div class="logo">✳ Edenn</div>
+    <div class="sect">Workspace</div>
+    <div class="nav" data-go="s1-home.html" data-fx="Back to the campaigns home">▦ Campaigns</div>
+    <div class="nav on" data-fx="You're here — the brand library">▤ Library</div>
+    <div data-cap="new:collections model" style="display:flex; flex-direction:column; gap:4px">
+      <div class="sect">Collections</div>
+      <div class="nav on" id="navSpring" style="font-size:11.5px" data-act="colSpring" data-fx="Back to the Spring shoot shelf — its families and moments">▣ Spring shoot · 8</div>
+      <div class="nav" id="navWinter" style="font-size:11.5px" data-act="colWinter" data-fx="Collections cap the visible set — same three axes, different shelf">▣ Winter campaign · 21</div>
+      <div class="nav" id="navArchive" style="font-size:11.5px" data-act="colArchive" data-fx="Finished ads with their real numbers — the comparison shelf">▣ Published archive · 12</div>
+      <div class="nav" style="font-size:11.5px" data-fx="Six tracks — usage and which pieces each one scores">♫ Music · 6</div>
+      <div class="nav" style="font-size:11.5px" data-fx="Logo, fonts, colors — the agent pulls these into every cut">◆ Brand kit · 4</div>
+      <div class="nav" style="font-size:11.5px; color:#aaa" data-fx="Three assets awaiting a home — the agent asks, never guesses">＋ unsorted · 3</div>
+    </div>
+    <div class="foot">Ⓑ spring-beverage-co · 54 assets</div>
+  </div>
+
+  <div class="maincol">
+    <div class="top">
+      <div class="grow" style="position:relative" data-cap="partial:understanding annotations exist (aul/ingest.py producers) — meaning-search UI is new">
+        <div id="searchBox" data-act="searchOpen" data-fx="Search by what's IN the footage — moments are first-class" style="border:1.5px solid #ccc; border-radius:999px; padding:6px 14px; color:#999; font-size:12px"><span id="searchLabel">🔎 Search by what's IN it — "pour shot", "founder speaking", "golden hour terrace"…</span></div>
+        <div id="searchDrop" style="display:none; position:absolute; top:36px; left:0; right:0; z-index:80">
+          <div class="card" style="margin-top:0; box-shadow:0 8px 20px rgba(0,0,0,.14); padding:6px">
+            <div class="kv" style="padding:4px 8px">Try a meaning, not a filename</div>
+            <div class="nav" style="padding:6px 8px" data-act="searchRun" data-q="pour shot" data-fx="Runs a meaning-search — every pour shot across every source">🔎 "pour shot"</div>
+            <div class="nav" style="padding:6px 8px" data-act="searchRun" data-q="founder speaking" data-fx="Runs a meaning-search — every moment where the founder speaks">🔎 "founder speaking"</div>
+            <div class="nav" style="padding:6px 8px" data-act="searchRun" data-q="which footage is still unused?" data-fx="Questions work too — surfaces the assets no cut has ever used">🔎 "which footage is still unused?"</div>
+          </div>
+        </div>
+      </div>
+      <span class="chip" data-fx="Filters the board to video sources only">video</span><span class="chip" data-fx="Filters the board to stills only">stills</span><span class="chip" data-fx="Filters the board to music and voice tracks">audio</span>
+      <span class="chip on" id="chipFamilies" data-act="viewFamilies" data-fx="Lineage view — every cut collapses under its source">families</span><span class="chip" id="chipFlat" data-act="viewFlat" data-fx="Classic flat grid — same assets, no lineage">flat</span>
+    </div>
+    <div class="content">
+      <div class="thread" style="gap:14px">
+
+        <div id="stateFamilies" data-cap="partial:lineage + outcomes exist (aul/lineage.py, ads/campaign.py) — the family board view is new" style="display:flex; flex-direction:column; gap:14px">
+          <div class="card">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">launch_footage.mp4</b><span class="kv">source · 3:30 · 30 scenes</span>
+              <span class="spacer grow"></span>
+              <span class="chip on" data-go="s6-console.html" data-fx="Real numbers travel with the family — click through to the campaign">best child: 2.6% CTR</span><span class="chip" data-more="#famMore1" data-fx="Expands coverage and the full lineage detail for this family">more ▸</span>
+            </div>
+            <div class="row" style="margin-top:8px">
+              <div class="dash" style="width:150px; height:74px" data-act="openClip" data-clip="launch_footage.mp4" data-fx="Opens the source in a lightbox with its detected moments">▶ source</div>
+              <div class="arrow" style="align-self:center">→</div>
+              <div class="dash grow" style="height:74px" data-go="s6-console.html" data-fx="Published cuts link straight to their campaign numbers">✦ hook-first cut<br><span class="kv">published · 2.6%</span></div>
+              <div class="dash grow" style="height:74px" data-fx="Opens the published cut with its flight numbers">✦ founder cut<br><span class="kv">published · CVR 0.84%</span></div>
+              <div class="dash grow" style="height:74px" data-fx="Retired cuts keep their history — comparison material">✦ rephrased cut<br><span class="kv">retired</span></div>
+            </div>
+            <div id="famMore1" style="display:none">
+              <span class="chip" style="margin-top:6px" data-fx="Coverage — how much of this source any cut has ever used">31% used</span>
+              <div class="kv" style="margin-top:4px">family = source + everything cut from it + how each performed — lineage IS the org chart</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">event_reel.mp4</b><span class="kv">source · 2:30 · 22 scenes · speech ✓</span>
+              <span class="spacer grow"></span><span class="chip" data-fx="Four strong moments no cut has used yet — the planner sees them too">unused — 4 hero moments waiting</span>
+            </div>
+            <div class="row" style="margin-top:8px">
+              <div class="dash" style="width:150px; height:60px" data-act="openClip" data-clip="event_reel.mp4" data-fx="Opens the source in a lightbox with its detected moments">▶ source</div>
+              <div class="dash grow" style="height:60px" data-fx="Plays the hero moment — ★ means the planner prefers it">"pour close-up" ★<br><span class="kv">0:48 · 2.9s</span></div>
+              <div class="dash grow" style="height:60px" data-fx="Plays the moment — 9s of the founder speaking, speech transcribed">"founder speaking"<br><span class="kv">1:20 · 9s · speech</span></div>
+              <div class="dash grow" style="height:60px" data-fx="Plays the moment — 3.4s of terrace at sunset">"terrace sunset"<br><span class="kv">2:04 · 3.4s</span></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="card grow" style="padding:8px" data-fx="Plays the track — it currently scores 3 published pieces"><div class="dash" style="height:44px">♫</div><div class="kv"><b>spring_track</b> · scores 3 pieces</div></div>
+            <div class="card grow" style="padding:8px" data-act="openClip" data-clip="clip_03.mp4" data-fx="Opens the clip in a lightbox with its detected moments"><div class="dash" style="height:44px">▶</div><div class="kv"><b>clip_03</b> · unused</div></div>
+            <div class="card grow" style="padding:8px" data-act="openClip" data-clip="clip_04.mp4" data-fx="Opens the clip in a lightbox with its detected moments"><div class="dash" style="height:44px">▶</div><div class="kv"><b>clip_04</b> · unused</div></div>
+            <div class="card grow" style="padding:8px" data-fx="Opens the still set — 8 product and terrace stills"><div class="dash" style="height:44px">▦</div><div class="kv"><b>stills ×8</b></div></div>
+          </div>
+        </div>
+
+        <div id="stateResults" style="display:none; flex-direction:column; gap:14px">
+          <div class="row" style="align-items:center">
+            <span class="chip on" id="resultsHead" data-fx="The result set — every hit is a moment inside a source, not a file">12 results for "founder speaking" · 3 sources</span>
+            <span class="chip" data-act="searchClear" data-fx="Clears the search and returns to the family board">× clear</span>
+          </div>
+          <div class="card hit">
+            <div class="row" style="align-items:center">
+              <div class="dash" style="width:130px; height:56px" data-fx="Plays the moment in place">▶ moment</div>
+              <div class="grow">
+                <b class="hitTitle" style="font-size:12px">founder speaking</b><br>
+                <span class="kv hitMeta">event_reel.mp4 · 1:20 · 9s · speech ✓</span><br>
+                <span class="chip" data-act="starMoment" data-fx="Hero-star — the planner will prefer this moment when it cuts">★ hero</span>
+                <span class="chip" data-go="s3-brief.html?ctx=founder-speaking" data-fx="Attaches this moment to a fresh campaign brief">@ use in brief</span>
+              </div>
+            </div>
+          </div>
+          <div class="card hit">
+            <div class="row" style="align-items:center">
+              <div class="dash" style="width:130px; height:56px" data-fx="Plays the moment in place">▶ moment</div>
+              <div class="grow">
+                <b class="hitTitle" style="font-size:12px">founder on terrace</b><br>
+                <span class="kv hitMeta">launch_footage.mp4 · 2:44 · 6s</span><br>
+                <span class="chip" data-act="starMoment" data-fx="Hero-star — the planner will prefer this moment when it cuts">★ hero</span>
+                <span class="chip" data-go="s3-brief.html?ctx=founder-speaking" data-fx="Attaches this moment to a fresh campaign brief">@ use in brief</span>
+              </div>
+            </div>
+          </div>
+          <div class="card hit">
+            <div class="row" style="align-items:center">
+              <div class="dash" style="width:130px; height:56px" data-fx="Plays the moment in place">▶ moment</div>
+              <div class="grow">
+                <b class="hitTitle" style="font-size:12px">founder VO over b-roll</b><br>
+                <span class="kv hitMeta">clip_04 · 0:12 · 4s</span><br>
+                <span class="chip" data-act="starMoment" data-fx="Hero-star — the planner will prefer this moment when it cuts">★ hero</span>
+                <span class="chip" data-go="s3-brief.html?ctx=founder-speaking" data-fx="Attaches this moment to a fresh campaign brief">@ use in brief</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="stateWinter" style="display:none; flex-direction:column; gap:14px">
+          <div class="card" data-cap="partial:lineage + outcomes exist (aul/lineage.py, ads/campaign.py) — the family board view is new" data-fx="Collapsed family — the board stays this small at 10× the assets">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">winter_hero.mp4</b><span class="kv">source · 4:12 · 41 scenes</span>
+              <span class="spacer grow"></span>
+              <span class="chip on" data-fx="The family's best cut and its real number — halos come free from lineage">best child: 1.9% CTR</span><span class="chip" data-more="#winterCuts" data-fx="Expands the six cuts collapsed under this source">▸ 6 cuts collapsed</span>
+            </div>
+            <div id="winterCuts" style="display:none">
+              <div class="row" style="margin-top:8px">
+                <div class="dash grow" style="height:40px" data-fx="Opens the cut with its flight numbers">❄ hero 15s<br><span class="kv">1.9%</span></div>
+                <div class="dash grow" style="height:40px" data-fx="Opens the cut with its flight numbers">❄ hero 30s<br><span class="kv">1.4%</span></div>
+                <div class="dash grow" style="height:40px" data-fx="Opens the cut with its flight numbers">❄ social cut<br><span class="kv">1.1%</span></div>
+                <div class="dash grow" style="height:40px" data-fx="Opens the cut with its flight numbers">❄ teaser<br><span class="kv">0.9%</span></div>
+                <div class="dash grow" style="height:40px" data-fx="Retired cuts keep their history — comparison material">❄ founder cut<br><span class="kv">retired</span></div>
+                <div class="dash grow" style="height:40px" data-fx="Retired cuts keep their history — comparison material">❄ stills ad<br><span class="kv">retired</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="dash" style="height:84px" data-fx="Pages in the rest of the shelf — collections cap what's visible, not what exists">…18 more assets</div>
+        </div>
+
+        <div id="stateArchive" style="display:none; flex-direction:column; gap:14px">
+          <div class="card" data-fx="Opens the finished ad — full flight history and where it ran">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">April teaser</b><span class="kv">15s · flight Apr 2–11</span>
+              <span class="spacer grow"></span>
+              <span class="chip on" data-fx="The flight's real click-through rate — this is what powers comparisons">2.6% CTR</span><span class="chip" data-fx="Performance decayed on day 9 — the console flagged the fatigue">fatigued day 9</span>
+            </div>
+          </div>
+          <div class="card" data-fx="Opens the finished ad — full flight history and where it ran">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">Founders letter</b><span class="kv">30s · flight Mar 14–28</span>
+              <span class="spacer grow"></span>
+              <span class="chip on" data-fx="The flight's real conversion rate — this is what powers comparisons">0.84% CVR</span><span class="chip" data-fx="Ran its full flight to completion, Mar 14–28">completed flight</span>
+            </div>
+          </div>
+          <div class="card" data-fx="Opens the finished ad — full flight history and where it ran">
+            <div class="row" style="align-items:center">
+              <b style="font-size:12px">Winter hero 15s</b><span class="kv">15s · flight Jan 9–30</span>
+              <span class="spacer grow"></span>
+              <span class="chip on" data-fx="The flight's real click-through rate — this is what powers comparisons">1.9% CTR</span><span class="chip" data-fx="Retired on day 21 — kept as comparison material">retired day 21</span>
+            </div>
+          </div>
+          <div class="kv">comparison material — these power the "≈ relative" rows in creation</div>
+        </div>
+
+        <div id="stateFlat" style="display:none; flex-direction:column; gap:14px">
+          <div class="kv">@Spring shoot · flat view — same 8 assets, no lineage</div>
+          <div class="row">
+            <div class="card grow" style="padding:8px" data-act="openClip" data-clip="launch_footage.mp4" data-fx="Opens the clip in a lightbox with its detected moments"><div class="dash" style="height:44px">▶</div><div class="kv"><b>launch_footage.mp4</b> · 3:30</div></div>
+            <div class="card grow" style="padding:8px" data-act="openClip" data-clip="event_reel.mp4" data-fx="Opens the clip in a lightbox with its detected moments"><div class="dash" style="height:44px">▶</div><div class="kv"><b>event_reel.mp4</b> · 2:30</div></div>
+            <div class="card grow" style="padding:8px" data-fx="Plays the track — it currently scores 3 published pieces"><div class="dash" style="height:44px">♫</div><div class="kv"><b>spring_track</b> · 2:58</div></div>
+          </div>
+          <div class="row">
+            <div class="card grow" style="padding:8px" data-act="openClip" data-clip="clip_03.mp4" data-fx="Opens the clip in a lightbox with its detected moments"><div class="dash" style="height:44px">▶</div><div class="kv"><b>clip_03</b> · 0:41</div></div>
+            <div class="card grow" style="padding:8px" data-act="openClip" data-clip="clip_04.mp4" data-fx="Opens the clip in a lightbox with its detected moments"><div class="dash" style="height:44px">▶</div><div class="kv"><b>clip_04</b> · 0:28</div></div>
+            <div class="card grow" style="padding:8px" data-fx="Opens the still set — 8 product and terrace stills"><div class="dash" style="height:44px">▦</div><div class="kv"><b>stills ×8</b></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rail">
+        <div class="lbl">This collection</div>
+        <div class="card" id="railColl"><div class="kv"><b>Spring shoot</b> · 8 assets · 2 families<br>used in 1 live campaign</div></div>
+        <div class="lbl" style="margin-top:12px">Library answers, not folders</div>
+        <div class="card fill" style="padding:6px 8px">
+          <div class="nav" style="padding:5px 8px" data-fx="Runs as a meaning-search — openings ranked by their real numbers">"what's my best-performing opening?"</div>
+          <div class="nav" style="padding:5px 8px" data-act="searchRun" data-q="which footage is still unused?" data-fx="Runs the question as a search — unused assets surface instantly">"which footage is still unused?"</div>
+          <div class="nav" style="padding:5px 8px" data-fx="Finds every clip where the founder speaks — same engine as the search box">"everything with the founder speaking"</div>
+        </div>
+        <span class="btn primary" style="display:block; text-align:center; margin-top:10px" data-cap="built:@-reference grammar into a brief (creation/domain.py RequestBundle)" data-go="s3-brief.html?ctx=spring-shoot" data-story data-fx="Starts a campaign brief grounded on @Spring shoot">Create from this collection →</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="clipModal" style="display:none">
+    <div class="modal" style="width:520px">
+      <b id="clipTitle" style="font-size:12.5px">launch_footage.mp4</b>
+      <div class="dash" style="height:220px; margin:10px 0" data-fx="Plays the source — detected moments light up on the strip as they pass">▶ plays the source — detected moments land on the strip below</div>
+      <div class="strip"><i style="left:4%; width:9%"></i><i class="bite" style="left:22%; width:6%"></i><i style="left:41%; width:11%"></i><i class="bite" style="left:63%; width:7%"></i><i style="left:80%; width:9%"></i></div>
+      <div class="kv">every detected moment, on one strip — double-bordered ones are already used by a cut</div>
+      <div class="row" style="margin-top:10px; justify-content:flex-end">
+        <span class="btn" data-act="closeClip" data-fx="Closes the clip viewer">Close</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="notes">Notes · scale strategy: collections cap the visible set; search-by-meaning is primary retrieval; families collapse N cuts under 1 source row · performance halos come free from lineage + outcomes · "flat" toggle keeps the classic grid · interactive — ⚡ lists every click's effect · ⚙ maps each region to the built system.</div>
+
+<script>
+window.WIRE_PAGE = { title: "S2 · Library at scale" };
+(function () {
+  var PLACEHOLDER = "🔎 Search by what's IN it — \"pour shot\", \"founder speaking\", \"golden hour terrace\"…";
+  var STATES = ["stateFamilies", "stateResults", "stateArchive", "stateWinter", "stateFlat"];
+  var COLS = ["navSpring", "navWinter", "navArchive"];
+  var RAIL = {
+    spring: "<div class=\"kv\"><b>Spring shoot</b> · 8 assets · 2 families<br>used in 1 live campaign</div>",
+    winter: "<div class=\"kv\"><b>Winter campaign</b> · 21 assets · 4 families<br>no live campaign — archive-ready</div>",
+    archive: "<div class=\"kv\"><b>Published archive</b> · 12 finished ads<br>each one carries its real numbers</div>"
+  };
+  var SEARCHES = {
+    "founder speaking": {
+      head: "12 results for \"founder speaking\" · 3 sources",
+      ctx: "founder-speaking",
+      hits: [
+        ["founder speaking", "event_reel.mp4 · 1:20 · 9s · speech ✓"],
+        ["founder on terrace", "launch_footage.mp4 · 2:44 · 6s"],
+        ["founder VO over b-roll", "clip_04 · 0:12 · 4s"]
+      ]
+    },
+    "pour shot": {
+      head: "9 results for \"pour shot\" · 2 sources",
+      ctx: "spring-shoot",
+      hits: [
+        ["pour close-up ★", "event_reel.mp4 · 0:48 · 2.9s"],
+        ["slow pour, golden hour", "launch_footage.mp4 · 1:05 · 3.2s"],
+        ["pour over ice", "clip_03 · 0:07 · 2.1s"]
+      ]
+    },
+    "which footage is still unused?": {
+      head: "3 assets in @Spring shoot never used by any cut",
+      ctx: "spring-shoot",
+      hits: [
+        ["clip_03 — unused", "0:41 · 2 detected moments waiting"],
+        ["clip_04 — unused", "0:28 · founder VO detected"],
+        ["stills ×8 — unused", "product + terrace set"]
+      ]
+    }
+  };
+  function el(id) { return document.getElementById(id); }
+  function showState(id) {
+    STATES.forEach(function (s) { var n = el(s); if (n) n.style.display = (s === id ? "flex" : "none"); });
+    el("searchDrop").style.display = "none";
+  }
+  function setChips(mode) {
+    el("chipFamilies").classList.toggle("on", mode === "families");
+    el("chipFlat").classList.toggle("on", mode === "flat");
+  }
+  function selCol(navId, stateId, railHtml) {
+    COLS.forEach(function (id) { el(id).classList.toggle("on", id === navId); });
+    el("railColl").innerHTML = railHtml;
+    setChips("families");
+    showState(stateId);
+  }
+  function resetSearch() { el("searchLabel").textContent = PLACEHOLDER; }
+
+  window.WIRE_ACTS = {
+    searchOpen: function () {
+      var d = el("searchDrop");
+      d.style.display = (d.style.display === "none") ? "block" : "none";
+    },
+    searchRun: function (elm) {
+      var q = elm.getAttribute("data-q") || "founder speaking";
+      var s = SEARCHES[q] || SEARCHES["founder speaking"];
+      el("resultsHead").textContent = s.head;
+      var rows = document.querySelectorAll("#stateResults .hit");
+      for (var i = 0; i < rows.length; i++) {
+        var h = s.hits[i];
+        rows[i].querySelector(".hitTitle").textContent = h[0];
+        rows[i].querySelector(".hitMeta").textContent = h[1];
+        rows[i].querySelector("[data-go]").setAttribute("data-go", "s3-brief.html?ctx=" + s.ctx);
+        var star = rows[i].querySelector("[data-act='starMoment']");
+        star.classList.remove("on");
+        star.textContent = "★ hero";
+      }
+      el("searchLabel").textContent = "🔎 \"" + q + "\"";
+      showState("stateResults");
+    },
+    searchClear: function () { resetSearch(); selCol("navSpring", "stateFamilies", RAIL.spring); },
+    starMoment: function (elm) {
+      var on = elm.classList.toggle("on");
+      elm.textContent = on ? "★ hero ✓" : "★ hero";
+      WIRE.toast(on ? "Hero-starred — the planner will prefer this moment" : "Star removed — back to a regular moment");
+    },
+    colSpring: function () { resetSearch(); selCol("navSpring", "stateFamilies", RAIL.spring); },
+    colWinter: function () { resetSearch(); selCol("navWinter", "stateWinter", RAIL.winter); },
+    colArchive: function () { resetSearch(); selCol("navArchive", "stateArchive", RAIL.archive); },
+    viewFlat: function () {
+      resetSearch();
+      COLS.forEach(function (id) { el(id).classList.toggle("on", id === "navSpring"); });
+      el("railColl").innerHTML = RAIL.spring;
+      setChips("flat");
+      showState("stateFlat");
+    },
+    viewFamilies: function () { resetSearch(); selCol("navSpring", "stateFamilies", RAIL.spring); },
+    openClip: function (elm) {
+      el("clipTitle").textContent = elm.getAttribute("data-clip") || "clip";
+      WIRE.open("#clipModal");
+    },
+    closeClip: function () { WIRE.close("#clipModal"); }
+  };
+})();
+</script>
+<script src="_wire.js"></script>
+</body>
+</html>

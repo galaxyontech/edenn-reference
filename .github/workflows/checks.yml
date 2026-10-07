@@ -1,0 +1,61 @@
+name: checks
+
+# The offline suite plus the three gates that keep this snapshot clean.
+# Nothing here needs a credential, reaches a provider, or spends money.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: No credentials in the tree
+        run: python tools/scan_secrets.py
+
+      # Needs the vocabulary to check against. The script refuses to run without
+      # it rather than reporting a pass it did not earn, so this step supplies the
+      # list from a secret when one is set and skips explicitly when none is.
+      - name: No upstream provider names outside the adapter boundary
+        env:
+          PROVIDER_DENYLIST: ${{ secrets.PROVIDER_DENYLIST }}
+        run: |
+          if [ -n "$PROVIDER_DENYLIST" ]; then
+            printf '%s\n' "$PROVIDER_DENYLIST" > tools/provider-denylist.txt
+          fi
+          if [ -s tools/provider-denylist.txt ]; then
+            python tools/check_provider_names.py
+          else
+            echo 'check_provider_names: skipped - no PROVIDER_DENYLIST secret set.'
+            echo 'The token list is deliberately not committed; see CONTRIBUTING.md.'
+          fi
+
+      - name: No real infrastructure identifiers
+        run: python tools/check_identifiers.py
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # pytest.ini deselects `remote_integration`, so this makes no network
+      # calls and spends nothing. Media fixtures were removed from this
+      # snapshot, so the suite is not expected to be fully green; see
+      # REDACTIONS.md. This job reports, it does not gate.
+      - name: Offline suite
+        continue-on-error: true
+        run: pytest -q

@@ -1,0 +1,23 @@
+# The gates that produced this snapshot, wired to run on every commit.
+# A one-time check protects the first publication and nothing after it.
+repos:
+  - repo: local
+    hooks:
+      - id: scan-secrets
+        name: no credentials in the tree
+        entry: python tools/scan_secrets.py
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: check-provider-names
+        name: no upstream provider names outside the adapter boundary
+        entry: python tools/check_provider_names.py
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: check-identifiers
+        name: no real infrastructure identifiers
+        entry: python tools/check_identifiers.py
+        language: system
+        pass_filenames: false
+        always_run: true

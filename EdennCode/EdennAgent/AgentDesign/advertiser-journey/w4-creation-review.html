@@ -1,0 +1,88 @@
+<!-- @dsCard group="A · Flow map (high-level)" name="W4 · Creation review" subtitle="Three previewed plans, three treatments, one lock decision" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>W4 — Creation review</title><style>
+/* Shared wireframe language — deliberately low-fi. Structure, not visuals. */
+* { box-sizing: border-box; margin: 0; }
+body { background: #fff; color: #3a3a3a; font: 13px/1.45 Helvetica, Arial, sans-serif; padding: 24px 28px; }
+h1 { font-size: 15px; font-weight: 700; letter-spacing: .02em; }
+.sub { color: #8a8a8a; font-size: 11.5px; margin: 3px 0 16px; }
+.wire { border: 1.5px solid #c9c9c9; border-radius: 8px; background: #fff; padding: 12px 14px; }
+.fill { background: #f2f2f2; }
+.dash { border-style: dashed; color: #9a9a9a; display: grid; place-items: center; text-align: center; }
+.lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 6px; }
+.row { display: flex; gap: 12px; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.grow { flex: 1; }
+.btn { display: inline-block; border: 1.5px solid #7a7a7a; border-radius: 6px; padding: 6px 12px;
+       font-size: 11.5px; font-weight: 700; color: #3a3a3a; background: #fff; }
+.btn.primary { background: #3a3a3a; color: #fff; }
+.chip { display: inline-block; border: 1px solid #c9c9c9; border-radius: 999px; padding: 3px 10px;
+        font-size: 11px; background: #fafafa; margin: 0 4px 4px 0; }
+.note { position: relative; display: inline-flex; align-items: center; gap: 6px; color: #2b6cb0; font-size: 10.5px; }
+.note b { display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%;
+          border: 1.5px solid #2b6cb0; font-size: 9.5px; flex: none; }
+.legend { margin-top: 14px; border-top: 1px dashed #d5d5d5; padding-top: 10px; color: #2b6cb0; font-size: 10.5px; }
+.legend div { margin-bottom: 3px; }
+.arrow { color: #9a9a9a; font-size: 15px; align-self: center; }
+.kv { font-size: 11px; color: #6a6a6a; }
+.kv b { color: #3a3a3a; }
+table.wt { width: 100%; border-collapse: collapse; font-size: 11px; }
+table.wt th { text-align: left; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em;
+              color: #9a9a9a; border-bottom: 1px solid #d9d9d9; padding: 4px 6px; }
+table.wt td { border-bottom: 1px solid #efefef; padding: 5px 6px; }
+.spark { height: 16px; border-bottom: 1px solid #c9c9c9; background:
+         repeating-linear-gradient(90deg, transparent 0 6px, #e3e3e3 6px 7px); }
+.gate { border: 1.5px solid #7a7a7a; border-radius: 8px; background: #fafafa; padding: 10px 12px; }
+.gate .lbl { color: #3a3a3a; }
+</style></head>
+<body>
+<h1>W4 · Creation review — watch all three before a cent is spent</h1>
+<div class="sub">The existing chat ⇄ canvas surface (built); wireframed here as the campaign's creation stage. Each variant = hypothesis + treatment.</div>
+
+<div class="row">
+  <div class="wire grow col" style="gap:8px">
+    <div class="lbl">Variant A · hook-first</div>
+    <div class="wire dash" style="height:52px">preview player<br><span class="kv">(cut-list, no render)</span></div>
+    <div class="wire fill" style="height:26px; padding:4px 8px"><span class="kv">strip: 8 slots · beat-locked</span></div>
+    <div class="kv">treatment: <b>music only</b> · @spring_track</div>
+    <div class="row"><span class="btn">▶ watch</span><span class="btn primary">lock</span></div>
+  </div>
+  <div class="wire grow col" style="gap:8px">
+    <div class="lbl">Variant B · original voice</div>
+    <div class="wire dash" style="height:52px">preview player</div>
+    <div class="wire fill" style="height:26px; padding:4px 8px"><span class="kv">strip: 6 slots · 1 voice bite (green)</span></div>
+    <div class="kv">treatment: <b>keep-original</b> · music ducks</div>
+    <div class="row"><span class="btn">▶ watch</span><span class="btn primary">lock</span></div>
+  </div>
+  <div class="wire grow col" style="gap:8px">
+    <div class="lbl">Variant C · rephrased</div>
+    <div class="wire dash" style="height:52px">preview player</div>
+    <div class="wire fill" style="height:26px; padding:4px 8px"><span class="kv">strip: 7 slots</span></div>
+    <div class="kv">treatment: <b>rephrase-original</b> · house voice<br>
+      <span class="chip" style="font-size:10px">script preview: "Hay fever misery? …"</span></div>
+    <div class="row"><span class="btn">▶ watch</span><span class="btn primary">lock</span></div>
+  </div>
+</div>
+
+<div class="row" style="margin-top:12px">
+  <div class="wire grow">
+    <div class="lbl">Adjust without leaving the loop</div>
+    <span class="chip">drag a slot edge (beat-snap)</span>
+    <span class="chip">"open on @product_closeup" → re-plan</span>
+    <span class="chip">swap treatment</span>
+    <div style="margin-top:6px" class="note"><b>1</b> edits become locks/overrides fed back to the planner — never a manual timeline fork</div>
+  </div>
+  <div class="gate" style="width:300px">
+    <div class="lbl">Gate ① — render lock</div>
+    <div class="kv">"Render 3 previewed cuts — ffmpeg + small model/TTS for variant C."</div>
+    <span class="btn primary" style="margin-top:6px">Render all 3 ✓</span>
+  </div>
+</div>
+
+<div class="legend">
+  <div><b>Backed by:</b> CreationService plan/preview/lock + transform-mode UI + rephrase treatment — all built and verified.</div>
+  <div><b>Design intent:</b> the campaign shell shows variants side-by-side; the per-variant conversation stays chat-native.</div>
+</div>
+</body>
+</html>
